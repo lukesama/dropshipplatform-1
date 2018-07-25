@@ -65,7 +65,7 @@ public class LoginController {
 //                    return "index";
                     return "redirect:/jnu/company/"+companyInfo.getUserComId();
                 }else{
-                    redirectAttributes.addFlashAttribute("loginError","用户名后者密码错误");
+                    redirectAttributes.addFlashAttribute("loginError","用户名或者密码错误");
                     return "redirect:/jnu/signin";
                 }
 
@@ -90,14 +90,19 @@ public class LoginController {
             case "0":
                 break;
             case "1":
+                if(!companyInfoService.existUserName(regUserName)){
+                    CompanyInfo companyInfo = new CompanyInfo();
+                    companyInfo.setUserName(regUserName);
+                    companyInfo.setRealName(regRealName);
+                    companyInfo.setUserPwd(userPwd);
+                    companyInfo.setComBalance(0.0);
+                    companyInfoService.addCompanyInfo(companyInfo);
+                    return "redirect:/jnu/signin";
+                }else{
+                    redirectAttributes.addFlashAttribute("registerError","注册失败，用户名已存在");
+                    return "redirect:/jnu/signin#signup";
+                }
 
-                CompanyInfo companyInfo = new CompanyInfo();
-                companyInfo.setUserName(regUserName);
-                companyInfo.setRealName(regRealName);
-                companyInfo.setUserPwd(userPwd);
-                companyInfo.setComBalance(0.0);
-                companyInfoService.addCompanyInfo(companyInfo);
-                return "redirect:/jnu/signin";
 
             default:
                 break;
