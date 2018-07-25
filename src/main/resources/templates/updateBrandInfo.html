@@ -117,7 +117,7 @@
                 <div class="x_content">
                     <br>
                     <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/providerInfo/update}" method="post">
-                        <input type="text" name="brandId" th:value="${brandInfo.getBrandId()}">
+                        <input type="hidden" name="brandId" th:value="${brandInfo.getBrandId()}">
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">品牌名称 <span class="required">*</span>
                             </label>
