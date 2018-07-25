@@ -8,9 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("jnu")
 public class TestController {
 
-    @GetMapping
-    public String test(){
-        return "index";
-    }
+//    @GetMapping
+//    public String test(){
+//        return "login";
+//    }
+//
+//    @GetMapping("homePage")
+//    public String toHome(){
+//        return "index";
+//    }
+
+
 
 }

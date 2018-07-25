@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface CompanyInfoRepository extends JpaRepository<CompanyInfo,Integer> {
-//    CompanyInfo findCompanyInfoByUserNameAndAndUserPwd(String userName,String userPwd);
+    CompanyInfo findCompanyInfoByUserNameAndAndUserPwd(String userName,String userPwd);
 }
