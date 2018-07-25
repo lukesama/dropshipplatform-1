@@ -1,6 +1,8 @@
 package com.jnu.dropshipplatform.controller;
 
+import com.jnu.dropshipplatform.entity.BrandInfo;
 import com.jnu.dropshipplatform.entity.CompanyInfo;
+import com.jnu.dropshipplatform.service.BrandInfoService;
 import com.jnu.dropshipplatform.service.CompanyInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ public class CompanyInfoController {
 
     @Autowired
     private CompanyInfoService companyInfoService;
+    @Autowired
+    private BrandInfoService brandInfoService;
 
     @GetMapping("/company/{id}")
     public String addComInfo(@PathVariable("id") Integer comId,Model model,HttpSession session) {
@@ -28,17 +32,22 @@ public class CompanyInfoController {
         return "CompanyInfo";
     }
 
-    @GetMapping("/provider")
+    @GetMapping("/providerInfo")
     public String getAllCom(Model model,HttpSession session) {
         String str = ""+session.getAttribute("comId");
         Integer comId = Integer.parseInt(str);
         CompanyInfo com = companyInfoService.getCompanyById(comId);
         model.addAttribute("company",com);
+        Integer ownerId = comId;
+        CompanyInfo companyInfo = companyInfoService.getCompanyInfoById(ownerId);
+        session.setAttribute("owner",companyInfo);
+        List<BrandInfo> brandInfos = brandInfoService.getAllBrand(ownerId);
+        model.addAttribute("allBrand",brandInfos);
         return "ProviderInfo";
     }
 
     @GetMapping("/company")
-    public String addPage(Model model, HttpSession session) {
+    public String updatePage(Model model, HttpSession session) {
         String str = ""+session.getAttribute("comId");
         Integer comId = Integer.parseInt(str);
         CompanyInfo com = companyInfoService.getCompanyById(comId);
@@ -47,14 +56,49 @@ public class CompanyInfoController {
     }
 
     @PostMapping("/company")
-    public String addCompany(CompanyInfo companyInfo,HttpSession session) {
+    public String updateCompany(CompanyInfo companyInfo,HttpSession session) {
         String str = ""+session.getAttribute("comId");
         Integer comId = Integer.parseInt(str);
         companyInfo.setUserComId(comId);
         companyInfo.setComBalance(0.0);
         companyInfoService.updateCompanyInfo(companyInfo);
-        return "redirect:/jnu/provider";
+        return "redirect:/jnu/providerInfo";
     }
 
+    //BrandInfo begin here....
+    @GetMapping("providerInfo/add")
+    public String addBrandInfoPage(){
+        return "addBrandInfo";
+    }
+
+    @PostMapping("providerInfo/add")
+    public String addBrandInfo(BrandInfo brandInfo,HttpSession session){
+        CompanyInfo owner = (CompanyInfo) session.getAttribute("owner");
+        brandInfo.setBrandOwner(owner);
+        brandInfoService.addBrandInfo(brandInfo);
+        return "redirect:/jnu/providerInfo";
+    }
+
+    @GetMapping("providerInfo/{id}/delete")
+    public String deleteBrandInfo(@PathVariable("id") Integer brandId,HttpSession session){
+        brandInfoService.deleteBrandInfo(brandId);
+        CompanyInfo owner = (CompanyInfo) session.getAttribute("owner");
+        return "redirect:/jnu/providerInfo";
+    }
+
+    @GetMapping("providerInfo/{id}/update")
+    public String updateBrandInfoPage(@PathVariable("id") Integer brandId,Model model){
+        BrandInfo brandInfo = brandInfoService.getBrandInfoByBrandId(brandId);
+        model.addAttribute("brandInfo",brandInfo);
+        return "updateBrandInfo";
+    }
+
+    @PostMapping("providerInfo/update")
+    public String updateBrandInfo(BrandInfo brandInfo,HttpSession session){
+        CompanyInfo owner = (CompanyInfo)session.getAttribute("owner");
+        brandInfo.setBrandOwner(owner);
+        brandInfoService.updateBrandInfo(brandInfo);
+        return "redirect:/jnu/providerInfo";
+    }
 
 }

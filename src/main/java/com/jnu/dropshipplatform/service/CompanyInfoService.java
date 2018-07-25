@@ -2,9 +2,14 @@ package com.jnu.dropshipplatform.service;
 
 import com.jnu.dropshipplatform.entity.CompanyInfo;
 
+import com.jnu.dropshipplatform.entity.CompanyInfo;
+
 import java.util.List;
 
 public interface CompanyInfoService {
+
+    CompanyInfo getCompanyInfoById(Integer comId);
+
     //返回所有品牌商信息
     List<CompanyInfo> getAllCompany();
 

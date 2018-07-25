@@ -106,7 +106,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
             <div class="page-header position-relative">
-                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> 我的信息</small></h1>
+                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>我的信息</small></h1>
             </div>
             <div id="companyInfo">
                 <div class="x_panel">
@@ -114,17 +114,6 @@
                         <h2>公司信息</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Settings 1</a>
-                                    </li>
-                                    <li><a href="#">Settings 2</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
@@ -159,7 +148,43 @@
                 </div>
             </div>
             <div id="brandInfo">
-                
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>品牌信息</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <b><p>如需添加品牌信息，请点击: <code><a th:href="@{/jnu/providerInfo/add}">添加品牌</a></code></p></b>
+                        <!--delete /'+${allBrand.get(0).getBrandId()}+'-->
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr class="headings">
+                                    <th class="column-title">品牌商名称</th>
+                                    <th class="column-title">品牌商图片</th>
+                                    <th class="column-title no-link last"><span class="nobr">操作</span></th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr th:each="brand:${allBrand}" class="odd pointer">
+                                    <td th:text="${brand.getBrandName()}" class=" ">Paid</td>
+                                    <td th:text="${brand.getBrandImage()}" class="a-right a-right ">$7.45</td>
+                                    <td class=" last"><a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/update'}">修改</a>&nbsp;&nbsp;<a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/delete'}">删除</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
                 <!--/brandInfo-->
             </div>
             <!-- /page content -->

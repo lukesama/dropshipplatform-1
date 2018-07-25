@@ -105,40 +105,46 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <div class="page-header position-relative">
-                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>公司信息</small></h1>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-offset-2 col-lg-6">
-                        <form class="form-horizontal" th:action="@{/jnu/company}" method="post">
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">公司名称</label>
-                                <div class="col-sm-10">
-                                    <input name="comName" type="text" th:value="${company.getComName()}" class="form-control" id="inputName" placeholder="Company Name">
-                                </div>
+
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>添加品牌信息</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/providerInfo/add}" method="post">
+                        <!--<input type="text" name="userInfoBrandOwnerId" th:text="${session.owner.getUserComId()}">-->
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">品牌名称 <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="brandName" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="form-group">
-                                <label for="inputDescription" class="col-sm-2 control-label">公司简介</label>
-                                <div class="col-sm-10">
-                                    <textarea name="comDescription" th:text="${company.getComDescription()}" class="form-control" id="inputDescription" placeholder="Company Description"></textarea>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">品牌图片 <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="file" name="brandImage" id="last-name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
-                            <div class="form-group">
-                                <label for="inputLogo" class="col-sm-2 control-label">公司图标</label>
-                                <div class="col-sm-10">
-                                    <input name="comLogo" type="file" th:value="${company.getComLogo()}" class="form-control" id="inputLogo" placeholder="Company Logo">
-                                </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <!--<button class="btn btn-primary" type="button">取消添加</button>-->
+                                <!--TODO 不添加时点取消按钮回去-->
+                                <button type="submit" class="btn btn-success">确认添加</button>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-success">确定</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+
+                    </form>
                 </div>
             </div>
+
         </div>
         <!-- /page content -->
 
