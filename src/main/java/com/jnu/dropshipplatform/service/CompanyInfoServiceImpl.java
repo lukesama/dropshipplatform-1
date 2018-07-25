@@ -46,4 +46,9 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     public CompanyInfo providerLogin(String username, String password) {
         return companyInfoRepository.findCompanyInfoByUserNameAndAndUserPwd(username,password);
     }
+
+    @Override
+    public Boolean existUserName(String userName) {
+        return companyInfoRepository.existsCompanyInfoByUserName(userName);
+    }
 }
