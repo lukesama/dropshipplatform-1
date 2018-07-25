@@ -1,4 +1,4 @@
 package com.jnu.dropshipplatform.service;
 
-public interface ProductService {
+public interface ProductPushService {
 }
