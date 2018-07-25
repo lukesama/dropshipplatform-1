@@ -57,11 +57,13 @@ public class CompanyInfoController {
 
     @PostMapping("/company")
     public String updateCompany(CompanyInfo companyInfo,HttpSession session) {
-        String str = ""+session.getAttribute("comId");
-        Integer comId = Integer.parseInt(str);
-        companyInfo.setUserComId(comId);
-        companyInfo.setComBalance(0.0);
-        companyInfoService.updateCompanyInfo(companyInfo);
+        CompanyInfo com = (CompanyInfo) session.getAttribute("companyLoginInfo");
+        CompanyInfo comGetPwd = companyInfoService.getCompanyById(com.getUserComId());
+        com.setUserPwd(comGetPwd.getUserPwd());
+        com.setComName(companyInfo.getComName());
+        com.setComDescription(companyInfo.getComDescription());
+        com.setComLogo(companyInfo.getComLogo());
+        companyInfoService.updateCompanyInfo(com);
         return "redirect:/jnu/providerInfo";
     }
 

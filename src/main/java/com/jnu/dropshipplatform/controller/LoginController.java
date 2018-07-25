@@ -62,7 +62,8 @@ public class LoginController {
                 if(companyInfo!=null){
                     companyInfo.setUserPwd("");
                     session.setAttribute("companyLoginInfo",companyInfo);
-                    return "index";
+//                    return "index";
+                    return "redirect:/jnu/company/"+companyInfo.getUserComId();
                 }else{
                     redirectAttributes.addFlashAttribute("loginError","用户名后者密码错误");
                     return "redirect:/jnu/signin";
@@ -89,10 +90,12 @@ public class LoginController {
             case "0":
                 break;
             case "1":
+
                 CompanyInfo companyInfo = new CompanyInfo();
                 companyInfo.setUserName(regUserName);
                 companyInfo.setRealName(regRealName);
                 companyInfo.setUserPwd(userPwd);
+                companyInfo.setComBalance(0.0);
                 companyInfoService.addCompanyInfo(companyInfo);
                 return "redirect:/jnu/signin";
 
