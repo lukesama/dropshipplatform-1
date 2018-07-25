@@ -1,5 +1,6 @@
 package com.jnu.dropshipplatform.service;
 
+import com.jnu.dropshipplatform.entity.CompanyInfo;
 import com.jnu.dropshipplatform.repository.CompanyInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,4 +11,8 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     @Autowired
     private CompanyInfoRepository companyInfoRepository;
 
+    @Override
+    public CompanyInfo getCompanyInfoById(Integer comId) {
+        return companyInfoRepository.findById(comId).get();
+    }
 }

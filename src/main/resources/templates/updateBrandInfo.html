@@ -105,50 +105,49 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <div id="companyInfo"></div>
-            <!-- TODO companyInfo end here....BrandInfo begin-->
-            <div id="brandInfo">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>品牌信息</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
 
-                    <div class="x_content">
-                        <b><p>如需添加品牌信息，请点击: <code><a th:href="@{/jnu/providerInfo/add}">添加品牌</a></code></p></b>
-                        <!--delete /'+${allBrand.get(0).getBrandId()}+'-->
-                        <div class="table-responsive">
-                            <table class="table table-striped jambo_table bulk_action">
-                                <thead>
-                                <tr class="headings">
-                                    <th class="column-title">品牌商名称</th>
-                                    <th class="column-title">品牌商图片</th>
-                                    <th class="column-title no-link last"><span class="nobr">操作</span></th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                <tr th:each="brand:${allBrand}" class="odd pointer">
-                                    <td th:text="${brand.getBrandName()}" class=" ">Paid</td>
-                                    <td th:text="${brand.getBrandImage()}" class="a-right a-right ">$7.45</td>
-                                    <td class=" last"><a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/update'}">修改</a>&nbsp;&nbsp;<a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/delete'}">删除</a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>添加品牌信息</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/providerInfo/update}" method="post">
+                        <input type="text" name="brandId" th:value="${brandInfo.getBrandId()}">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">品牌名称 <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input th:value="${brandInfo.getBrandName()}" type="text" name="brandName" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">品牌图片 <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input th:value="${brandInfo.getBrandImage()}" type="file" name="brandImage" id="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <!--<button class="btn btn-primary" type="button">取消添加</button>-->
+                                <!--TODO 不添加时点取消按钮回去-->
+                                <button type="submit" class="btn btn-success">确认添加</button>
+                            </div>
                         </div>
 
-
-                    </div>
+                    </form>
                 </div>
-                <!--/brandInfo-->
             </div>
-            <!-- /page content -->
+
         </div>
+        <!-- /page content -->
+
         <!-- footer content -->
         <footer>
             <div class="pull-right">
