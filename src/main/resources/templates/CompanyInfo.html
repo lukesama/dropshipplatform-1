@@ -111,9 +111,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-offset-2 col-lg-6">
-                        <form class="form-horizontal" th:action="@{/jnu/company}" method="post">
+                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/company}" method="post">
                             <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">公司名称</label>
+                                <label for="inputName" class="col-sm-2 control-label">公司名称<span class="required">*</span>
+                                </label>
                                 <div class="col-sm-10">
                                     <input name="comName" type="text" th:value="${company.getComName()}" class="form-control" id="inputName" placeholder="Company Name">
                                 </div>
@@ -121,7 +122,7 @@
                             <div class="form-group">
                                 <label for="inputDescription" class="col-sm-2 control-label">公司简介</label>
                                 <div class="col-sm-10">
-                                    <textarea name="comDescription" th:text="${company.getComDescription()}" class="form-control" id="inputDescription" placeholder="Company Description"></textarea>
+                                    <textarea name="comDescription" rows="10" th:text="${company.getComDescription()}" class="form-control" id="inputDescription" placeholder="Company Description"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -27,4 +27,7 @@ public interface CompanyInfoService {
 
     //根据账号名和密码返回品牌商信息
     CompanyInfo providerLogin(String username,String password);
+
+    //判断用户名是否已存在
+    Boolean existUserName(String userName);
 }
