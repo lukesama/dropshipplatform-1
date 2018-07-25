@@ -7,5 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BrandInfoRepository extends JpaRepository<BrandInfo,Integer> {
+
+    List<BrandInfo> findBrandInfoByBrandOwner_UserComId(Integer userComId);
+
     List<BrandInfo> findBrandInfosByBrandOwner(CompanyInfo companyInfo);
 }
