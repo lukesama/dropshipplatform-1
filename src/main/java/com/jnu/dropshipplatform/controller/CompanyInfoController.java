@@ -4,6 +4,8 @@ import com.jnu.dropshipplatform.entity.BrandInfo;
 import com.jnu.dropshipplatform.entity.CompanyInfo;
 import com.jnu.dropshipplatform.service.BrandInfoService;
 import com.jnu.dropshipplatform.service.CompanyInfoService;
+import com.jnu.dropshipplatform.entity.*;
+import com.jnu.dropshipplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

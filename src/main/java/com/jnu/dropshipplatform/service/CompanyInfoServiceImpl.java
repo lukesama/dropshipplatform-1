@@ -14,6 +14,10 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     private CompanyInfoRepository companyInfoRepository;
 
     @Override
+    public CompanyInfo findCompanyInfoByUserComId(Integer id) {
+        return companyInfoRepository.findCompanyInfoByUserComId(id);
+    }
+    @Override
     public CompanyInfo getCompanyInfoById(Integer comId) {
         return companyInfoRepository.findById(comId).get();
     }

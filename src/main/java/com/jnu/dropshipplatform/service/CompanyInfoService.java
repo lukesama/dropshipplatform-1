@@ -4,9 +4,12 @@ import com.jnu.dropshipplatform.entity.CompanyInfo;
 
 import com.jnu.dropshipplatform.entity.CompanyInfo;
 
+import com.jnu.dropshipplatform.entity.CompanyInfo;
+
 import java.util.List;
 
 public interface CompanyInfoService {
+    CompanyInfo findCompanyInfoByUserComId(Integer id);
 
     CompanyInfo getCompanyInfoById(Integer comId);
 
