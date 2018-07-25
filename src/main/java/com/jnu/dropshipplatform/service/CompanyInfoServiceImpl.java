@@ -38,8 +38,8 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
         return companyInfoRepository.save(companyInfo);
     }
 
-//    @Override
-//    public CompanyInfo providerLogin(String username, String password) {
-//        return companyInfoRepository.findCompanyInfoByUserNameAndAndUserPwd(username,password);
-//    }
+    @Override
+    public CompanyInfo providerLogin(String username, String password) {
+        return companyInfoRepository.findCompanyInfoByUserNameAndAndUserPwd(username,password);
+    }
 }

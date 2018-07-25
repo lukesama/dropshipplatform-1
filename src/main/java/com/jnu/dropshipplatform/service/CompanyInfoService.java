@@ -20,6 +20,6 @@ public interface CompanyInfoService {
     //修改品牌商信息
     CompanyInfo updateCompanyInfo(CompanyInfo companyInfo);
 
-//    //根据账号名和密码返回品牌商信息
-//    CompanyInfo providerLogin(String username,String password);
+    //根据账号名和密码返回品牌商信息
+    CompanyInfo providerLogin(String username,String password);
 }
