@@ -22,4 +22,18 @@ public class BusinessmanInfoServiceImpl implements BusinessmanInfoService {
         return businessmanInfoRepository.save(businessmanInfo);
     }
 
+    @Override
+    public BusinessmanInfo businessmanLogin(String userName, String userPwd) {
+        return businessmanInfoRepository.findBusinessmanInfoByUserNameAndUserPwd(userName,userPwd);
+    }
+
+    @Override
+    public Boolean existUserName(String userName) {
+        return businessmanInfoRepository.existsBusinessmanInfoByUserName(userName);
+    }
+
+    @Override
+    public BusinessmanInfo addBusiInfo(BusinessmanInfo businessmanInfo) {
+        return businessmanInfoRepository.save(businessmanInfo);
+    }
 }

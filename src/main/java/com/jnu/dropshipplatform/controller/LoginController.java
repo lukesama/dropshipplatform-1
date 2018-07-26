@@ -1,5 +1,6 @@
 package com.jnu.dropshipplatform.controller;
 
+import com.jnu.dropshipplatform.entity.BusinessmanInfo;
 import com.jnu.dropshipplatform.entity.CompanyInfo;
 import com.jnu.dropshipplatform.service.BrandInfoService;
 import com.jnu.dropshipplatform.service.BusinessmanInfoService;
@@ -54,14 +55,22 @@ public class LoginController {
                                   ){
         switch(roles){
             case "0":
-
-
-                break;
+                BusinessmanInfo businessmanInfo = businessmanInfoService.businessmanLogin(loginName,loginPwd);
+                if(businessmanInfo!=null){
+                    businessmanInfo.setUserPwd("");
+                    session.setAttribute("businessmanLoginInfo",businessmanInfo);
+                    session.setAttribute("roleSort",roles);
+                    return "redirect:/jnu/addInfo/"+businessmanInfo.getUserBusiId();
+                }else{
+                    redirectAttributes.addFlashAttribute("loginError","用户名或者密码错误");
+                    return "redirect:/jnu/signin";
+                }
             case "1":
                 CompanyInfo companyInfo = companyInfoService.providerLogin(loginName,loginPwd);
                 if(companyInfo!=null){
                     companyInfo.setUserPwd("");
                     session.setAttribute("companyLoginInfo",companyInfo);
+                    session.setAttribute("roleSort",roles);
 //                    return "index";
                     return "redirect:/jnu/company/"+companyInfo.getUserComId();
                 }else{
@@ -88,7 +97,18 @@ public class LoginController {
                                   ){
         switch (registerRole){
             case "0":
-                break;
+                if(!businessmanInfoService.existUserName(regUserName)){
+                    BusinessmanInfo businessmanInfo = new BusinessmanInfo();
+                    businessmanInfo.setUserName(regUserName);
+                    businessmanInfo.setRealName(regRealName);
+                    businessmanInfo.setUserPwd(userPwd);
+                    businessmanInfo.setBusiBalance(0.0);
+                    businessmanInfoService.addBusiInfo(businessmanInfo);
+                    return "redirect:/jnu/signin";
+                }else{
+                    redirectAttributes.addFlashAttribute("registerError","注册失败，用户名已存在");
+                    return "redirect:/jnu/signin#signup";
+                }
             case "1":
                 if(!companyInfoService.existUserName(regUserName)){
                     CompanyInfo companyInfo = new CompanyInfo();
@@ -102,7 +122,6 @@ public class LoginController {
                     redirectAttributes.addFlashAttribute("registerError","注册失败，用户名已存在");
                     return "redirect:/jnu/signin#signup";
                 }
-
 
             default:
                 break;

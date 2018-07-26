@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
-@RequestMapping("BIC")
+@RequestMapping("jnu")
 public class BusinessmanInfoController {
     @Autowired
     private BusinessmanInfoService businessmanInfoService;
@@ -28,8 +30,14 @@ public class BusinessmanInfoController {
         return "BusinessmanInfo";
     }
     @PostMapping("/addInfo")         //返回修改后的页面
-    public String addBusiInfo(BusinessmanInfo businessmanInfo){
-        businessmanInfoService.updateBusiInfo(businessmanInfo);
+    public String addBusiInfo(BusinessmanInfo businessmanInfo, HttpSession session){
+        BusinessmanInfo business = (BusinessmanInfo)session.getAttribute("businessmanLoginInfo") ;
+        BusinessmanInfo businessPwd = businessmanInfoService.getBusiInfoByID(business.getUserBusiId());
+        business.setUserPwd(businessPwd.getUserPwd());
+        business.setBusiName(businessmanInfo.getBusiName());
+        business.setSupplierName(businessmanInfo.getSupplierName());
+        business.setSupplierUrl(businessmanInfo.getSupplierUrl());
+        businessmanInfoService.updateBusiInfo(business);
         return "redirect:/jnu/addInfo/"+businessmanInfo.getUserBusiId();
     }
 }
