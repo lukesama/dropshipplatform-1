@@ -6,13 +6,12 @@ import com.jnu.dropshipplatform.service.BrandProductService;
 import com.jnu.dropshipplatform.service.CompanyInfoService;
 import com.jnu.dropshipplatform.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +28,10 @@ public class ProductInfoController {
     @Autowired
     private BrandProductService brandProductService;
 
-    @GetMapping("/ProductShow/{id}")
-    public String getProduct(/*HttpSession session,*/@PathVariable("id") Integer id, Model model){
-        //CompanyInfo companyInfo=session.getAttribute("CompanyInfo");
-        CompanyInfo companyInfo=companyInfoService.findCompanyInfoByUserComId(id);
+    @GetMapping("/ProductShow")
+    public String getProduct(HttpSession session,/*@PathVariable("id") Integer id,*/ Model model){
+        CompanyInfo companyInfo=(CompanyInfo)session.getAttribute("companyLoginInfo");
+        //CompanyInfo companyInfo=companyInfoService.findCompanyInfoByUserComId(id);
         List<BrandInfo> brandInfos=brandInfoService.findBrandInfoByBrandOwner(companyInfo);
         List<BrandProduct> brandProducts=new ArrayList<BrandProduct>();
         List<ProductAndCategory> product=new ArrayList<ProductAndCategory>();
@@ -47,19 +46,20 @@ public class ProductInfoController {
     }
 
     @GetMapping("insert")
-    public String jumpToInsert(/*HttpSession session,Model model*/){
-
+    public String jumpToInsert(HttpSession session,Model model){
+        List<BrandInfo> brandInfo=brandInfoService.findBrandInfoByBrandOwner((CompanyInfo)session.getAttribute("companyLoginInfo"));
+        model.addAttribute("brand",brandInfo);
         return "CompanyProductInsert";
     }
     @PostMapping("insert")
-    public  String insert(ProductInfo productInfo){
+    public  String insert(@RequestParam("brandNum") Integer brand, ProductInfo productInfo){
         productInfo.setProStatus(0);
         productInfoService.save(productInfo);
         BrandProduct brandProduct=new BrandProduct();
-        brandProduct.setBrandId(1);
+        brandProduct.setBrandId(brand);
         brandProduct.setProductInfo(productInfo.getProId());
         brandProductService.save(brandProduct);
-        return "redirect/jnu/company/CompanyProductShow";
+        return "redirect:/jnu/company/ProductShow";
     }
 
     @GetMapping("update/{id}")
@@ -71,6 +71,12 @@ public class ProductInfoController {
     @PostMapping("update")
     public  String update(ProductInfo productInfo){
         productInfoService.save(productInfo);
-        return "redirect/jnu/company/CompanyProductShow";
+        return "redirect:/jnu/company/ProductShow";
+    }
+
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable ("id") Integer id){
+        productInfoService.delete(id);
+        return "redirect:/jnu/company/ProductShow";
     }
 }

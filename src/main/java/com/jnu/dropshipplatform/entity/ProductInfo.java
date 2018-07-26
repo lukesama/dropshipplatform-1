@@ -27,6 +27,8 @@ public class ProductInfo {
     public ProductInfo() {
     }
 
+
+
     public Integer getProId() {
         return proId;
     }

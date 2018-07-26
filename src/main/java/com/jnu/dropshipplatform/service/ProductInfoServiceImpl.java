@@ -28,4 +28,9 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     public ProductInfo findProductInfoByProId(Integer proId) {
         return productInfoRepository.findProductInfoByProId(proId);
     }
+
+    @Override
+    public void delete(Integer proId) {
+        productInfoRepository.deleteById(proId);
+    }
 }
