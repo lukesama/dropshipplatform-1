@@ -39,12 +39,10 @@
                         <span th:switch="${session.roleSort}">
                             <span th:case="${0}">借卖方</span>
                             <span th:case="${1}">品牌商</span>
-                        </span>
-                    </a>
+                            <span th:case="${2}">管理员</span>
+                        </span></a>
                 </div>
-
                 <div class="clearfix"></div>
-
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
@@ -56,15 +54,11 @@
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
-
                 <br />
-
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:replace="menu::menu_roles">
-
                 </div>
                 <!-- /sidebar menu -->
-
             </div>
         </div>
 
@@ -82,41 +76,10 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <div class="page-header position-relative">
-                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>公司信息</small></h1>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-offset-2 col-lg-6">
-                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/company}" method="post">
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">公司名称<span class="required">*</span>
-                                </label>
-                                <div class="col-sm-10">
-                                    <input name="comName" type="text" th:value="${session.companyLoginInfo.getComName()}" class="form-control" id="inputName" placeholder="Company Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputDescription" class="col-sm-2 control-label">公司简介</label>
-                                <div class="col-sm-10">
-                                    <textarea name="comDescription" rows="10" th:text="${session.companyLoginInfo.getComDescription()}" class="form-control" id="inputDescription" placeholder="Company Description"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputLogo" class="col-sm-2 control-label">公司图标</label>
-                                <div class="col-sm-10">
-                                    <input name="comLogo" type="file" th:value="${session.companyLoginInfo.getComLogo()}" class="form-control" id="inputLogo" placeholder="Company Logo">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-success">确定</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
+            <iframe id="menuFrame" name="menuFrame" src="" frameborder="no" width="100%" height="100%">
+            </iframe>
+
         </div>
         <!-- /page content -->
 
@@ -168,7 +131,6 @@
 <!-- bootstrap-daterangepicker -->
 <script th:src="@{/vendors/moment/min/moment.min.js}"></script>
 <script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
-
 <!-- Custom Theme Scripts -->
 <script th:src="@{/build/js/custom.min.js}"></script>
 
