@@ -1,7 +1,9 @@
 package com.jnu.dropshipplatform.controller;
 
+import com.jnu.dropshipplatform.entity.AdminAccountInfo;
 import com.jnu.dropshipplatform.entity.BusinessmanInfo;
 import com.jnu.dropshipplatform.entity.CompanyInfo;
+import com.jnu.dropshipplatform.service.AdminAccountInfoService;
 import com.jnu.dropshipplatform.service.BrandInfoService;
 import com.jnu.dropshipplatform.service.BusinessmanInfoService;
 import com.jnu.dropshipplatform.service.CompanyInfoService;
@@ -25,6 +27,8 @@ public class LoginController {
     private BusinessmanInfoService businessmanInfoService;
     @Autowired
     private CompanyInfoService companyInfoService;
+    @Autowired
+    private AdminAccountInfoService adminAccountInfoService;
 
 
     /**
@@ -37,12 +41,13 @@ public class LoginController {
     }
 
     /**
-     * 尝试登陆
+     *借卖方、品牌商、管理员 尝试登陆
      * @param loginName
      * @param loginPwd
-     * @param roles
+     * @param roles 0，1，2 分别代表借卖方、品牌商、管理员
      * @param session
      * @param redirectAttributes
+     * @Param roleSort 前端界面根据roleSort（0，1，2）显示不同的菜单项
      * @return
      */
 
@@ -72,13 +77,20 @@ public class LoginController {
                     session.setAttribute("companyLoginInfo",companyInfo);
                     session.setAttribute("roleSort",roles);
 //                    return "index";
-                    return "redirect:/jnu/company/"+companyInfo.getUserComId();
+                    return "redirect:/jnu/company";
                 }else{
                     redirectAttributes.addFlashAttribute("loginError","用户名或者密码错误");
                     return "redirect:/jnu/signin";
                 }
 
             case "2":
+                AdminAccountInfo adminAccountInfo = adminAccountInfoService.adminLogin(loginName,loginPwd);
+                if(adminAccountInfo!=null){
+                    adminAccountInfo.setAdminUserPwd("");
+                    session.setAttribute("adminLoginInfo",adminAccountInfo);
+                    session.setAttribute("roleSort",roles);
+                    return "redirect:/jnu/admin";
+                }
                 break;
             default:
                 break;
@@ -87,6 +99,15 @@ public class LoginController {
         return "";
     }
 
+    /**
+     * 借卖方、品牌商用户注册，同时验证账户名是否已存在
+     * @param registerRole
+     * @param regUserName
+     * @param regRealName
+     * @param userPwd
+     * @param redirectAttributes
+     * @return
+     */
 
     @PostMapping("signup")
     public String attemptRegister(@RequestParam String registerRole,
@@ -131,12 +152,12 @@ public class LoginController {
 
     }
 
-    /**
-     * 用户登陆后跳转到此页面
-     */
-    @GetMapping("homePage")
-    public String accessHomePage(){
-        return "index";
-    }
+//    /**
+//     * (初始调试)用户登陆后跳转到此页面
+//     */
+//    @GetMapping("homePage")
+//    public String accessHomePage(){
+//        return "index";
+//    }
 
 }
