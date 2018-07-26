@@ -17,8 +17,8 @@ public class TestController {
 //
     @GetMapping("homePage1")
     public String toHome(HttpSession session){
-        session.setAttribute("roleSort","1");
-        return "page_500";
+//        session.setAttribute("roleSort","1");
+        return "adminManagebusi";
     }
 
 
