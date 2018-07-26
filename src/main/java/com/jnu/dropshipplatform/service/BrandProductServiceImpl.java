@@ -22,4 +22,9 @@ public class BrandProductServiceImpl implements BrandProductService{
     public void save(BrandProduct brandProduct) {
          brandProductRepository.save(brandProduct);
     }
+
+    @Override
+    public void deleteByProId(Integer proId) {
+        brandProductRepository.deleteProductWithProId(proId);
+    }
 }

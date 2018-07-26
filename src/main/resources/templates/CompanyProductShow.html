@@ -55,40 +55,8 @@
                 <br />
 
                 <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <ul class="nav side-menu">
-                            <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 品牌商-我的信息 </span></a>
-                            </li>
-                            <li><a><i class="fa fa-shopping-bag" aria-hidden="true"></i> 品牌商-商品管理 </a>
-                            </li>
-                            <li><a><i class="fa fa-wpforms"></i> 品牌商-订单管理 </a>
-                            </li>
-                            <li><a><i class="fa fa-google-wallet"></i> 品牌商-钱包 </a>
-                                <!-- <ul class="nav child_menu">
-                                  <li><a href="general_elements.html">General Elements</a></li>
-                                  <li><a href="media_gallery.html">Media Gallery</a></li>
-                                  <li><a href="typography.html">Typography</a></li>
-                                  <li><a href="icons.html">Icons</a></li>
-                                  <li><a href="glyphicons.html">Glyphicons</a></li>
-                                  <li><a href="widgets.html">Widgets</a></li>
-                                  <li><a href="invoice.html">Invoice</a></li>
-                                  <li><a href="inbox.html">Inbox</a></li>
-                                  <li><a href="calendar.html">Calendar</a></li>
-                                </ul> -->
-                            </li>
-                            <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 借卖方-我的信息 </span></a>
-                            </li>
-                            <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 借卖方-商品浏览 </span></a>
-                            </li>
-                            <li><a><i class="fa fa-wpforms"></i> 借卖方-订单管理 </span></a>
-                            </li>
-                            <li><a><i class="fa fa-google-wallet"></i>借卖方-钱包 </a>
-                            </li>
-                            <li><a th:href="@{/jnu}"><i class="fa fa-sign-out"></i> Log Out</a>
-                            </li>
-                        </ul>
-                    </div>
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:replace="menu::menu_roles">
+
                 </div>
                 <!-- /sidebar menu -->
 
@@ -112,7 +80,7 @@
 
             <h3>品牌商 商品管理</h3>
 
-            <form name="search" th:action="@{/select}" method="get">
+            <form name="search" th:action="@{/jnu/company/select}" method="get">
                 <div class="col-lg-offset-10 form-group">
                     <input type="text" name="proName" placeholder="搜索商品标题" >
                     <button type="submit" class="btn btn-default">搜索</button>
@@ -140,11 +108,11 @@
                                 <td th:text="${product.proModel}"></td>
                                 <td>
                                     <button type="button" class="btn btn-default" name="update" >
-                                        <a th:href="@{/jnu/company/update/+${product.proId}}">
+                                        <a th:href="@{'/jnu/company/update/'+${product.proId}}">
                                         <span class="glyphicon glyphicon-wrench" ></span></a>
                                     </button>
                                     <button type="button" class="btn btn-default" name="delete" th:action="@{'/jnu/company/delete/'+${product.getProId()}}">
-                                        <a th:href="@{/jnu/company/delete/+${product.proId}}">
+                                        <a th:href="@{'/jnu/company/delete/'+${product.proId}}">
                                         <span class="glyphicon glyphicon-trash"></span></a>
                                     </button>
                                 </td>
@@ -175,7 +143,7 @@
                 </div>
             </form>
             <form th:method="get" th:action="@{/insert}">
-            <div class="col-lg-offset-1">
+            <div >
                 <button type="button" >
                     <a th:href="@{/jnu/company/insert}">
                         新增商品
