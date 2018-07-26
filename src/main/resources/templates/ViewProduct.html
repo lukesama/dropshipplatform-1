@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentelella Alela! | </title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+    <!-- iCheck -->
+    <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link th:href="@{/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link th:href="@{/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i>
+
+
+                        <span th:switch="${session.roleSort}">
+                  <span th:case="${0}">借卖方</span>
+                  <span th:case="${1}">品牌商</span>
+                </span></a>
+
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img th:src="@{/production/images/img.jpg}" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>John Doe</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:replace="menu::menu_roles">
+
+                </div>
+                <!-- /sidebar menu -->
+
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+            <div class="x_panel">
+                <div class="x_title">
+                    <div class="col-md-5">
+                        <h3>借卖方
+                            <small>>>>商品浏览</small>
+                        </h3>
+                    </div>
+                    <!--TODO 实现三级联动下拉菜单以及其筛选功能-->
+                    <div class="col-md-7">
+                        <form>
+                            <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+                                <select name="Main" class="form-control">
+                                    <option value="0">按主分类筛选</option>
+                                    <!--Para 传入参数List(allMainCate)\Integer(mainCateId)-->
+                                    <!--<option th:each="mainCate:${allMainCate}"-->
+                                    <!--th:value="${mainCate.getCateId()}"-->
+                                    <!--th:text="${mainCate.getCateName()}"-->
+                                    <!--th:selected="${mainCate.getCateId()==mainCateId}">循环添加主分类</option>-->
+                                </select>
+                            </div>
+                            <div class="col-md-offset-1 col-md-3 col-sm-3 col-xs-12 form-group">
+                                <select name="Sub" class="form-control">
+                                    <option value="0">按次分类筛选</option>
+                                    <!--Para 传入参数List(allSubCate)\Integer(subCateId)-->
+                                    <!--<option th:each="subCate:${allSubCate}"-->
+                                    <!--th:value="${subCate.getCateId()}"-->
+                                    <!--th:text="${subCate.getCateName()}"-->
+                                    <!--th:selected="${subCate.getCateId()==subCateId}">循环添加主分类</option>-->
+                                </select>
+                            </div>
+                            <div class="col-md-offset-1 col-md-3 col-sm-3 col-xs-12 form-group">
+                                <select name="Detailed" class="form-control">
+                                    <option value="0">按详细分类筛选</option>
+                                    <!--Para 传入参数List(allDetailedCate)\Integer(detailedCateId)-->
+                                    <!--<option th:each="detailedCate:${allDetailedCate}"-->
+                                    <!--th:value="${detailedCate.getCateId()}"-->
+                                    <!--th:text="${detailedCate.getCateName()}"-->
+                                    <!--th:selected="${detailedCate.getCateId()==detailedCateId}">循环添加主分类</option>-->
+                                </select>
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-12 form-group">
+                                <button type="submit" class="btn btn-round btn-success">
+                                    <i class="fa fa-filter"> </i> 筛选
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <!-- 商品项 -->
+                        <div class="col-md-55" th:each="productInfo:${allProduct}">
+                            <div class="thumbnail">
+                                <div  class="image view view-first">
+                                    <input name="proId" type="hidden" th:value="${productInfo.getProId()}">
+                                    <img style="width: 100%; height: 100%; display: block;" th:src="@{'/images/'+${productInfo.getProImage()}}" alt="image">
+                                    <div class="mask">
+                                        <p th:text="${productInfo.getProDescription()}">getProDescription()</p>
+                                        <div class="tools tools-bottom">
+                                            <button type="button" class="btn btn-success btn-xs">
+                                                <i class="fa fa-user">
+                                                </i>
+                                                <i class="fa fa-comments-o"></i>推送
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-xs">
+                                                <i class="fa fa-user" th:href="@{/jnu/Businessman/productDetail}"> </i> 查看详情
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="caption">
+                                    <p th:text="${productInfo.getProTitle()}">getProTitle()</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End 商品项-->
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                DropShipping  by <a href="#">Jnu2015</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+<!-- NProgress -->
+<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+<!-- Chart.js -->
+<script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+<!-- gauge.js -->
+<script th:src="@{/vendors/gauge.js/dist/gauge.min.js}"></script>
+<!-- bootstrap-progressbar -->
+<script th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+<!-- iCheck -->
+<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+<!-- Skycons -->
+<script th:src="@{/vendors/skycons/skycons.js}"></script>
+<!-- Flot -->
+<script th:src="@{/vendors/Flot/jquery.flot.js}"></script>
+<script th:src="@{/vendors/Flot/jquery.flot.pie.js}"></script>
+<script th:src="@{/vendors/Flot/jquery.flot.time.js}"></script>
+<script th:src="@{/vendors/Flot/jquery.flot.stack.js}"></script>
+<script th:src="@{/vendors/Flot/jquery.flot.resize.js}"></script>
+<!-- Flot plugins -->
+<script th:src="@{/vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+<script th:src="@{/vendors/flot-spline/js/jquery.flot.spline.min.js}"></script>
+<script th:src="@{/vendors/flot.curvedlines/curvedLines.js}"></script>
+<!-- DateJS -->
+<script th:src="@{/vendors/DateJS/build/date.js}"></script>
+<!-- JQVMap -->
+<script th:src="@{/vendors/jqvmap/dist/jquery.vmap.js}"></script>
+<script th:src="@{/vendors/jqvmap/dist/maps/jquery.vmap.world.js}"></script>
+<script th:src="@{/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js}"></script>
+<!-- bootstrap-daterangepicker -->
+<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+
+<!-- Custom Theme Scripts -->
+<script th:src="@{/build/js/custom.min.js}"></script>
+</body>
+</html>
