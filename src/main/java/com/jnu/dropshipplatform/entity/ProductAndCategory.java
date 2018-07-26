@@ -7,6 +7,7 @@ public class ProductAndCategory {
 
     @Id
     @GeneratedValue
+    private Integer id;
     private Integer proId;
     private String proName;
     private String proTitle;
@@ -19,8 +20,8 @@ public class ProductAndCategory {
     private String proImage;
     private  String cateName;
 
-    public ProductAndCategory(String proName, String proTitle, Integer proCategoryId, Double droPrice, Integer proStock, String proModel, String proImage, String cateName) {
-
+    public ProductAndCategory(Integer proId,String proName, String proTitle, Integer proCategoryId, Double droPrice, Integer proStock, String proModel, String proImage, String cateName) {
+        this.proId=proId;
         this.proName = proName;
         this.proTitle = proTitle;
         this.proCategoryId = proCategoryId;

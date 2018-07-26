@@ -38,4 +38,9 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     public List<ProductInfo> getAllProduct() {
         return productInfoRepository.findAll();
     }
+
+    @Override
+    public void delete(Integer proId) {
+        productInfoRepository.deleteById(proId);
+    }
 }

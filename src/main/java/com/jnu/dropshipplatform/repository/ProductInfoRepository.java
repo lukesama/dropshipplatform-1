@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface ProductInfoRepository extends JpaRepository<ProductInfo,Integer> {
     @Query(value = "select new com.jnu.dropshipplatform.entity.ProductAndCategory( " +
+            "p.proId," +
             "p.proName," +
             "p.proTitle," +
             "p.proCategoryId," +
@@ -23,5 +24,6 @@ public interface ProductInfoRepository extends JpaRepository<ProductInfo,Integer
 
     //根据商品类别ID查找对应的商品信息
     List<ProductInfo> findProductInfosByProCategoryId(Integer cateId);
+
 
 }

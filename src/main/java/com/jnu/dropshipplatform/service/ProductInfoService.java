@@ -15,4 +15,5 @@ public interface ProductInfoService {
     List<ProductInfo> getAllProduct();
 
 
+    void delete(Integer proId);
 }
