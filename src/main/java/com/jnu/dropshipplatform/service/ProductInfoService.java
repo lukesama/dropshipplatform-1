@@ -9,4 +9,11 @@ public interface ProductInfoService {
     List<ProductAndCategory> getProductAndCategory(Integer productId);
     void save(ProductInfo productInfo);
     ProductInfo findProductInfoByProId(Integer proId);
+
+    List<ProductInfo> getProductByCateId(Integer cateId);
+
+    List<ProductInfo> getAllProduct();
+
+
+    void delete(Integer proId);
 }

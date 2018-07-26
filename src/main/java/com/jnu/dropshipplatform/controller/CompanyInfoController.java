@@ -26,34 +26,32 @@ public class CompanyInfoController {
     @Autowired
     private BrandInfoService brandInfoService;
 
-    @GetMapping("/company/{id}")
-    public String addComInfo(@PathVariable("id") Integer comId,Model model,HttpSession session) {
-        session.setAttribute("comId",comId);
-        CompanyInfo com = companyInfoService.getCompanyById(comId);
-        model.addAttribute("company",com);
-        return "CompanyInfo";
-    }
+//    @GetMapping("/company/{id}")
+//    public String addComInfo(@PathVariable("id") Integer comId,Model model,HttpSession session) {
+//        session.setAttribute("comId",comId);
+//        CompanyInfo com = companyInfoService.getCompanyById(comId);
+//        model.addAttribute("company",com);
+//        return "CompanyInfo";
+//    }
 
     @GetMapping("/providerInfo")
     public String getAllCom(Model model,HttpSession session) {
-        String str = ""+session.getAttribute("comId");
-        Integer comId = Integer.parseInt(str);
-        CompanyInfo com = companyInfoService.getCompanyById(comId);
+        CompanyInfo com_tmp =  (CompanyInfo) session.getAttribute("companyLoginInfo");
+        CompanyInfo com = companyInfoService.getCompanyById(com_tmp.getUserComId());
         model.addAttribute("company",com);
-        Integer ownerId = comId;
-        CompanyInfo companyInfo = companyInfoService.getCompanyInfoById(ownerId);
-        session.setAttribute("owner",companyInfo);
-        List<BrandInfo> brandInfos = brandInfoService.getAllBrand(ownerId);
+//        Integer ownerId = com_tmp.getUserComId();
+//        CompanyInfo companyInfo = companyInfoService.getCompanyInfoById(ownerId);
+//        session.setAttribute("owner",companyInfo);
+        List<BrandInfo> brandInfos = brandInfoService.getAllBrand(com_tmp.getUserComId());
         model.addAttribute("allBrand",brandInfos);
         return "ProviderInfo";
     }
 
     @GetMapping("/company")
-    public String updatePage(Model model, HttpSession session) {
-        String str = ""+session.getAttribute("comId");
-        Integer comId = Integer.parseInt(str);
-        CompanyInfo com = companyInfoService.getCompanyById(comId);
-        model.addAttribute("company",com);
+    public String updatePage(HttpSession session) {
+
+//        CompanyInfo com = (CompanyInfo) session.getAttribute("companyLoginInfo");
+//        model.addAttribute("company",com);
         return "CompanyInfo";
     }
 
@@ -77,7 +75,8 @@ public class CompanyInfoController {
 
     @PostMapping("providerInfo/add")
     public String addBrandInfo(BrandInfo brandInfo,HttpSession session){
-        CompanyInfo owner = (CompanyInfo) session.getAttribute("owner");
+        CompanyInfo comForId = (CompanyInfo) session.getAttribute("companyLoginInfo");
+        CompanyInfo owner = companyInfoService.getCompanyById(comForId.getUserComId());
         brandInfo.setBrandOwner(owner);
         brandInfoService.addBrandInfo(brandInfo);
         return "redirect:/jnu/providerInfo";
@@ -86,7 +85,7 @@ public class CompanyInfoController {
     @GetMapping("providerInfo/{id}/delete")
     public String deleteBrandInfo(@PathVariable("id") Integer brandId,HttpSession session){
         brandInfoService.deleteBrandInfo(brandId);
-        CompanyInfo owner = (CompanyInfo) session.getAttribute("owner");
+//        CompanyInfo owner = (CompanyInfo) session.getAttribute("owner");
         return "redirect:/jnu/providerInfo";
     }
 
@@ -99,7 +98,8 @@ public class CompanyInfoController {
 
     @PostMapping("providerInfo/update")
     public String updateBrandInfo(BrandInfo brandInfo,HttpSession session){
-        CompanyInfo owner = (CompanyInfo)session.getAttribute("owner");
+        CompanyInfo comForId = (CompanyInfo) session.getAttribute("companyLoginInfo");
+        CompanyInfo owner = companyInfoService.getCompanyById(comForId.getUserComId());
         brandInfo.setBrandOwner(owner);
         brandInfoService.updateBrandInfo(brandInfo);
         return "redirect:/jnu/providerInfo";

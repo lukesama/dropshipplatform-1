@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>品牌方 商品管理 </title>
+    <title>Gentelella Alela! | </title>
 
     <!-- Bootstrap -->
     <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -35,11 +35,14 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i> <span>借卖网</span></a>
+                    <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i>
+                        <span th:switch="${session.roleSort}">
+                            <span th:case="${0}">借卖方</span>
+                            <span th:case="${1}">品牌商</span>
+                            <span th:case="${2}">管理员</span>
+                        </span></a>
                 </div>
-
                 <div class="clearfix"></div>
-
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
@@ -51,15 +54,11 @@
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
-
                 <br />
-
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:replace="menu::menu_roles">
-
                 </div>
                 <!-- /sidebar menu -->
-
             </div>
         </div>
 
@@ -78,71 +77,9 @@
         <!-- page content -->
         <div class="right_col" role="main">
 
-            <h3>品牌商 添加商品</h3>
+            <iframe id="menuFrame" name="menuFrame" src="" frameborder="no" width="100%" height="100%">
+            </iframe>
 
-            <div class="panel panel-body">
-                <form class="form-horizontal" th:action="@{/jnu/company/update}" th:method="post">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">产品ID</label>
-                        <div class="col-sm-10">
-                    <input type="text" class="form-group" name="proId" id="inputId" th:value="${product.getProId()}" readonly>
-                    </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">产品名称</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="proName" id="inputName" placeholder="产品名称" th:value="${product.getProName()}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">产品标题</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="proTitle" id="inputTitle" placeholder="产品标题" th:value="${product.getProTitle()}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">产品种类</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="proCategoryId" id="inputCategory" placeholder="产品种类" th:value="${product.getProCategoryId()}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">产品批发价格</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="droPrice" id="inputPrice" placeholder="产品批发价格" th:value="${product.getDroPrice()}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">产品库存量</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="proStock" id="inputStock" placeholder="产品库存量" th:value="${product.getProStock()}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">产品型号</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="proModel" id="inputModel" placeholder="产品型号" th:value="${product.getProModel()}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">产品描述</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="3" name="proDescription" placeholder="产品描述" th:value="${product.getProDescription()}"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">产品图片</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="proImage" id="inputImage" placeholder="产品图片" th:value="${product.getProImage()}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-success">修改商品</button>
-                        </div>
-                    </div>
-                    </form>
-            </div>
         </div>
         <!-- /page content -->
 
@@ -194,7 +131,6 @@
 <!-- bootstrap-daterangepicker -->
 <script th:src="@{/vendors/moment/min/moment.min.js}"></script>
 <script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
-
 <!-- Custom Theme Scripts -->
 <script th:src="@{/build/js/custom.min.js}"></script>
 
