@@ -9,4 +9,11 @@ public interface BusinessmanInfoService {
     BusinessmanInfo getBusiInfoByID(Integer userBusiId);
     //修改借卖方信息
     BusinessmanInfo updateBusiInfo(BusinessmanInfo businessmanInfo);
+
+    BusinessmanInfo addBusiInfo(BusinessmanInfo businessmanInfo);
+
+    BusinessmanInfo businessmanLogin(String userName,String userPwd);
+
+    Boolean existUserName(String userName);
+
 }

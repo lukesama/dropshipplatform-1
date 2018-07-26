@@ -17,7 +17,7 @@ public class TestController {
 //
     @GetMapping("homePage1")
     public String toHome(HttpSession session){
-        session.setAttribute("remark","100");
+        session.setAttribute("roleSort","1");
         return "index";
     }
 

@@ -30,8 +30,8 @@
 <body class="nav-md">
 <div class="container body">
                 <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:fragment="menu_roles" th:switch="${session.remark}">
-                    <ul th:case="${100}" id="menu" class="nav side-menu">
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:fragment="menu_roles" th:switch="${session.roleSort}">
+                    <ul th:case="${1}" id="menu" class="nav side-menu">
                         <div class="menu_section">
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 品牌商-我的信息 </span></a>
@@ -53,12 +53,12 @@
                                       <li><a href="calendar.html">Calendar</a></li>
                                     </ul> -->
                                 </li>
-                                <li><a th:href="@{/jnu}"><i class="fa fa-sign-out"></i> Log Out</a>
+                                <li><a th:href="@{/jnu/signin}"><i class="fa fa-sign-out"></i> Log Out</a>
                                 </li>
                             </ul>
                         </div>
                     </ul>
-                    <ul th:case="${200}" id="menu">
+                    <ul th:case="${0}" id="menu" class="nav side-menu">
                         <div class="menu_section">
                             <ul class="nav side-menu">
 
@@ -68,9 +68,9 @@
                                 </li>
                                 <li><a><i class="fa fa-wpforms"></i> 借卖方-订单管理 </span></a>
                                 </li>
-                                <li><a><i class="fa fa-google-wallet"></i>借卖方-钱包 </a>
+                                <li><a th:href="@{/jnu/Wallet}"><i class="fa fa-google-wallet"></i>借卖方-钱包 </a>
                                 </li>
-                                <li><a th:href="@{/jnu}"><i class="fa fa-sign-out"></i> Log Out</a>
+                                <li><a th:href="@{/jnu/signin}"><i class="fa fa-sign-out"></i> Log Out</a>
                                 </li>
                             </ul>
                         </div>
