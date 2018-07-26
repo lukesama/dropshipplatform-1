@@ -16,4 +16,6 @@ public interface BusinessmanInfoService {
 
     Boolean existUserName(String userName);
 
+    List<BusinessmanInfo> getAllBusinessmanInfo();
+
 }

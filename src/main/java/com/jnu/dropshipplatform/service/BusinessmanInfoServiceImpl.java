@@ -36,4 +36,9 @@ public class BusinessmanInfoServiceImpl implements BusinessmanInfoService {
     public BusinessmanInfo addBusiInfo(BusinessmanInfo businessmanInfo) {
         return businessmanInfoRepository.save(businessmanInfo);
     }
+
+    @Override
+    public List<BusinessmanInfo> getAllBusinessmanInfo() {
+        return businessmanInfoRepository.findAll();
+    }
 }
