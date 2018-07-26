@@ -146,13 +146,11 @@
                                     <div class="mask">
                                         <p th:text="${productInfo.getProDescription()}">getProDescription()</p>
                                         <div class="tools tools-bottom">
-                                            <a class="btn btn-success btn-xs" href="#">
-                                                <i class="fa fa-user">
-                                                </i>
-                                                <i class="fa fa-comments-o"></i>推送
+                                            <a class="btn btn-primary btn-xs" href="#">
+                                                <i class="fa fa-paper-plane"></i> 推送
                                             </a>
-                                            <a class="btn btn-primary btn-xs" th:href="@{'/jnu/Businessman/productDetail/'+${productInfo.getProId()}}">
-                                                <i class="fa fa-user"> </i> 查看详情
+                                            <a class="btn btn-success btn-xs" th:href="@{'/jnu/Businessman/productDetail/'+${productInfo.getProId()}}">
+                                                <i class="fa fa-info"> </i> 查看详情
                                             </a>
                                         </div>
                                     </div>
