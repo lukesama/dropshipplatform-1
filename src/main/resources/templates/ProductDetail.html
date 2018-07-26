@@ -84,90 +84,75 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            <form>
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2 th:text="${catePath.getCatePath()}"></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
 
-            <div class="x_panel">
-                <div class="x_title">
-                    <div class="col-md-5">
-                        <h3>借卖方
-                            <small>>>>商品浏览</small>
-                        </h3>
-                    </div>
-                    <!--TODO 实现三级联动下拉菜单以及其筛选功能-->
-                    <div class="col-md-7">
-                        <form>
-                            <div class="col-md-3 col-sm-3 col-xs-12 form-group">
-                                <select name="Main" class="form-control">
-                                    <option value="0">按主分类筛选</option>
-                                    <!--Para 传入参数List(allMainCate)\Integer(mainCateId)-->
-                                    <!--<option th:each="mainCate:${allMainCate}"-->
-                                    <!--th:value="${mainCate.getCateId()}"-->
-                                    <!--th:text="${mainCate.getCateName()}"-->
-                                    <!--th:selected="${mainCate.getCateId()==mainCateId}">循环添加主分类</option>-->
-                                </select>
-                            </div>
-                            <div class="col-md-offset-1 col-md-3 col-sm-3 col-xs-12 form-group">
-                                <select name="Sub" class="form-control">
-                                    <option value="0">按次分类筛选</option>
-                                    <!--Para 传入参数List(allSubCate)\Integer(subCateId)-->
-                                    <!--<option th:each="subCate:${allSubCate}"-->
-                                    <!--th:value="${subCate.getCateId()}"-->
-                                    <!--th:text="${subCate.getCateName()}"-->
-                                    <!--th:selected="${subCate.getCateId()==subCateId}">循环添加主分类</option>-->
-                                </select>
-                            </div>
-                            <div class="col-md-offset-1 col-md-3 col-sm-3 col-xs-12 form-group">
-                                <select name="Detailed" class="form-control">
-                                    <option value="0">按详细分类筛选</option>
-                                    <!--Para 传入参数List(allDetailedCate)\Integer(detailedCateId)-->
-                                    <!--<option th:each="detailedCate:${allDetailedCate}"-->
-                                    <!--th:value="${detailedCate.getCateId()}"-->
-                                    <!--th:text="${detailedCate.getCateName()}"-->
-                                    <!--th:selected="${detailedCate.getCateId()==detailedCateId}">循环添加主分类</option>-->
-                                </select>
-                            </div>
-                            <div class="col-md-1 col-sm-1 col-xs-12 form-group">
-                                <button type="submit" class="btn btn-round btn-success">
-                                    <i class="fa fa-filter"> </i> 筛选
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                    <form>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <!-- 商品项 -->
-                        <div class="col-md-55" th:each="productInfo:${allProduct}">
-                            <div class="thumbnail">
-                                <div  class="image view view-first">
-                                    <input name="proId" type="hidden" th:value="${productInfo.getProId()}">
-                                    <img style="width: 100%; height: 100%; display: block;" th:src="@{'/images/'+${productInfo.getProImage()}}" alt="image">
-                                    <div class="mask">
-                                        <p th:text="${productInfo.getProDescription()}">getProDescription()</p>
-                                        <div class="tools tools-bottom">
-                                            <a class="btn btn-success btn-xs" href="#">
-                                                <i class="fa fa-user">
-                                                </i>
-                                                <i class="fa fa-comments-o"></i>推送
-                                            </a>
-                                            <a class="btn btn-primary btn-xs" th:href="@{'/jnu/Businessman/productDetail/'+${productInfo.getProId()}}">
-                                                <i class="fa fa-user"> </i> 查看详情
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="caption">
-                                    <p th:text="${productInfo.getProTitle()}">getProTitle()</p>
-                                </div>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            <div class="product-image">
+                                <img th:src="@{'/images/'+${product.getProImage()}}" alt="image">
                             </div>
                         </div>
-                        <!--End 商品项-->
-                    </div></form>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
 
+                        <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
+
+                            <h3 class="prod_title" th:text="${product.getProTitle()}"></h3>
+
+                            <p th:text="${product.getProDescription()}"></p>
+                            <br>
+
+                            <div class="">
+                                <h2>当前库存</h2>
+                                <ul class="list-inline prod_size">
+                                    <li>
+                                        <p th:text="${product.getProStock()}"></p>
+                                        <div class="color bg-green"></div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                            <br>
+
+                            <div class="">
+                                <h2>
+                                    商品型号
+                                </h2>
+                                <ul class="list-inline prod_size">
+                                    <li>
+                                        <p th:text="${product.getProModel()}"></p>
+                                        <div class="color bg-blue-sky"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <br>
+
+                            <div class="">
+                                <div class="product_price">
+                                    <h1 class="price" th:text="${product.getDroPrice()}"></h1>
+                                    <span class="price-tax">美元</span>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <a class="btn btn-default btn-lg">推送到网店</a>
+                                <a class="btn btn-default btn-lg">返回商品浏览页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
         <!-- /page content -->
 
@@ -222,5 +207,6 @@
 
 <!-- Custom Theme Scripts -->
 <script th:src="@{/build/js/custom.min.js}"></script>
+
 </body>
 </html>

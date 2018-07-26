@@ -23,6 +23,10 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
         return productCategoryRepository.findProductCategoriesByFatherCateId(fatherId);
     }
 
+    @Override
+    public ProductCategory getCateInfoById(Integer cateId) {
+        return productCategoryRepository.findById(cateId).get();
+    }
 //    @Override
 //    public List<ProductCategory> getSubProductByFatherCateName(String cateName) {
 //        ProductCategory proCate_temp = productCategoryRepository.findProductCategoryByCateName(cateName);

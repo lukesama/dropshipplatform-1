@@ -1,5 +1,6 @@
 package com.jnu.dropshipplatform.controller;
 
+import com.jnu.dropshipplatform.entity.ProductCategory;
 import com.jnu.dropshipplatform.entity.ProductInfo;
 import com.jnu.dropshipplatform.service.ProductCategoryService;
 import com.jnu.dropshipplatform.service.ProductInfoService;
@@ -7,10 +8,7 @@ import com.jnu.dropshipplatform.service.ProductPushService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,10 +33,12 @@ public class ProductPushController {
         return "ViewProduct";
     }
 
-    @GetMapping("/productDetail")
-    public String proDetailPage(@RequestParam("proId") Integer proId,Model model) {
+    @GetMapping("/productDetail/{id}")
+    public String proDetailPage(@PathVariable("id") Integer proId, Model model) {
         ProductInfo productInfo = productInfoService.findProductInfoByProId(proId);
+        ProductCategory productCategory = productCategoryService.getCateInfoById(productInfo.getProCategoryId());
         model.addAttribute("product",productInfo);
+        model.addAttribute("catePath",productCategory);
         return "ProductDetail";
     }
 

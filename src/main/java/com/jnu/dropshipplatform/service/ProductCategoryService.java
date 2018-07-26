@@ -12,6 +12,9 @@ public interface ProductCategoryService {
     //根据父类别ID查找出属于该类别的所有类别信息
     List<ProductCategory> getCateByFatherId(Integer fatherId);
 
+    //根据类别ID查找对应的类别信息
+    ProductCategory getCateInfoById(Integer cateId);
+
 //    //
 //    List<ProductCategory> getDetailedCate(Integer main);
 
