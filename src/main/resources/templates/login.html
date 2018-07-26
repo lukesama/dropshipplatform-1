@@ -26,7 +26,7 @@
             var pw1 = document.getElementById("pw1").value;
             var pw2 = document.getElementById("pw2").value;
             if(pw1 == pw2) {
-                document.getElementById("tip").innerHTML=" <p>color='green'>两次密码相同</p>";
+                document.getElementById("tip").innerHTML=" <p color='green'>两次密码相同</p>";
                  document.getElementById("create_submit").disabled = false;
             }
             else {
@@ -45,16 +45,38 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <form method="post" th:action="@{/jnu/signin}">
               <h1>Login Form</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="required" />
+                <input type="text" name="loginName" class="form-control" placeholder="Username" required="required" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="password" required="required"/>
+                <input type="password" name="loginPwd" class="form-control" placeholder="password" required="required"/>
               </div>
-              <div>
-                <a class="btn btn-default submit" th:href="@{/jnu/homePage}">Log in</a>
+              <div  class="center-margin fade in ">
+                <strong th:unless="${#strings.isEmpty(loginError)}"
+                        th:text="${loginError}"></strong>
+              </div>
+              <div class="row">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-default">
+                    <input type="radio" name="roles"  value="0">
+                    借卖方
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" name="roles" value="1">
+                    品牌方
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" name="roles" value="2">
+                    管理员
+                  </label>
+                </div>
+              </div>
+              <div >
+                <!--<a class="btn btn-default submit" th:href="@{/jnu/homePage}">Log in</a>-->
+                <br>
+                <input type="submit" class="btn btn-default submit center-margin" value="Log in">
                 <a class="reset_pass" href="#">Lost your password?</a>
               </div>
 
@@ -79,31 +101,42 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form>
+            <form method="post" th:action="@{/jnu/signup}">
               <h1>Create Account</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" name="regUserName" class="form-control" placeholder="Username" required="" />
               </div>
               <div>
-                <input type="text" class="form-control" placeholder="Nickname">
+                <input type="text" name="regRealName" class="form-control" placeholder="Realname">
+              </div>
+
+              <div>
+                <input type="password"  class="form-control" placeholder="Password" required="" name="userPwd" id="pw1"/>
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
+                <input type="password" class="form-control" placeholder="ConfirmPassword"  name="userPwd1" id="pw2" onkeyup="validate()"/>
+                <span id="tip"></span>
               </div>
-              <div>
-                <input type="text" class="form-control" placeholder="Phone"/>
+
+              <div class="row">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-default">
+                    <input type="radio" name="registerRole" value="0" >
+                    借卖方
+                  </label>
+                  <label class="btn btn-default">
+                    <input type="radio" name="registerRole" value="1">
+                    品牌方
+                  </label>
+                </div>
               </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" required="" name="userPwd" id="pw1"/>
-                <input type="password" class="form-control" placeholder="ConfirmPassword"  name="userPwd" id="pw2" onkeyup="validate()"/><span id="tip"></span>
+              <div  class="center-margin fade in ">
+                <strong th:unless="${#strings.isEmpty(registerError)}"
+                        th:text="${registerError}"></strong>
               </div>
-              <div>
-                <input type="radio" class="iradio_flat-grey" name="userRole" value="借卖方" th:text="借卖方">
-                <input type="radio" class="iradio_flat-grey" name="userRole" value="品牌商" th:text="品牌商">
-              </div>
-              <div class="col-lg-offset-3 col-lg-1 " >
-                <!--<a id="create_submit" class="btn btn-default submit" th:href="@{/jnu/homePage}">Submit</a>-->
-                <input type="submit" id="create_submit" class="btn btn-default submit" value="注册"/>
+              <div class="row" >
+                <br/>
+                <input type="submit" id="create_submit" class="btn btn-default submit center-margin" value="注册"/>
               </div>
 
 
@@ -127,5 +160,17 @@
         </div>
       </div>
     </div>
+
+    <!-- jQuery -->
+    <script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script th:src="@{/build/js/custom.min.js}"></script>
+
+
   </body>
 </html>

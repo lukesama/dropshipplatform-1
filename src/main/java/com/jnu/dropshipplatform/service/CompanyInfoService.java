@@ -4,9 +4,12 @@ import com.jnu.dropshipplatform.entity.CompanyInfo;
 
 import com.jnu.dropshipplatform.entity.CompanyInfo;
 
+import com.jnu.dropshipplatform.entity.CompanyInfo;
+
 import java.util.List;
 
 public interface CompanyInfoService {
+    CompanyInfo findCompanyInfoByUserComId(Integer id);
 
     CompanyInfo getCompanyInfoById(Integer comId);
 
@@ -25,6 +28,9 @@ public interface CompanyInfoService {
     //修改品牌商信息
     CompanyInfo updateCompanyInfo(CompanyInfo companyInfo);
 
-//    //根据账号名和密码返回品牌商信息
-//    CompanyInfo providerLogin(String username,String password);
+    //根据账号名和密码返回品牌商信息
+    CompanyInfo providerLogin(String username,String password);
+
+    //判断用户名是否已存在
+    Boolean existUserName(String userName);
 }

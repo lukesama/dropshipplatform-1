@@ -14,6 +14,10 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     private CompanyInfoRepository companyInfoRepository;
 
     @Override
+    public CompanyInfo findCompanyInfoByUserComId(Integer id) {
+        return companyInfoRepository.findCompanyInfoByUserComId(id);
+    }
+    @Override
     public CompanyInfo getCompanyInfoById(Integer comId) {
         return companyInfoRepository.findById(comId).get();
     }
@@ -42,8 +46,13 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
         return companyInfoRepository.save(companyInfo);
     }
 
-//    @Override
-//    public CompanyInfo providerLogin(String username, String password) {
-//        return companyInfoRepository.findCompanyInfoByUserNameAndAndUserPwd(username,password);
-//    }
+    @Override
+    public CompanyInfo providerLogin(String username, String password) {
+        return companyInfoRepository.findCompanyInfoByUserNameAndAndUserPwd(username,password);
+    }
+
+    @Override
+    public Boolean existUserName(String userName) {
+        return companyInfoRepository.existsCompanyInfoByUserName(userName);
+    }
 }

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>品牌方 商品管理 </title>
 
     <!-- Bootstrap -->
     <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -58,6 +58,8 @@
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
                         <ul class="nav side-menu">
+                            <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 品牌商-我的信息 </span></a>
+                            </li>
                             <li><a><i class="fa fa-shopping-bag" aria-hidden="true"></i> 品牌商-商品管理 </a>
                             </li>
                             <li><a><i class="fa fa-wpforms"></i> 品牌商-订单管理 </a>
@@ -74,6 +76,8 @@
                                   <li><a href="inbox.html">Inbox</a></li>
                                   <li><a href="calendar.html">Calendar</a></li>
                                 </ul> -->
+                            </li>
+                            <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 借卖方-我的信息 </span></a>
                             </li>
                             <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 借卖方-商品浏览 </span></a>
                             </li>
@@ -105,40 +109,71 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <div class="page-header position-relative">
-                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>公司信息</small></h1>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-offset-2 col-lg-6">
-                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/company}" method="post">
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">公司名称<span class="required">*</span>
-                                </label>
-                                <div class="col-sm-10">
-                                    <input name="comName" type="text" th:value="${company.getComName()}" class="form-control" id="inputName" placeholder="Company Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputDescription" class="col-sm-2 control-label">公司简介</label>
-                                <div class="col-sm-10">
-                                    <textarea name="comDescription" rows="10" th:text="${company.getComDescription()}" class="form-control" id="inputDescription" placeholder="Company Description"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputLogo" class="col-sm-2 control-label">公司图标</label>
-                                <div class="col-sm-10">
-                                    <input name="comLogo" type="file" th:value="${company.getComLogo()}" class="form-control" id="inputLogo" placeholder="Company Logo">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-success">确定</button>
-                                </div>
-                            </div>
-                        </form>
+
+            <h3>品牌商 添加商品</h3>
+
+            <div class="panel panel-body">
+                <form class="form-horizontal" th:action="@{/jnu/company/update}" th:method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">产品ID</label>
+                        <div class="col-sm-10">
+                    <input type="text" class="form-group" name="proId" id="inputId" th:value="${product.getProId()}" readonly>
                     </div>
-                </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">产品名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="proName" id="inputName" placeholder="产品名称" th:value="${product.getProName()}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">产品标题</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="proTitle" id="inputTitle" placeholder="产品标题" th:value="${product.getProTitle()}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">产品种类</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="proCategoryId" id="inputCategory" placeholder="产品种类" th:value="${product.getProCategoryId()}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">产品批发价格</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="droPrice" id="inputPrice" placeholder="产品批发价格" th:value="${product.getDroPrice()}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">产品库存量</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="proStock" id="inputStock" placeholder="产品库存量" th:value="${product.getProStock()}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">产品型号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="proModel" id="inputModel" placeholder="产品型号" th:value="${product.getProModel()}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">产品描述</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" name="proDescription" placeholder="产品描述" th:value="${product.getProDescription()}"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">产品图片</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="proImage" id="inputImage" placeholder="产品图片" th:value="${product.getProImage()}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success">修改商品</button>
+                        </div>
+                    </div>
+                    </form>
             </div>
         </div>
         <!-- /page content -->

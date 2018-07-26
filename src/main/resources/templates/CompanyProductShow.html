@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>品牌方商品管理 </title>
 
     <!-- Bootstrap -->
     <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -58,6 +58,8 @@
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
                         <ul class="nav side-menu">
+                            <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 品牌商-我的信息 </span></a>
+                            </li>
                             <li><a><i class="fa fa-shopping-bag" aria-hidden="true"></i> 品牌商-商品管理 </a>
                             </li>
                             <li><a><i class="fa fa-wpforms"></i> 品牌商-订单管理 </a>
@@ -74,6 +76,8 @@
                                   <li><a href="inbox.html">Inbox</a></li>
                                   <li><a href="calendar.html">Calendar</a></li>
                                 </ul> -->
+                            </li>
+                            <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 借卖方-我的信息 </span></a>
                             </li>
                             <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 借卖方-商品浏览 </span></a>
                             </li>
@@ -105,41 +109,79 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <div class="page-header position-relative">
-                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>公司信息</small></h1>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-offset-2 col-lg-6">
-                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/company}" method="post">
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">公司名称<span class="required">*</span>
-                                </label>
-                                <div class="col-sm-10">
-                                    <input name="comName" type="text" th:value="${company.getComName()}" class="form-control" id="inputName" placeholder="Company Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputDescription" class="col-sm-2 control-label">公司简介</label>
-                                <div class="col-sm-10">
-                                    <textarea name="comDescription" rows="10" th:text="${company.getComDescription()}" class="form-control" id="inputDescription" placeholder="Company Description"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputLogo" class="col-sm-2 control-label">公司图标</label>
-                                <div class="col-sm-10">
-                                    <input name="comLogo" type="file" th:value="${company.getComLogo()}" class="form-control" id="inputLogo" placeholder="Company Logo">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-success">确定</button>
-                                </div>
-                            </div>
-                        </form>
+
+            <h3>品牌商 商品管理</h3>
+
+            <form name="search" th:action="@{/select}" method="get">
+                <div class="col-lg-offset-10 form-group">
+                    <input type="text" name="proName" placeholder="搜索商品标题" >
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </div>
+                <div class="form-group">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>商品标题</th>
+                            <th>商品类别</th>
+                            <th>商品主图</th>
+                            <th>商品批发价格</th>
+                            <th>商品库存</th>
+                            <th>商品型号</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="product:${product}">
+                                <td th:text="${product.proTitle}"></td>
+                                <td th:text="${product.cateName}"></td><!--proCategory怎么变成中文-->
+                                <td><img src="${product.proImage}"> </td>
+                                <td th:text="${product.droPrice}"></td>
+                                <td th:text="${product.proStock}"></td>
+                                <td th:text="${product.proModel}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-default" name="update" >
+                                        <a th:href="@{/jnu/company/update/+${product.proId}}">
+                                        <span class="glyphicon glyphicon-wrench" ></span></a>
+                                    </button>
+                                    <button type="button" class="btn btn-default" name="delete" th:action="@{'/jnu/company/delete/'+${product.getProId()}}">
+                                        <a th:href="@{/jnu/company/delete/+${product.proId}}">
+                                        <span class="glyphicon glyphicon-trash"></span></a>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-lg-offset-10">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                     </div>
                 </div>
+            </form>
+            <form th:method="get" th:action="@{/insert}">
+            <div class="col-lg-offset-1">
+                <button type="button" >
+                    <a th:href="@{/jnu/company/insert}">
+                        新增商品
+                    </a></button>
             </div>
+            </form>
         </div>
         <!-- /page content -->
 

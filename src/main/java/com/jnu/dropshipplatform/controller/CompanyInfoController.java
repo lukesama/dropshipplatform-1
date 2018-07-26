@@ -4,6 +4,8 @@ import com.jnu.dropshipplatform.entity.BrandInfo;
 import com.jnu.dropshipplatform.entity.CompanyInfo;
 import com.jnu.dropshipplatform.service.BrandInfoService;
 import com.jnu.dropshipplatform.service.CompanyInfoService;
+import com.jnu.dropshipplatform.entity.*;
+import com.jnu.dropshipplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,11 +59,13 @@ public class CompanyInfoController {
 
     @PostMapping("/company")
     public String updateCompany(CompanyInfo companyInfo,HttpSession session) {
-        String str = ""+session.getAttribute("comId");
-        Integer comId = Integer.parseInt(str);
-        companyInfo.setUserComId(comId);
-        companyInfo.setComBalance(0.0);
-        companyInfoService.updateCompanyInfo(companyInfo);
+        CompanyInfo com = (CompanyInfo) session.getAttribute("companyLoginInfo");
+        CompanyInfo comGetPwd = companyInfoService.getCompanyById(com.getUserComId());
+        com.setUserPwd(comGetPwd.getUserPwd());
+        com.setComName(companyInfo.getComName());
+        com.setComDescription(companyInfo.getComDescription());
+        com.setComLogo(companyInfo.getComLogo());
+        companyInfoService.updateCompanyInfo(com);
         return "redirect:/jnu/providerInfo";
     }
 
