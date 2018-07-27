@@ -15,6 +15,11 @@ import java.util.List;
 @RequestMapping("jnu")
 public class TestController {
 
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
+
 //    @GetMapping
 //    public String test(){
 //        return "login";

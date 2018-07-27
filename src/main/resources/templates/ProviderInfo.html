@@ -110,9 +110,9 @@
 
                                 <tbody>
                                 <tr class="even pointer">
-                                    <td class=" " th:text="${company.getComName()}"></td>
-                                    <td class=" " th:text="${company.getComDescription()}"></td>
-                                    <td class=" " th:text="${company.getComLogo()}"></td>
+                                    <td th:text="${company.getComName()}"></td>
+                                    <td th:text="${company.getComDescription()}"></td>
+                                    <td><img style="width: 80px" th:src="@{'/images/upload/'+${company.getComLogo()}}"></td>
                                     <td class=" last"><a th:href="@{/jnu/company}">更改</a>
                                     </td>
                                 </tr>
@@ -142,16 +142,18 @@
                             <table class="table table-striped jambo_table bulk_action">
                                 <thead>
                                 <tr class="headings">
-                                    <th class="column-title">品牌商名称</th>
-                                    <th class="column-title">品牌商图片</th>
+                                    <th class="column-title">序号</th>
+                                    <th class="column-title">品牌名称</th>
+                                    <th class="column-title">品牌图片</th>
                                     <th class="column-title no-link last"><span class="nobr">操作</span></th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                <tr th:each="brand:${allBrand}" class="odd pointer">
+                                <tr th:each="brand,iterStat:${allBrand}" class="odd pointer">
+                                    <th scope="row" th:text="${iterStat.count}"></th>
                                     <td th:text="${brand.getBrandName()}" class=" ">Paid</td>
-                                    <td th:text="${brand.getBrandImage()}" class="a-right a-right ">$7.45</td>
+                                    <td class="a-right a-right "><img style="width: 80px" th:src="@{'/images/upload/'+${brand.getBrandImage()}}"></td>
                                     <td class=" last"><a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/update'}">修改</a>&nbsp;&nbsp;<a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/delete'}">删除</a>
                                     </td>
                                 </tr>
