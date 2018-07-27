@@ -101,7 +101,7 @@
                         </div>
                         <div class="form-group">
                             <label for="supplierUrl">电商网址</label>
-                            <input type="text" name="supplierUrl" th:value="${session.businessmanLoginInfo}" class="form-control" id="supplierUrl" placeholder="电商网址">
+                            <input type="text" name="supplierUrl" th:value="${session.businessmanLoginInfo.getSupplierUrl()}" class="form-control" id="supplierUrl" placeholder="电商网址">
                         </div>
                         <button type="submit" class="btn btn btn-success">保存</button>
                     </form>

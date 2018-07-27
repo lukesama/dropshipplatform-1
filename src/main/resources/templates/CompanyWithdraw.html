@@ -87,31 +87,24 @@
 
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>借卖方<small>账户余额</small></h1></div>
-                <p>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                            <th>账户名称</th>
-                            <th>余额</th>
-                            <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td th:text="${businessman.getRealName()}"></td>
-                        <td th:text="${businessman.getBusiBalance()}"></td>
-                        <td>
-                            <a class="btn btn-success" th:href="@{/jnu/Wallet/Recharge}">充值</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </p>
-                <p>
-                    <a type="button" class="btn btn-success" th:href="@{/jnu/Wallet/daybook}">充值记录</a>
-                </p>
+                <div class="panel-heading"><h1>品牌商<small>钱包提现</small></h1></div>
+                <form class="form-group" method="post" th:action="@{/jnu/company/Wallet/Recharge}">
+                <div class="form-group">
+                    <label>提现金额</label>
+                    <input type="number" class="form-group" name="money">
+
+                </div>
+               <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" class="form-group" name="pwd">
+               </div>
+               <div class="form-group">
+                    <button type="submit" class="btn btn-success" >确认</button>
+               </div>
+
+                </form>
             </div>
+        <
             <!-- /page content -->
 
             <!-- footer content -->

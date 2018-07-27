@@ -1,7 +1,11 @@
 package com.jnu.dropshipplatform.controller;
 
+import com.jnu.dropshipplatform.entity.BusinessmanInfo;
 import com.jnu.dropshipplatform.entity.ProductCategory;
 import com.jnu.dropshipplatform.entity.ProductInfo;
+import com.jnu.dropshipplatform.entity.ProductPush;
+import com.jnu.dropshipplatform.repository.BusinessmanInfoRepository;
+import com.jnu.dropshipplatform.service.BusinessmanInfoService;
 import com.jnu.dropshipplatform.service.ProductCategoryService;
 import com.jnu.dropshipplatform.service.ProductInfoService;
 import com.jnu.dropshipplatform.service.ProductPushService;
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -25,11 +30,17 @@ public class ProductPushController {
     @Autowired
     private ProductPushService productPushService;
 
+    @Autowired
+    private BusinessmanInfoService businessmanInfoService;
+
     @GetMapping("/viewProduct")
     public String getViewProduct(Model model) {
         //直接获得所有商品
         List<ProductInfo> lists = productInfoService.getAllProduct();
         model.addAttribute("allProduct",lists);
+        //For Classify
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(0);
+        model.addAttribute("allCate",cateList);
         return "ViewProduct";
     }
 
@@ -42,11 +53,45 @@ public class ProductPushController {
         return "ProductDetail";
     }
 
-//    @PostMapping("/viewProduct")
-//    public String getProductByCate(@RequestParam) {
-//
-//    }
+    @GetMapping("/viewProduct/{id}")
+    public String getProductByCate(@PathVariable("id") Integer fatherId, Model model) {
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(fatherId);
+        model.addAttribute("allCate",cateList);
+        List<ProductInfo> lists = productInfoService.getProductByMidCate(fatherId);
+        model.addAttribute("allProduct",lists);
+        ProductCategory productCategory = productCategoryService.getCateInfoById(fatherId);
+        model.addAttribute("catePath",productCategory.getCatePath());
+        return "ViewProduct";
+    }
 
+    @PostMapping("/pushProduct/{id}")
+    public String pushProduct(@PathVariable("id") Integer proId, HttpSession session,@RequestParam("price") Double price){
+        BusinessmanInfo businessmanInfo = (BusinessmanInfo) session.getAttribute("businessmanLoginInfo");
+        BusinessmanInfo busi = businessmanInfoService.getBusiInfoByID(businessmanInfo.getUserBusiId());
+        ProductInfo productInfo = productInfoService.findProductInfoByProId(proId);
+        ProductPush push = new ProductPush();
+        if (productPushService.existProductPush(busi,productInfo)){
+            push = productPushService.getProductPushByBusAndPro(busi,productInfo);
+        }
+        push.setBusiId(busi);
+        push.setProId(productInfo);
+        push.setSellPrice(price);
+        productPushService.insertProductPush(push);
+        return "redirect:/jnu/Businessman/productDetail/"+proId;
+    }
 
+    @GetMapping("/viewPushProduct")
+    public String viewProduct(HttpSession session, Model model){
+        BusinessmanInfo businessmanInfo = (BusinessmanInfo)session.getAttribute("businessmanLoginInfo");
+        List<ProductPush> pushList = productPushService.getAllPushProduct(businessmanInfo);
+        model.addAttribute("allProduct",pushList);
+        return "showPush";
+    }
+
+    @GetMapping("/viewPushProduct/{id}/delete")
+    public String cancelPush(@PathVariable("id")Integer pushId){
+        productPushService.cancelProduct(pushId);
+        return "redirect:/jnu/Businessman/viewPushProduct";
+    }
 
 }

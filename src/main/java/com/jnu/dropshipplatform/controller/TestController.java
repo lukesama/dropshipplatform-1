@@ -2,9 +2,7 @@ package com.jnu.dropshipplatform.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
@@ -14,22 +12,14 @@ import java.util.List;
 @RequestMapping("jnu")
 public class TestController {
 
-//    @GetMapping
-//    public String test(){
-//        return "login";
-//    }
-//
-    @GetMapping("homePage1")
-    public String toHome(HttpSession session){
-//        session.setAttribute("roleSort","1");
-        return "adminManagebusi";
+    @GetMapping("/t")
+    public String forTest(){
+        return "0ForTest";
     }
 
-//    @GetMapping("t")
-//    public String tester(Model model){
-//        String s ="abcd";
-//        model.addAttribute("test",s);
-//        return "ProductDetail";
-//    }
+    @PostMapping("/tr")
+    public String forTestReturn(@RequestParam("price") Double pr){
+        return "0ForTest";
+    }
 
 }

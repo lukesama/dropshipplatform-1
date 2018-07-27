@@ -5,14 +5,18 @@ import com.jnu.dropshipplatform.service.BrandInfoService;
 import com.jnu.dropshipplatform.service.BrandProductService;
 import com.jnu.dropshipplatform.service.CompanyInfoService;
 import com.jnu.dropshipplatform.service.ProductInfoService;
+import com.jnu.dropshipplatform.utils.FileUtil;
+import com.jnu.dropshipplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -27,7 +31,8 @@ public class ProductInfoController {
     private CompanyInfoService companyInfoService;
     @Autowired
     private BrandProductService brandProductService;
-
+    @Autowired
+    private ProductCategoryService productCategoryService;
     @GetMapping("/ProductShow")
     public String getProduct(HttpSession session,/*@PathVariable("id") Integer id,*/ Model model){
         CompanyInfo companyInfo=(CompanyInfo)session.getAttribute("companyLoginInfo");
@@ -48,11 +53,24 @@ public class ProductInfoController {
     @GetMapping("insert")
     public String jumpToInsert(HttpSession session,Model model){
         List<BrandInfo> brandInfo=brandInfoService.findBrandInfoByBrandOwner((CompanyInfo)session.getAttribute("companyLoginInfo"));
+        List<ProductCategory> firstProductCategories= productCategoryService.getCateByFatherId(0);
         model.addAttribute("brand",brandInfo);
         return "CompanyProductInsert";
     }
     @PostMapping("insert")
-    public  String insert(@RequestParam("brandNum") Integer brand, ProductInfo productInfo){
+    public  String insert(@RequestParam("brandNum") Integer brand,
+                          @RequestParam("file") MultipartFile file,
+                          ProductInfo productInfo){
+        String contentType = file.getContentType();                 //图片文件类型
+        String fileName = file.getOriginalFilename();               //图片名字
+        String filePath = FileUtil.getUpLoadFilePath();
+        fileName = System.currentTimeMillis()+fileName;
+        try{
+            FileUtil.uploadFile(file.getBytes(),filePath,fileName);
+        }catch (Exception e){
+            // TODO:handle exception
+        }
+        productInfo.setProImage(fileName);
         productInfo.setProStatus(0);
         productInfoService.save(productInfo);
         BrandProduct brandProduct=new BrandProduct();

@@ -87,31 +87,27 @@
 
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>借卖方<small>账户余额</small></h1></div>
-                <p>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                            <th>账户名称</th>
-                            <th>余额</th>
-                            <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td th:text="${businessman.getRealName()}"></td>
-                        <td th:text="${businessman.getBusiBalance()}"></td>
-                        <td>
-                            <a class="btn btn-success" th:href="@{/jnu/Wallet/Recharge}">充值</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </p>
-                <p>
-                    <a type="button" class="btn btn-success" th:href="@{/jnu/Wallet/daybook}">充值记录</a>
-                </p>
+                <div class="panel-heading"><h1>管理员<small>参数修改</small></h1></div>
+                <form class="form-group" method="post" th:action="@{/jnu/parameter/update}">
+                    <div class="form-group">
+                        <input name="paraId" th:value="${para.getParaId()}" hidden="true">
+                    </div>
+                <div class="form-group">
+                    <label>参数名称</label>
+                    <input type="text" class="form-group" name="paraName" th:value="${para.getParaName()}">
+
+                </div>
+               <div class="form-group">
+                    <label>参数数值</label>
+                    <input type="number" class="form-group" name="paraValue" th:value="${para.getParaValue()}">
+               </div>
+               <div class="form-group">
+                    <button type="submit" class="btn btn-success" >确认</button>
+               </div>
+
+                </form>
             </div>
+        <
             <!-- /page content -->
 
             <!-- footer content -->
