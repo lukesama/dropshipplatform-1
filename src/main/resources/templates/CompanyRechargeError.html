@@ -87,30 +87,10 @@
 
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>借卖方<small>账户余额</small></h1></div>
-                <p>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                            <th>账户名称</th>
-                            <th>余额</th>
-                            <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td th:text="${businessman.getRealName()}"></td>
-                        <td th:text="${businessman.getBusiBalance()}"></td>
-                        <td>
-                            <a class="btn btn-success" th:href="@{/jnu/Wallet/Recharge}">充值</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </p>
-                <p>
-                    <a type="button" class="btn btn-success" th:href="@{/jnu/Wallet/daybook}">充值记录</a>
-                </p>
+                <div class="panel-heading"><h1>品牌商<small>提现</small></h1></div>
+                <h1>提现失败！</h1>
+
+                <a class="btn btn-success" th:href="@{/jnu/company/Wallet}">返回</a>
             </div>
             <!-- /page content -->
 

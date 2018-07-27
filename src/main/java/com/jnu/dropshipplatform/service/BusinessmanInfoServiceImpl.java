@@ -10,12 +10,13 @@ import java.util.List;
 @Service
 public class BusinessmanInfoServiceImpl implements BusinessmanInfoService {
 
+
     @Autowired
     private BusinessmanInfoRepository businessmanInfoRepository;
 
     @Override
     public BusinessmanInfo getBusiInfoByID(Integer userBusiId){
-        return businessmanInfoRepository.getOne(userBusiId);
+        return businessmanInfoRepository.findById(userBusiId).get();
     }
     @Override
     public BusinessmanInfo updateBusiInfo(BusinessmanInfo businessmanInfo) {
@@ -40,5 +41,10 @@ public class BusinessmanInfoServiceImpl implements BusinessmanInfoService {
     @Override
     public List<BusinessmanInfo> getAllBusinessmanInfo() {
         return businessmanInfoRepository.findAll();
+    }
+
+    @Override
+    public void deleteByUserId(Integer userId) {
+        businessmanInfoRepository.deleteById(userId);
     }
 }

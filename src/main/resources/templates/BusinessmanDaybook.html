@@ -87,29 +87,42 @@
 
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>借卖方<small>账户余额</small></h1></div>
+                <div class="panel-heading"><h1>借卖方<small>流水</small></h1></div>
                 <p>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                            <th>账户名称</th>
-                            <th>余额</th>
-                            <th>操作</th>
+                            <th>交易编号</th>
+                            <th>交易金额</th>
+                            <th>交易时间</th>
+                            <th>操作类型</th>
+                            <th>操作状态</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td th:text="${businessman.getRealName()}"></td>
-                        <td th:text="${businessman.getBusiBalance()}"></td>
-                        <td>
-                            <a class="btn btn-success" th:href="@{/jnu/Wallet/Recharge}">充值</a>
-                        </td>
+                    <tr th:each="daybook:${daybook}">
+                        <td th:text="${daybook.dayBookId}"></td>
+                        <td th:text="${daybook.tradeAmounts}"></td>
+                        <td th:text="${daybook.tradeTime}"></td>
+                        <td th:text="${daybook.operationType}"></td>
+                        <div th:switch="${daybook.checkStatus}">
+                            <div th:case="0">
+                                <td th:text="审核中"></td>
+                            </div>
+                            <div th:case="1">
+                                <td th:text="成功"></td>
+                            </div>
+                            <div th:case="-1">
+                                <td th:text="失败"></td>
+                            </div>
+
+                        </div>
                     </tr>
                     </tbody>
                 </table>
                 </p>
                 <p>
-                    <a type="button" class="btn btn-success" th:href="@{/jnu/Wallet/daybook}">充值记录</a>
+                    <a class="btn btn-success" th:href="@{/jnu/Wallet}">返回</a>
                 </p>
             </div>
             <!-- /page content -->

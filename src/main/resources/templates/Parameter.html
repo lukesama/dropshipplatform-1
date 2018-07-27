@@ -87,29 +87,31 @@
 
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>借卖方<small>账户余额</small></h1></div>
+                <div class="panel-heading"><h1>管理员<small>参数管理</small></h1></div>
                 <p>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                            <th>账户名称</th>
-                            <th>余额</th>
+                            <th>参数名称</th>
+                            <th>参数数值</th>
                             <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td th:text="${businessman.getRealName()}"></td>
-                        <td th:text="${businessman.getBusiBalance()}"></td>
+                    <tr th:each="para:${parameter}">
+                        <td th:text="${para.getParaName()}"></td>
+                        <td th:text="${para.getParaValue()}"></td>
                         <td>
-                            <a class="btn btn-success" th:href="@{/jnu/Wallet/Recharge}">充值</a>
+                            <a class="btn btn-success" th:href="@{'/jnu/parameter/update/'+${para.getParaId()}}"><span class="glyphicon glyphicon-wrench"></span></a>
+                            <a class="btn btn-success" th:href="@{'/jnu/parameter/delete/'+${para.getParaId()}}"><span class="glyphicon glyphicon-trash"></span></a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 </p>
                 <p>
-                    <a type="button" class="btn btn-success" th:href="@{/jnu/Wallet/daybook}">充值记录</a>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addNew">新建</button>
+
                 </p>
             </div>
             <!-- /page content -->
@@ -125,6 +127,50 @@
         </div>
     </div>
 
+    <form method="post" th:action="@{/jnu/parameter/add}" class="form-horizontal" role="form" id="myForm" onsubmit="return ">
+        <div class="modal fade" id="addNew"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <!--  定义模态框，过渡效果为淡入，id为myModal,tabindex=-1可以禁用使用tab切换，aria-labelledby用于引用模态框的标题，aria-hidden=true保持模态框在触发前窗口不可见  -->
+            <div class="modal-dialog">
+                <!--  显示模态框对话框模型（若不写下一个div则没有颜色）  -->
+                <div class="modal-content">
+                    <!--  显示模态框白色背景，所有内容都写在这个div里面  -->
+
+                    <div class="btn-info modal-header">
+                        <!--  模态框标题  -->
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <!--  关闭按钮  -->
+                        <h4>新建</h4>
+                        <!--  标题内容  -->
+                    </div>
+
+                    <div class="modal-body">
+                        <!--  模态框内容，我在此处添加一个表单 -->
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="paraName" class="col-sm-2 control-label">参数名称</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="paraName" name="paraName" class="form-control well" placeholder="参数名称"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="upwd" class="col-sm-2 control-label">参数值</label>
+                                <div class="col-sm-9">
+                                    <input type="number" id="upwd" name="paraValue" class="form-control well" placeholder="参数值"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <!--  模态框底部样式，一般是提交或者确定按钮 -->
+                        <button type="submit" class="btn btn-info">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div>
+        </div> <!-- /.modal -->
+    </form>
     <!-- jQuery -->
     <script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap -->

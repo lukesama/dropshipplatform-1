@@ -36,11 +36,10 @@
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
                     <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i>
-
                         <span th:switch="${session.roleSort}">
-                  <span th:case="${0}">借卖方</span>
-                  <span th:case="${1}">品牌商</span>
-                </span>
+                        <span th:case="${0}">借卖方</span>
+                         <span th:case="${1}">品牌商</span>
+                         </span>
                     </a>
                 </div>
 
@@ -84,33 +83,32 @@
         <!-- page content -->
         <div class="panel panel-default">
             <!-- Default panel contents -->
-
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>借卖方<small>账户余额</small></h1></div>
-                <p>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                            <th>账户名称</th>
-                            <th>余额</th>
-                            <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td th:text="${businessman.getRealName()}"></td>
-                        <td th:text="${businessman.getBusiBalance()}"></td>
-                        <td>
-                            <a class="btn btn-success" th:href="@{/jnu/Wallet/Recharge}">充值</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </p>
-                <p>
-                    <a type="button" class="btn btn-success" th:href="@{/jnu/Wallet/daybook}">充值记录</a>
-                </p>
+                <div class="page-header position-relative">
+                    <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">管理员<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>数据字典</small></h1>
+                </div>
+
+                <form class="form-horizontal" role="form" th:action="@{/jnu/addDataDic}" method="post">
+                <div class="form-group">
+                    <label for="inputName3" class="col-sm-2 control-label">编码值</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="dataValue" class="form-control" id="inputName3" placeholder="编码值">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputColor3" class="col-sm-2 control-label">用途描述</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="dataMeaning" class="form-control" id="inputColor3" placeholder="用途描述">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success">添加</button>
+                    </div>
+                </div>
+                </form>
+
             </div>
             <!-- /page content -->
 
