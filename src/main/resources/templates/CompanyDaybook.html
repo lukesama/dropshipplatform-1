@@ -36,10 +36,11 @@
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
                     <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i>
+
                         <span th:switch="${session.roleSort}">
-                        <span th:case="${0}">借卖方</span>
-                         <span th:case="${1}">品牌商</span>
-                         </span>
+                  <span th:case="${0}">借卖方</span>
+                  <span th:case="${1}">品牌商</span>
+                </span>
                     </a>
                 </div>
 
@@ -83,30 +84,46 @@
         <!-- page content -->
         <div class="panel panel-default">
             <!-- Default panel contents -->
+
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="page-header position-relative">
-                    <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">借卖方<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>我的信息</small></h1>
-                </div>
+                <div class="panel-heading"><h1>品牌商<small>流水</small></h1></div>
                 <p>
-                    <form class="form-horizontal" role="form" th:action="@{/jnu/addInfo}" method="post">
-                        <input type="hidden" name="userBusiId" th:value="${bus.userBusiId}">
-                            <div class="form-group">
-                                <label for="Name">姓名</label>
-                                <input type="text" name="busiName" th:value="${bus.busiName}" class="form-control" id="Name" placeholder="姓名">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                            <th>交易编号</th>
+                            <th>交易金额</th>
+                            <th>交易时间</th>
+                            <th>操作类型</th>
+                            <th>操作状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="daybook:${daybook}">
+                        <td th:text="${daybook.dayBookId}"></td>
+                        <td th:text="${daybook.tradeAmounts}"></td>
+                        <td th:text="${daybook.tradeTime}"></td>
+                        <td th:text="${daybook.operationType}"></td>
+                        <div th:switch="${daybook.checkStatus}">
+                            <div th:case="0">
+                                <td th:text="审核中"></td>
                             </div>
-                        <div class="form-group">
-                            <label for="supplierName">电商名称</label>
-                            <input type="text" name="supplierName" th:value="${bus.supplierName}" class="form-control" id="supplierName" placeholder="电商名称">
-                        </div>
-                        <div class="form-group">
-                            <label for="supplierUrl">电商网址</label>
-                            <input type="text" name="supplierUrl" th:value="${bus.supplierUrl}" class="form-control" id="supplierUrl" placeholder="电商网址">
-                        </div>
-                        <button type="submit" class="btn btn btn-success">保存</button>
-                    </form>
-                </p>
+                            <div th:case="1">
+                                <td th:text="成功"></td>
+                            </div>
+                            <div th:case="-1">
+                                <td th:text="失败"></td>
+                            </div>
 
+                        </div>
+                    </tr>
+                    </tbody>
+                </table>
+                </p>
+                <p>
+                    <button type="button" class="btn btn-success" th:href="@{/jnu/wallet}">返回</button>
+                </p>
             </div>
             <!-- /page content -->
 

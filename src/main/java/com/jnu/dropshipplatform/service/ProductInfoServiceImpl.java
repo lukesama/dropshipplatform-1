@@ -30,6 +30,16 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
+    public List<ProductInfo> getProductByCateId(Integer cateId) {
+        return productInfoRepository.findProductInfosByProCategoryId(cateId);
+    }
+
+    @Override
+    public List<ProductInfo> getAllProduct() {
+        return productInfoRepository.findAll();
+    }
+
+    @Override
     public void delete(Integer proId) {
         productInfoRepository.deleteById(proId);
     }

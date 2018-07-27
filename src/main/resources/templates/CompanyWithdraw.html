@@ -36,10 +36,11 @@
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
                     <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i>
+
                         <span th:switch="${session.roleSort}">
-                        <span th:case="${0}">借卖方</span>
-                         <span th:case="${1}">品牌商</span>
-                         </span>
+                  <span th:case="${0}">借卖方</span>
+                  <span th:case="${1}">品牌商</span>
+                </span>
                     </a>
                 </div>
 
@@ -83,31 +84,27 @@
         <!-- page content -->
         <div class="panel panel-default">
             <!-- Default panel contents -->
+
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="page-header position-relative">
-                    <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">借卖方<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>我的信息</small></h1>
-                </div>
-                <p>
-                    <form class="form-horizontal" role="form" th:action="@{/jnu/addInfo}" method="post">
-                        <input type="hidden" name="userBusiId" th:value="${bus.userBusiId}">
-                            <div class="form-group">
-                                <label for="Name">姓名</label>
-                                <input type="text" name="busiName" th:value="${bus.busiName}" class="form-control" id="Name" placeholder="姓名">
-                            </div>
-                        <div class="form-group">
-                            <label for="supplierName">电商名称</label>
-                            <input type="text" name="supplierName" th:value="${bus.supplierName}" class="form-control" id="supplierName" placeholder="电商名称">
-                        </div>
-                        <div class="form-group">
-                            <label for="supplierUrl">电商网址</label>
-                            <input type="text" name="supplierUrl" th:value="${bus.supplierUrl}" class="form-control" id="supplierUrl" placeholder="电商网址">
-                        </div>
-                        <button type="submit" class="btn btn btn-success">保存</button>
-                    </form>
-                </p>
+                <div class="panel-heading"><h1>品牌商<small>钱包提现</small></h1></div>
+                <form class="form-group" method="post" th:action="@{/jnu/company/Wallet/Recharge}">
+                <div class="form-group">
+                    <label>提现金额</label>
+                    <input type="number" class="form-group" name="money">
 
+                </div>
+               <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" class="form-group" name="pwd">
+               </div>
+               <div class="form-group">
+                    <button type="submit" class="btn btn-success" >确认</button>
+               </div>
+
+                </form>
             </div>
+        <
             <!-- /page content -->
 
             <!-- footer content -->

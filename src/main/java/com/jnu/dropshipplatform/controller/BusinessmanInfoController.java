@@ -24,13 +24,23 @@ public class BusinessmanInfoController {
     }
 
     @GetMapping("/addInfo/{id}")      //添加用户信息
-    public String addBusiInfo(@PathVariable("id") Integer userBusiId, Model model){
-        BusinessmanInfo busi=businessmanInfoService.getBusiInfoByID(userBusiId);
-        model.addAttribute("bus",busi);
+    public String addBusiInfo(@PathVariable("id") Integer userBusiId, Model model,HttpSession session){
+        session.setAttribute("userBusiId",userBusiId);
+        BusinessmanInfo bus=businessmanInfoService.getBusiInfoByID(userBusiId);
+        model.addAttribute("bus",bus);
         return "BusinessmanInfo";
     }
+    @GetMapping("/addInfo")
+    public String updatePage(Model model,HttpSession session){
+        String str=""+session.getAttribute("userBusiId");
+        Integer userBusiId=Integer.parseInt(str);
+        BusinessmanInfo bus=businessmanInfoService.getBusiInfoByID(userBusiId);
+        model.addAttribute("bus",bus);
+        return "BusinessmanInfo";
+    }
+
     @PostMapping("/addInfo")         //返回修改后的页面
-    public String addBusiInfo(BusinessmanInfo businessmanInfo, HttpSession session){
+    public String updateBusiInfo(BusinessmanInfo businessmanInfo, HttpSession session){
         BusinessmanInfo business = (BusinessmanInfo)session.getAttribute("businessmanLoginInfo") ;
         BusinessmanInfo businessPwd = businessmanInfoService.getBusiInfoByID(business.getUserBusiId());
         business.setUserPwd(businessPwd.getUserPwd());
@@ -38,6 +48,17 @@ public class BusinessmanInfoController {
         business.setSupplierName(businessmanInfo.getSupplierName());
         business.setSupplierUrl(businessmanInfo.getSupplierUrl());
         businessmanInfoService.updateBusiInfo(business);
-        return "redirect:/jnu/addInfo/"+businessmanInfo.getUserBusiId();
+        return "ShowBusiInfo";
+    }
+    @GetMapping("/ShouBusiInfo")
+    public String showBusiIfo(Model model,HttpSession session){
+        String str=""+session.getAttribute("userbusiId");
+        Integer userbusiId=Integer.parseInt(str);
+        BusinessmanInfo bus=businessmanInfoService.getBusiInfoByID(userbusiId);
+        model.addAttribute("bus",bus);
+        Integer oneId=userbusiId;
+        BusinessmanInfo businessmanInfo=businessmanInfoService.getBusiInfoByID(oneId);
+        session.setAttribute("one",businessmanInfo);
+        return "ShowBusiInfo";
     }
 }

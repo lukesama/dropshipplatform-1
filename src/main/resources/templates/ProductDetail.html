@@ -36,11 +36,13 @@
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
                     <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i>
+
+
                         <span th:switch="${session.roleSort}">
-                            <span th:case="${0}">借卖方</span>
-                            <span th:case="${1}">品牌商</span>
-                        </span>
-                    </a>
+                  <span th:case="${0}">借卖方</span>
+                  <span th:case="${1}">品牌商</span>
+                </span></a>
+
                 </div>
 
                 <div class="clearfix"></div>
@@ -82,45 +84,76 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            <form>
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2 th:text="${catePath.getCatePath()}"></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
 
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>添加品牌信息</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </ul>
-                    <div class="clearfix"></div>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            <div class="product-image">
+                                <img th:src="@{'/images/'+${product.getProImage()}}" alt="image">
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
+
+                            <h3 class="prod_title" th:text="${product.getProTitle()}"></h3>
+
+                            <p th:text="${product.getProDescription()}"></p>
+                            <br>
+
+                            <div class="">
+                                <h2>当前库存</h2>
+                                <ul class="list-inline prod_size">
+                                    <li>
+                                        <p th:text="${product.getProStock()}"></p>
+                                        <div class="color bg-green"></div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                            <br>
+
+                            <div class="">
+                                <h2>
+                                    商品型号
+                                </h2>
+                                <ul class="list-inline prod_size">
+                                    <li>
+                                        <p th:text="${product.getProModel()}"></p>
+                                        <div class="color bg-blue-sky"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <br>
+
+                            <div class="">
+                                <div class="product_price">
+                                    <h1 class="price" th:text="${product.getDroPrice()}"></h1>
+                                    <span class="price-tax">美元</span>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <!--TODO 实现推送到网店，修改Push表-->
+                                <a class="btn btn-success btn-lg fa fa-paper-plane"> 推送到网店</a>
+                                <a th:href="@{/jnu/Businessman/viewProduct}" class="btn btn-primary btn-lg fa fa-mail-reply"> 返回商品浏览页</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="x_content">
-                    <br>
-                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/providerInfo/add}" method="post">
-                        <!--<input type="text" name="userInfoBrandOwnerId" th:text="${session.owner.getUserComId()}">-->
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">品牌名称 <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="brandName" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">品牌图片 <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="file" name="brandImage" id="last-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="ln_solid"></div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <!--<button class="btn btn-primary" type="button">取消添加</button>-->
-                                <button type="submit" class="btn btn-success">确认添加</button>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-
+            </form>
         </div>
         <!-- /page content -->
 
