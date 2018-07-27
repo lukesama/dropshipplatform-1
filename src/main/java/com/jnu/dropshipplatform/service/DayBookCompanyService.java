@@ -8,4 +8,7 @@ import java.util.List;
 public interface DayBookCompanyService {
     List<DayBookCompany> findDayBookCompanyByCompanyInfo(CompanyInfo companyInfo);
     void save(DayBookCompany dayBookCompany);
+
+    List<DayBookCompany> getAllCpyDayBook();
+    DayBookCompany findDayBookCpyByID(Integer ID);
  }

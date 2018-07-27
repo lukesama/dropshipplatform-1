@@ -8,4 +8,8 @@ import java.util.List;
 public interface DayBookBusinessmanService {
     List<DayBookBusinessman> findDaybookByBussinessman(BusinessmanInfo businessmanInfo);
     void save(DayBookBusinessman dayBookBusinessman);
+
+    List<DayBookBusinessman> getAllDayBookBusinessman();
+
+    DayBookBusinessman findDayBookBusinessmanById(Integer ID);
 }

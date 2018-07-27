@@ -23,4 +23,14 @@ public class DayBookCompanyServiceImpl implements DayBookCompanyService {
     public void save(DayBookCompany dayBookCompany) {
         dayBookCompanyRepository.save(dayBookCompany);
     }
+
+    @Override
+    public List<DayBookCompany> getAllCpyDayBook() {
+        return dayBookCompanyRepository.findAll();
+    }
+
+    @Override
+    public DayBookCompany findDayBookCpyByID(Integer ID) {
+        return dayBookCompanyRepository.findById(ID).get();
+    }
 }

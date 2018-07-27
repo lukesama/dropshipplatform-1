@@ -23,4 +23,14 @@ public class DayBookBusinessmanServiceImpl implements DayBookBusinessmanService 
     public void save(DayBookBusinessman dayBookBusinessman) {
         dayBookBusinessmanRepository.save(dayBookBusinessman);
     }
+
+    @Override
+    public List<DayBookBusinessman> getAllDayBookBusinessman() {
+        return dayBookBusinessmanRepository.findAll();
+    }
+
+    @Override
+    public DayBookBusinessman findDayBookBusinessmanById(Integer ID) {
+        return dayBookBusinessmanRepository.findById(ID).get();
+    }
 }
