@@ -30,6 +30,9 @@ public class ProductPushController {
         //直接获得所有商品
         List<ProductInfo> lists = productInfoService.getAllProduct();
         model.addAttribute("allProduct",lists);
+        //For Classify
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(0);
+        model.addAttribute("allCate",cateList);
         return "ViewProduct";
     }
 
@@ -42,10 +45,16 @@ public class ProductPushController {
         return "ProductDetail";
     }
 
-//    @PostMapping("/viewProduct")
-//    public String getProductByCate(@RequestParam) {
-//
-//    }
+    @GetMapping("/viewProduct/{id}")
+    public String getProductByCate(@PathVariable("id") Integer fatherId, Model model) {
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(fatherId);
+        model.addAttribute("allCate",cateList);
+        List<ProductInfo> lists = productInfoService.getProductByMidCate(fatherId);
+        model.addAttribute("allProduct",lists);
+        ProductCategory productCategory = productCategoryService.getCateInfoById(fatherId);
+        model.addAttribute("catePath",productCategory.getCatePath());
+        return "ViewProduct";
+    }
 
 
 
