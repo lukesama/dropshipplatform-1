@@ -87,14 +87,29 @@
 
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>借卖方<small>充值</small></h1></div>
-                <h1>充值失败！</h1>
-                <p>
-                    <a class="btn btn-success" th:href="@{/jnu/Wallet}">返回</a>
-                </p>
+                <div class="panel-heading"><h1>管理员<small>参数修改</small></h1></div>
+                <form class="form-group" method="post" th:action="@{/jnu/parameter/update}">
+                    <div class="form-group">
+                        <input name="paraId" th:value="${para.getParaId()}" hidden="true">
+                    </div>
+                <div class="form-group">
+                    <label>参数名称</label>
+                    <input type="text" class="form-group" name="paraName" th:value="${para.getParaName()}">
+
+                </div>
+               <div class="form-group">
+                    <label>参数数值</label>
+                    <input type="number" class="form-group" name="paraValue" th:value="${para.getParaValue()}">
+               </div>
+               <div class="form-group">
+                    <button type="submit" class="btn btn-success" >确认</button>
+               </div>
+
+                </form>
             </div>
+        <
             <!-- /page content -->
-a
+
             <!-- footer content -->
             <footer>
                 <div class="pull-right">

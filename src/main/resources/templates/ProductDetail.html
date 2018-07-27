@@ -84,7 +84,7 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <form>
+            <!--<form>-->
                 <div class="x_panel">
                     <div class="x_title">
                         <h2 th:text="${catePath.getCatePath()}"></h2>
@@ -101,7 +101,7 @@
 
                         <div class="col-md-7 col-sm-7 col-xs-12">
                             <div class="product-image">
-                                <img th:src="@{'/images/'+${product.getProImage()}}" alt="image">
+                                <img th:src="@{'/images/upload/'+${product.getProImage()}}" alt="image">
                             </div>
                         </div>
 
@@ -146,14 +146,33 @@
                             </div>
 
                             <div class="">
-                                <!--TODO 实现推送到网店，修改Push表-->
-                                <a class="btn btn-success btn-lg fa fa-paper-plane"> 推送到网店</a>
+                                <button class="btn btn-success btn-lg fa fa-paper-plane" data-toggle="modal" data-target="#myModal"> 推送到网店</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <form th:action="@{'/jnu/Businessman/pushProduct/'+${product.getProId()}}" method="post">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">推送该商品</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <i>推送价格：</i> <input name="price" type="text">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                    <button type="submit" class="btn btn-primary">推送</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 <a th:href="@{/jnu/Businessman/viewProduct}" class="btn btn-primary btn-lg fa fa-mail-reply"> 返回商品浏览页</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+            <!--</form>-->
         </div>
         <!-- /page content -->
 

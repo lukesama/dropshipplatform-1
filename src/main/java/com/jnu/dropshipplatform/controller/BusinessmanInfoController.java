@@ -27,8 +27,7 @@ public class BusinessmanInfoController {
         BusinessmanInfo businessmanInfo = (BusinessmanInfo) session.getAttribute("businessmanLoginInfo");
         model.addAttribute("businessman", businessmanInfo);
         return "BusinessmanWallet";
-        }
-
+    }
     /**
      * 借卖方登录后首先跳转到此页面
      * @param session   登录界面提供的session
