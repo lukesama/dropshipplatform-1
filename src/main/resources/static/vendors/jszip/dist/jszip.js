@@ -4081,7 +4081,7 @@ module.exports = {
 
 // Note: we can't get significant speed boost here.
 // So write code to minimize size - no pregenerated tables
-// and array tools dependencies.
+// and array utils dependencies.
 
 
 // Use ordinary array, since untyped makes no boost here
@@ -5370,7 +5370,7 @@ function DeflateState() {
    */
 
   // Used for window memory init. We safely ignore it for JS. That makes
-  // sense only for pointers and memory check tools.
+  // sense only for pointers and memory check utils.
   //this.high_water = 0;
   /* High water mark offset in window for initialized bytes -- bytes above
    * this are set to zero in order to avoid memory check warnings when
@@ -5983,7 +5983,7 @@ module.exports = function inflate_fast(strm, start) {
   var wsize;                  /* window size or zero if not using window */
   var whave;                  /* valid bytes in the window */
   var wnext;                  /* window write index */
-  // Use `s_window` instead `window`, avoid conflict with instrumentation tools
+  // Use `s_window` instead `window`, avoid conflict with instrumentation utils
   var s_window;               /* allocated sliding window, if wsize != 0 */
   var hold;                   /* local strm.hold */
   var bits;                   /* local strm.bits */

@@ -87,48 +87,24 @@
 
             <div class="x_panel">
                 <div class="x_title">
-                    <div class="col-md-5">
+                    <div class="col-md-9">
                         <h3>借卖方
                             <small>>>>商品浏览</small>
+                            <small th:text="${catePath}"></small>
                         </h3>
                     </div>
-                    <!--TODO 实现三级联动下拉菜单以及其筛选功能-->
-                    <div class="col-md-7">
+                    <div class="col-md-offset-1 col-md-2">
                         <form>
-                            <div class="col-md-3 col-sm-3 col-xs-12 form-group">
-                                <select name="Main" class="form-control">
-                                    <option value="0">按主分类筛选</option>
-                                    <!--Para 传入参数List(allMainCate)\Integer(mainCateId)-->
-                                    <!--<option th:each="mainCate:${allMainCate}"-->
-                                    <!--th:value="${mainCate.getCateId()}"-->
-                                    <!--th:text="${mainCate.getCateName()}"-->
-                                    <!--th:selected="${mainCate.getCateId()==mainCateId}">循环添加主分类</option>-->
-                                </select>
-                            </div>
-                            <div class="col-md-offset-1 col-md-3 col-sm-3 col-xs-12 form-group">
-                                <select name="Sub" class="form-control">
-                                    <option value="0">按次分类筛选</option>
-                                    <!--Para 传入参数List(allSubCate)\Integer(subCateId)-->
-                                    <!--<option th:each="subCate:${allSubCate}"-->
-                                    <!--th:value="${subCate.getCateId()}"-->
-                                    <!--th:text="${subCate.getCateName()}"-->
-                                    <!--th:selected="${subCate.getCateId()==subCateId}">循环添加主分类</option>-->
-                                </select>
-                            </div>
-                            <div class="col-md-offset-1 col-md-3 col-sm-3 col-xs-12 form-group">
-                                <select name="Detailed" class="form-control">
-                                    <option value="0">按详细分类筛选</option>
-                                    <!--Para 传入参数List(allDetailedCate)\Integer(detailedCateId)-->
-                                    <!--<option th:each="detailedCate:${allDetailedCate}"-->
-                                    <!--th:value="${detailedCate.getCateId()}"-->
-                                    <!--th:text="${detailedCate.getCateName()}"-->
-                                    <!--th:selected="${detailedCate.getCateId()==detailedCateId}">循环添加主分类</option>-->
-                                </select>
-                            </div>
-                            <div class="col-md-1 col-sm-1 col-xs-12 form-group">
-                                <button type="submit" class="btn btn-round btn-success">
-                                    <i class="fa fa-filter"> </i> 筛选
+                            <div class="btn-group">
+                                <a th:href="@{/jnu/Businessman/viewProduct}" class="btn btn-success"><i class="fa fa-filter"></i> 全部</a>
+                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
                                 </button>
+                                <ul class="dropdown-menu" >
+                                    <li th:each="cate:${allCate}"><a style="font-size: 15px" th:href="@{'/jnu/Businessman/viewProduct/'+${cate.getCateId()}}" th:text="${cate.getCateName()}">Action</a></li >
+                                    <li role="separator" class="divider"></li>
+                                </ul>
                             </div>
                         </form>
                     </div>
@@ -142,7 +118,7 @@
                             <div class="thumbnail">
                                 <div  class="image view view-first">
                                     <input name="proId" type="hidden" th:value="${productInfo.getProId()}">
-                                    <img style="width: 100%; height: 100%; display: block;" th:src="@{'/images/'+${productInfo.getProImage()}}" alt="image">
+                                    <img style="width: 100%; height: 100%; display: block;" th:src="@{'/images/upload/'+${productInfo.getProImage()}}" alt="image">
                                     <div class="mask">
                                         <p th:text="${productInfo.getProDescription()}">getProDescription()</p>
                                         <div class="tools tools-bottom">

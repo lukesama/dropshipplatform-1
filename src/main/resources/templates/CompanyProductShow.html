@@ -99,20 +99,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="product:${product}">
-                                <td th:text="${product.proTitle}"></td>
-                                <td th:text="${product.cateName}"></td><!--proCategory怎么变成中文-->
-                                <td><img src="${product.proImage}"> </td>
-                                <td th:text="${product.droPrice}"></td>
-                                <td th:text="${product.proStock}"></td>
-                                <td th:text="${product.proModel}"></td>
+                            <tr th:each="Product:${product}">
+                                <td th:text="${Product.getProTitle()}"></td>
+                                <td th:text="${Product.getCateName()}"></td><!--proCategory怎么变成中文-->
+                                <td><img style="height: 100px;width: 100px" th:src="@{'/images/upload/'+${Product.getProImage()}}"> </td>
+                                <td th:text="${Product.getDroPrice()}"></td>
+                                <td th:text="${Product.getProStock()}"></td>
+                                <td th:text="${Product.getProModel()}"></td>
                                 <td>
                                     <button type="button" class="btn btn-default" name="update" >
-                                        <a th:href="@{'/jnu/company/update/'+${product.proId}}">
+                                        <a th:href="@{'/jnu/company/update/'+${Product.getProId()}}">
                                         <span class="glyphicon glyphicon-wrench" ></span></a>
                                     </button>
-                                    <button type="button" class="btn btn-default" name="delete" th:action="@{'/jnu/company/delete/'+${product.getProId()}}">
-                                        <a th:href="@{'/jnu/company/delete/'+${product.proId}}">
+                                    <button type="button" class="btn btn-default" name="delete" th:action="@{'/jnu/company/delete/'+${Product.getProId()}}">
+                                        <a th:href="@{'/jnu/company/delete/'+${Product.getProId()}}">
                                         <span class="glyphicon glyphicon-trash"></span></a>
                                     </button>
                                 </td>

@@ -2618,7 +2618,7 @@ var DragListener = FC.DragListener = Class.extend(ListenerMixin, MouseIgnorerMix
 
 		this.listenTo($(document), {
 			selectstart: preventDefault, // don't allow selection while dragging
-			contextmenu: preventDefault // long taps would open menu on Chrome dev tools
+			contextmenu: preventDefault // long taps would open menu on Chrome dev utils
 		});
 	},
 

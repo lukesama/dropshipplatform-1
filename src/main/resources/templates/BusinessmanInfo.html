@@ -89,19 +89,19 @@
                     <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">借卖方<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>我的信息</small></h1>
                 </div>
                 <p>
-                    <form class="form-horizontal" role="form" th:action="@{/jnu/addInfo}" method="post">
-                        <input type="hidden" name="userBusiId" th:value="${bus.userBusiId}">
+                    <form class="form-horizontal" role="form" th:action="@{/jnu/addBusinessmanInfo}" method="post">
+                        <input type="hidden" name="userBusiId" th:value="${session.businessmanLoginInfo.getUserBusiId()}">
                             <div class="form-group">
                                 <label for="Name">姓名</label>
-                                <input type="text" name="busiName" th:value="${bus.busiName}" class="form-control" id="Name" placeholder="姓名">
+                                <input type="text" name="busiName" th:value="${session.businessmanLoginInfo.getRealName()}" class="form-control" id="Name" placeholder="姓名">
                             </div>
                         <div class="form-group">
                             <label for="supplierName">电商名称</label>
-                            <input type="text" name="supplierName" th:value="${bus.supplierName}" class="form-control" id="supplierName" placeholder="电商名称">
+                            <input type="text" name="supplierName" th:value="${session.businessmanLoginInfo.getSupplierName()}" class="form-control" id="supplierName" placeholder="电商名称">
                         </div>
                         <div class="form-group">
                             <label for="supplierUrl">电商网址</label>
-                            <input type="text" name="supplierUrl" th:value="${bus.supplierUrl}" class="form-control" id="supplierUrl" placeholder="电商网址">
+                            <input type="text" name="supplierUrl" th:value="${session.businessmanLoginInfo}" class="form-control" id="supplierUrl" placeholder="电商网址">
                         </div>
                         <button type="submit" class="btn btn btn-success">保存</button>
                     </form>

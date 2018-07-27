@@ -14,6 +14,8 @@ public interface ProductInfoService {
 
     List<ProductInfo> getAllProduct();
 
+    //根据中间类别（主类别、次类别）搜索商品
+    List<ProductInfo> getProductByMidCate(Integer cateId);
 
     void delete(Integer proId);
 }
