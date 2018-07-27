@@ -36,7 +36,7 @@
                             <ul class="nav side-menu">
                                 <li><a th:href="@{/jnu/providerInfo}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> 品牌商-我的信息 </span></a>
                                 </li>
-                                <li><a><i class="fa fa-shopping-bag" aria-hidden="true"></i> 品牌商-商品管理 </a>
+                                <li><a th:href="@{/jnu/company/ProductShow}"><i class="fa fa-shopping-bag" aria-hidden="true"></i> 品牌商-商品管理 </a>
                                 </li>
                                 <li><a><i class="fa fa-wpforms"></i> 品牌商-订单管理 </a>
                                 </li>
@@ -64,7 +64,7 @@
 
                                 <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 借卖方-我的信息 </span></a>
                                 </li>
-                                <li><a><i class="fa fa-shopping-cart" aria-hidden="true"></i> 借卖方-商品浏览 </span></a>
+                                <li><a th:href="@{/jnu/Businessman/viewProduct}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> 借卖方-商品浏览 </span></a>
                                 </li>
                                 <li><a><i class="fa fa-wpforms"></i> 借卖方-订单管理 </span></a>
                                 </li>
@@ -75,7 +75,29 @@
                             </ul>
                         </div>
                     </ul>
-                    <ul th:case="${300}" id="menu"></ul>
+                    <ul th:case="${2}" id="menu" class="nav side-menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+
+                                <li><a><i class="fa fa-cog" aria-hidden="true"></i> 平台用户管理 </span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a th:href="@{/jnu/managerBusiness}">借卖方</a></li>
+                                        <li><a >品牌方</a></li>
+                                    </ul>
+                                </li>
+                                <li><a><i class="fa fa-sort-amount-desc" aria-hidden="true"></i> 商品类别管理 </span></a>
+                                </li>
+                                <li><a><i class="fa fa-google-wallet"></i> 用户提现审核 </span></a>
+                                </li>
+                                <li><a><i class="fa fa-check-square"></i> 数据字典 </span></a>
+                                </li>
+                                <li><a><i class="fa fa-check-square"></i>参数管理 </a>
+                                </li>
+                                <li><a th:href="@{/jnu/signin}"><i class="fa fa-sign-out"></i> Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </ul>
 
 
                 </div>
