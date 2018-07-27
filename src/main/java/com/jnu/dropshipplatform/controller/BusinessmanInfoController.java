@@ -18,28 +18,37 @@ public class BusinessmanInfoController {
     @Autowired
     private BusinessmanInfoService businessmanInfoService;
 
-    @GetMapping("Wallet")
-    public String busiWallet(){
-        return "BusinessmanWallet";
+
+    /**
+     * 借卖方登录后首先跳转到此页面
+     * @param session   登录界面提供的session
+     * @return
+     */
+
+    @GetMapping("/ShowBusiInfo")
+    public String showBusiIfo(HttpSession session){
+
+        return "ShowBusiInfo";
     }
 
-    @GetMapping("/addInfo/{id}")      //添加用户信息
-    public String addBusiInfo(@PathVariable("id") Integer userBusiId, Model model,HttpSession session){
-        session.setAttribute("userBusiId",userBusiId);
-        BusinessmanInfo bus=businessmanInfoService.getBusiInfoByID(userBusiId);
-        model.addAttribute("bus",bus);
-        return "BusinessmanInfo";
-    }
-    @GetMapping("/addInfo")
-    public String updatePage(Model model,HttpSession session){
-        String str=""+session.getAttribute("userBusiId");
-        Integer userBusiId=Integer.parseInt(str);
-        BusinessmanInfo bus=businessmanInfoService.getBusiInfoByID(userBusiId);
-        model.addAttribute("bus",bus);
+    /**
+     * 借卖方在ShowBusiInfo.html 点击“更改”按钮后跳转到此页面
+     * @param session
+     * @return
+     */
+
+    @GetMapping("/addBusinessmanInfo")      //添加用户信息
+    public String addBusiInfo(HttpSession session){
         return "BusinessmanInfo";
     }
 
-    @PostMapping("/addInfo")         //返回修改后的页面
+    /**
+     * BusinessmanInfo post回修改后的BusinessmanInfo
+     * @param businessmanInfo
+     * @param session
+     * @return
+     */
+    @PostMapping("/addBusinessmanInfo")         //返回修改后的页面
     public String updateBusiInfo(BusinessmanInfo businessmanInfo, HttpSession session){
         BusinessmanInfo business = (BusinessmanInfo)session.getAttribute("businessmanLoginInfo") ;
         BusinessmanInfo businessPwd = businessmanInfoService.getBusiInfoByID(business.getUserBusiId());
@@ -48,17 +57,12 @@ public class BusinessmanInfoController {
         business.setSupplierName(businessmanInfo.getSupplierName());
         business.setSupplierUrl(businessmanInfo.getSupplierUrl());
         businessmanInfoService.updateBusiInfo(business);
-        return "ShowBusiInfo";
+        return "redirect:/jnu/ShowBusiInfo";
     }
-    @GetMapping("/ShouBusiInfo")
-    public String showBusiIfo(Model model,HttpSession session){
-        String str=""+session.getAttribute("userbusiId");
-        Integer userbusiId=Integer.parseInt(str);
-        BusinessmanInfo bus=businessmanInfoService.getBusiInfoByID(userbusiId);
-        model.addAttribute("bus",bus);
-        Integer oneId=userbusiId;
-        BusinessmanInfo businessmanInfo=businessmanInfoService.getBusiInfoByID(oneId);
-        session.setAttribute("one",businessmanInfo);
-        return "ShowBusiInfo";
+
+    @GetMapping("Wallet")
+    public String busiWallet(){
+        return "BusinessmanWallet";
     }
+
 }
