@@ -17,7 +17,7 @@ public class CompanyInfo {
     private String userName;
     private String userPwd;
     private String realName;
-    private Boolean userStatus;
+    private Integer userStatus;
 
     public CompanyInfo() {
     }
@@ -86,11 +86,11 @@ public class CompanyInfo {
         this.realName = realName;
     }
 
-    public Boolean getUserStatus() {
+    public Integer getUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(Boolean userStatus) {
+    public void setUserStatus(Integer userStatus) {
         this.userStatus = userStatus;
     }
 }

@@ -26,14 +26,13 @@ public class CompanyInfoController {
     @Autowired
     private BrandInfoService brandInfoService;
 
-//    @GetMapping("/company/{id}")
-//    public String addComInfo(@PathVariable("id") Integer comId,Model model,HttpSession session) {
-//        session.setAttribute("comId",comId);
-//        CompanyInfo com = companyInfoService.getCompanyById(comId);
-//        model.addAttribute("company",com);
-//        return "CompanyInfo";
-//    }
 
+    /**
+     * 登录成功后跳转到此页面
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping("/providerInfo")
     public String getAllCom(Model model,HttpSession session) {
         CompanyInfo com_tmp =  (CompanyInfo) session.getAttribute("companyLoginInfo");
@@ -47,14 +46,23 @@ public class CompanyInfoController {
         return "ProviderInfo";
     }
 
+    /**
+     * ProviderInfo.html 页点击更改公司信息，跳转到此页面
+     * @param session
+     * @return
+     */
     @GetMapping("/company")
     public String updatePage(HttpSession session) {
 
-//        CompanyInfo com = (CompanyInfo) session.getAttribute("companyLoginInfo");
-//        model.addAttribute("company",com);
         return "CompanyInfo";
     }
 
+    /**
+     * CompanyInfo.html 页面点击提交修改，跳转到此
+     * @param companyInfo
+     * @param session
+     * @return
+     */
     @PostMapping("/company")
     public String updateCompany(CompanyInfo companyInfo,HttpSession session) {
         CompanyInfo com = (CompanyInfo) session.getAttribute("companyLoginInfo");
@@ -66,6 +74,7 @@ public class CompanyInfoController {
         companyInfoService.updateCompanyInfo(com);
         return "redirect:/jnu/providerInfo";
     }
+
 
     //BrandInfo begin here....
     @GetMapping("providerInfo/add")
