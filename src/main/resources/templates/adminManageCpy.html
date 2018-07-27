@@ -78,7 +78,7 @@
         <div class="right_col" role="main">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>BusinessmanInfo <small>Users</small></h2>
+                    <h2>CompanyInfo <small>Users</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -116,21 +116,21 @@
 
 
                         <tbody>
-                        <tr th:each="BusinessmanInfo,iterStat:${allBusinessmanInfo}">
+                        <tr th:each="CompanyInfo,iterStat:${allCompanyInfo}">
                             <th scope="row" th:text="${iterStat.count}">1
                             </th>
-                            <td th:text="${BusinessmanInfo.getUserName()}">System Architect</td>
-                            <td th:text="${BusinessmanInfo.getUserPwd()}">Edinburgh</td>
-                            <td th:text="${BusinessmanInfo.getRealName()}">61</td>
-                            <td th:text="${BusinessmanInfo.getBusiBalance()}">2011/04/25</td>
-                            <td th:switch="${BusinessmanInfo.getUserStatus()}">
+                            <td th:text="${CompanyInfo.getUserName()}">System Architect</td>
+                            <td th:text="${CompanyInfo.getUserPwd()}">Edinburgh</td>
+                            <td th:text="${CompanyInfo.getRealName()}">61</td>
+                            <td th:text="${CompanyInfo.getComBalance()}">2011/04/25</td>
+                            <td th:switch="${CompanyInfo.getUserStatus()}">
                                 <span th:case="0">禁用</span>
                                 <span th:case="1">正常</span>
                             </td>
-                            <td th:switch="${BusinessmanInfo.getUserStatus()}">
-                                <a th:href="@{'/jnu/changeBusiStatus/'+${BusinessmanInfo.getUserBusiId()}}" class="btn btn-success" th:case="0" th:text="解禁"></a>
-                                <a th:href="@{'/jnu/changeBusiStatus/'+${BusinessmanInfo.getUserBusiId()}}" class="btn btn-primary" th:case="1" th:text="禁用"></a>
-                                <a th:href="@{'/jnu/deleteBusiUser/'+${BusinessmanInfo.getUserBusiId()}}" class="btn btn-danger" th:text="删除"></a>
+                            <td th:switch="${CompanyInfo.getUserStatus()}">
+                                <a th:href="@{'/jnu/changeCpyStatus/'+${CompanyInfo.getUserComId()}}" class="btn btn-success" th:case="0" th:text="解禁"></a>
+                                <a th:href="@{'/jnu/changeCpyStatus/'+${CompanyInfo.getUserComId()}}" class="btn btn-primary" th:case="1" th:text="禁用"></a>
+                                <a th:href="@{'/jnu/deleteCpyUser/'+${CompanyInfo.getUserComId()}}" class="btn btn-danger" th:text="删除"></a>
                             </td>
                         </tr>
                         </tbody>

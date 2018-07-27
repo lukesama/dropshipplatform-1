@@ -6,6 +6,7 @@ import com.jnu.dropshipplatform.service.BrandProductService;
 import com.jnu.dropshipplatform.service.CompanyInfoService;
 import com.jnu.dropshipplatform.service.ProductInfoService;
 import com.jnu.dropshipplatform.utils.FileUtil;
+import com.jnu.dropshipplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,8 @@ public class ProductInfoController {
     private CompanyInfoService companyInfoService;
     @Autowired
     private BrandProductService brandProductService;
-
+    @Autowired
+    private ProductCategoryService productCategoryService;
     @GetMapping("/ProductShow")
     public String getProduct(HttpSession session,/*@PathVariable("id") Integer id,*/ Model model){
         CompanyInfo companyInfo=(CompanyInfo)session.getAttribute("companyLoginInfo");
@@ -51,6 +53,7 @@ public class ProductInfoController {
     @GetMapping("insert")
     public String jumpToInsert(HttpSession session,Model model){
         List<BrandInfo> brandInfo=brandInfoService.findBrandInfoByBrandOwner((CompanyInfo)session.getAttribute("companyLoginInfo"));
+        List<ProductCategory> firstProductCategories= productCategoryService.getCateByFatherId(0);
         model.addAttribute("brand",brandInfo);
         return "CompanyProductInsert";
     }

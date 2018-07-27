@@ -55,4 +55,9 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     public Boolean existUserName(String userName) {
         return companyInfoRepository.existsCompanyInfoByUserName(userName);
     }
+
+    @Override
+    public void save(CompanyInfo companyInfo) {
+        companyInfoRepository.save(companyInfo);
+    }
 }
