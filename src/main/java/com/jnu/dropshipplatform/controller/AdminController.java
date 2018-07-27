@@ -1,8 +1,10 @@
 package com.jnu.dropshipplatform.controller;
 
 import com.jnu.dropshipplatform.entity.BusinessmanInfo;
+import com.jnu.dropshipplatform.entity.CompanyInfo;
 import com.jnu.dropshipplatform.service.AdminAccountInfoService;
 import com.jnu.dropshipplatform.service.BusinessmanInfoService;
+import com.jnu.dropshipplatform.service.CompanyInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,8 @@ public class AdminController {
     private AdminAccountInfoService adminAccountInfoService;
     @Autowired
     private BusinessmanInfoService businessmanInfoService;
+    @Autowired
+    private CompanyInfoService companyInfoService;
 
     @GetMapping("admin")
     public String adminHomePage(HttpSession session){
@@ -76,4 +80,51 @@ public class AdminController {
         return "redirect:/jnu/managerBusiness";
     }
 
+    //CompanyInfo manage begin here
+
+    /**
+     * 管理品牌商所有账户
+     * @param session 由/jnu/admin 传过来，即adminHomePage方法
+     * @param model
+     * @return
+     */
+    @GetMapping("managerCompany")
+    public String managerCompany(HttpSession session,Model model){
+        List<CompanyInfo> lists = companyInfoService.getAllCompany();
+        model.addAttribute("allCompanyInfo",lists);
+        return "adminManageCpy";
+    }
+
+    /**
+     * 修改指定品牌商账户的状态
+     * @param userId
+     * @param session
+     * @return
+     */
+    @GetMapping("changeCpyStatus/{id}")
+    public String changeCpyStatus(@PathVariable("id") Integer userId,HttpSession session){
+
+        CompanyInfo companyInfo = companyInfoService.getCompanyById(userId);
+        if(companyInfo.getUserStatus()==1){
+            companyInfo.setUserStatus(0);
+        }else{
+            companyInfo.setUserStatus(1);
+        }
+
+        companyInfoService.updateCompanyInfo(companyInfo);
+
+        return "redirect:/jnu/managerCompany";
+    }
+
+    /**
+     * 删除指定品牌商账户
+     * @param userId
+     * @param session
+     * @return
+     */
+    @GetMapping("deleteCpyUser/{id}")
+    public String deleteCpyUser(@PathVariable("id") Integer userId,HttpSession session){
+        companyInfoService.deleteCompanyById(userId);
+        return "redirect:/jnu/managerCompany";
+    }
 }
