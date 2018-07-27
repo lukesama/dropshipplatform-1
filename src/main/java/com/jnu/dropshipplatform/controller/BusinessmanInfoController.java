@@ -23,10 +23,11 @@ public class BusinessmanInfoController {
     private DayBookBusinessmanService dayBookBusinessmanService;
 
     @GetMapping("Wallet")
-    public String jumpToWallet(HttpSession session, Model model){
-        BusinessmanInfo businessmanInfo=(BusinessmanInfo)session.getAttribute("businessmanLoginInfo");
-        model.addAttribute("businessman",businessmanInfo);
+    public String jumpToWallet(HttpSession session, Model model) {
+        BusinessmanInfo businessmanInfo = (BusinessmanInfo) session.getAttribute("businessmanLoginInfo");
+        model.addAttribute("businessman", businessmanInfo);
         return "BusinessmanWallet";
+        }
 
     /**
      * 借卖方登录后首先跳转到此页面
@@ -69,10 +70,10 @@ public class BusinessmanInfoController {
         return "redirect:/jnu/ShowBusiInfo";
     }
 
-    @GetMapping("Wallet")
-    public String busiWallet(){
-        return "BusinessmanWallet";
-    }
+//    @GetMapping("Wallet")
+//    public String busiWallet(){
+//        return "BusinessmanWallet";
+//    }
     @GetMapping("/Wallet/daybook")
     public String jumpToDaybook(HttpSession session,Model model){
         BusinessmanInfo businessmanInfo=(BusinessmanInfo)session.getAttribute("businessmanLoginInfo");
