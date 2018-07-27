@@ -33,4 +33,6 @@ public interface CompanyInfoService {
 
     //判断用户名是否已存在
     Boolean existUserName(String userName);
+
+    void save(CompanyInfo companyInfo);
 }

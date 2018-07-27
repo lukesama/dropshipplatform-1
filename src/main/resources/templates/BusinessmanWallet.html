@@ -99,21 +99,17 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>james</td>
-                        <td>￥23</td>
-                        <td><button type=""button>充值</button></td>
-                    </tr>
-                    <tr>
-                        <td>shirt</td>
-                        <td>￥25</td>
-                        <td><button type=""button>充值</button></td>
+                        <td th:text="${businessman.getRealName()}"></td>
+                        <td th:text="${businessman.getBusiBalance()}"></td>
+                        <td>
+                            <a class="btn btn-success" th:href="@{/jnu/Wallet/Recharge}">充值</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
                 </p>
                 <p>
-                    <button type="button" class="btn btn-success">修改密码</button>
-                    <button type="button" class="btn btn-success">充值记录</button>
+                    <a type="button" class="btn btn-success" th:href="@{/jnu/Wallet/daybook}">充值记录</a>
                 </p>
             </div>
             <!-- /page content -->

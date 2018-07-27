@@ -46,7 +46,7 @@ public class ProductInfoController {
     @GetMapping("insert")
     public String jumpToInsert(HttpSession session,Model model){
         List<BrandInfo> brandInfo=brandInfoService.findBrandInfoByBrandOwner((CompanyInfo)session.getAttribute("companyLoginInfo"));
-        List<ProductCategory> firstProductCategories= productCategoryService.findProductCategoryByFatherId(0);
+        List<ProductCategory> firstProductCategories= productCategoryService.getCateByFatherId(0);
         model.addAttribute("brand",brandInfo);
         return "CompanyProductInsert";
     }
