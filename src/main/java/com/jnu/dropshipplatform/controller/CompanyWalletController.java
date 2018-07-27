@@ -50,15 +50,15 @@ public class CompanyWalletController {
                                  @RequestParam("pwd") String password,
                                  HttpSession session){
         CompanyInfo companyInfo=(CompanyInfo)session.getAttribute("companyLoginInfo");
-        CompanyInfo companyInfo1=companyInfoService.providerLogin(companyInfo.getComName(),password);
+        CompanyInfo companyInfo1=companyInfoService.providerLogin(companyInfo.getUserName(),password);
         if(companyInfo1!=null&&companyInfo.getComBalance()>=money){
             companyInfo1.setComBalance(companyInfo1.getComBalance()-money);
-            companyInfo.setComBalance(companyInfo.getComBalance()-money);
+//            companyInfo.setComBalance(companyInfo.getComBalance()-money);
             companyInfoService.save(companyInfo1);
 
             DayBookCompany dayBookCompany=new DayBookCompany();
             dayBookCompany.setCheckStatus(0);
-            dayBookCompany.setCompany(companyInfo);
+            dayBookCompany.setCompany(companyInfo1);
             dayBookCompany.setOperationType("提现");
             dayBookCompany.setTradeAmounts(money);
             dayBookCompany.setTradeTime(new Timestamp(System.currentTimeMillis()));

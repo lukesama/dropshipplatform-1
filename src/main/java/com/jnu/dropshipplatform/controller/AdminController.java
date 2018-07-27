@@ -171,6 +171,11 @@ public class AdminController {
 
         if(toPass.equals("1")){
             dayBookBusinessman.setCheckStatus(1);
+
+            //审核通过后，在对应账户上增加金额
+            BusinessmanInfo businessmanInfo =  dayBookBusinessman.getBusinessman();
+            businessmanInfo.setBusiBalance(businessmanInfo.getBusiBalance()+dayBookBusinessman.getTradeAmounts());
+            businessmanInfoService.updateBusiInfo(businessmanInfo);
         }else if(toPass.equals("0")){
             dayBookBusinessman.setCheckStatus(-1);
         }
