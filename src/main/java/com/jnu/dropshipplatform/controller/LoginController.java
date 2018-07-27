@@ -65,7 +65,7 @@ public class LoginController {
                     businessmanInfo.setUserPwd("");
                     session.setAttribute("businessmanLoginInfo",businessmanInfo);
                     session.setAttribute("roleSort",roles);
-                    return "redirect:/jnu/addInfo/"+businessmanInfo.getUserBusiId();
+                    return "redirect:/jnu/ShowBusiInfo";
                 }else{
                     redirectAttributes.addFlashAttribute("loginError","用户名或者密码错误");
                     return "redirect:/jnu/signin";

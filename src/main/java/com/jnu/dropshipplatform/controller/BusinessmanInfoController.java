@@ -18,19 +18,38 @@ public class BusinessmanInfoController {
     @Autowired
     private BusinessmanInfoService businessmanInfoService;
 
-    @GetMapping("Wallet")
-    public String busiWallet(){
-        return "BusinessmanWallet";
+
+    /**
+     * 借卖方登录后首先跳转到此页面
+     * @param session   登录界面提供的session
+     * @return
+     */
+
+    @GetMapping("/ShowBusiInfo")
+    public String showBusiIfo(HttpSession session){
+
+        return "ShowBusiInfo";
     }
 
-    @GetMapping("/addInfo/{id}")      //添加用户信息
-    public String addBusiInfo(@PathVariable("id") Integer userBusiId, Model model){
-        BusinessmanInfo busi=businessmanInfoService.getBusiInfoByID(userBusiId);
-        model.addAttribute("bus",busi);
+    /**
+     * 借卖方在ShowBusiInfo.html 点击“更改”按钮后跳转到此页面
+     * @param session
+     * @return
+     */
+
+    @GetMapping("/addBusinessmanInfo")      //添加用户信息
+    public String addBusiInfo(HttpSession session){
         return "BusinessmanInfo";
     }
-    @PostMapping("/addInfo")         //返回修改后的页面
-    public String addBusiInfo(BusinessmanInfo businessmanInfo, HttpSession session){
+
+    /**
+     * BusinessmanInfo post回修改后的BusinessmanInfo
+     * @param businessmanInfo
+     * @param session
+     * @return
+     */
+    @PostMapping("/addBusinessmanInfo")         //返回修改后的页面
+    public String updateBusiInfo(BusinessmanInfo businessmanInfo, HttpSession session){
         BusinessmanInfo business = (BusinessmanInfo)session.getAttribute("businessmanLoginInfo") ;
         BusinessmanInfo businessPwd = businessmanInfoService.getBusiInfoByID(business.getUserBusiId());
         business.setUserPwd(businessPwd.getUserPwd());
@@ -38,6 +57,12 @@ public class BusinessmanInfoController {
         business.setSupplierName(businessmanInfo.getSupplierName());
         business.setSupplierUrl(businessmanInfo.getSupplierUrl());
         businessmanInfoService.updateBusiInfo(business);
-        return "redirect:/jnu/addInfo/"+businessmanInfo.getUserBusiId();
+        return "redirect:/jnu/ShowBusiInfo";
     }
+
+    @GetMapping("Wallet")
+    public String busiWallet(){
+        return "BusinessmanWallet";
+    }
+
 }
