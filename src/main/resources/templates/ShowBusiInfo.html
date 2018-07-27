@@ -88,24 +88,44 @@
                 <div class="page-header position-relative">
                     <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">借卖方<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>我的信息</small></h1>
                 </div>
-                <p>
-                    <form class="form-horizontal" role="form" th:action="@{/jnu/addInfo}" method="post">
-                        <input type="hidden" name="userBusiId" th:value="${bus.userBusiId}">
-                            <div class="form-group">
-                                <label for="Name">姓名</label>
-                                <input type="text" name="busiName" th:value="${bus.busiName}" class="form-control" id="Name" placeholder="姓名">
+
+                <div id="busimanInfo">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>我的信息</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="table-responsive">
+                                <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">姓名 </th>
+                                        <th class="column-title">电商名称 </th>
+                                        <th class="column-title">电商网址</th>
+                                        <th class="column-title no-link last"><span class="nobr">操作</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr class="even pointer">
+                                        <td class=" " th:text="${session.businessmanLoginInfo.getBusiName()}"></td>
+                                        <td class=" " th:text="${session.businessmanLoginInfo.getSupplierName()}"></td>
+                                        <td class=" " th:text="${session.businessmanLoginInfo.getSupplierUrl()}"></td>
+                                        <td class=" last"><a th:href="@{/jnu/addInfo}">更改</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        <div class="form-group">
-                            <label for="supplierName">电商名称</label>
-                            <input type="text" name="supplierName" th:value="${bus.supplierName}" class="form-control" id="supplierName" placeholder="电商名称">
                         </div>
-                        <div class="form-group">
-                            <label for="supplierUrl">电商网址</label>
-                            <input type="text" name="supplierUrl" th:value="${bus.supplierUrl}" class="form-control" id="supplierUrl" placeholder="电商网址">
-                        </div>
-                        <button type="submit" class="btn btn btn-success">保存</button>
-                    </form>
-                </p>
+                    </div>
+                </div>
 
             </div>
             <!-- /page content -->
