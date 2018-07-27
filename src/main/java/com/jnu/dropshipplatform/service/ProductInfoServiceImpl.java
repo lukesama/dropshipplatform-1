@@ -13,22 +13,18 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 
     @Autowired
     private ProductInfoRepository productInfoRepository;
-
     @Override
     public List<ProductAndCategory> getProductAndCategory(Integer productId) {
         return productInfoRepository.getProductAndCategory(productId);
     }
-
     @Override
     public void save(ProductInfo productInfo) {
         productInfoRepository.save(productInfo);
     }
-
     @Override
     public ProductInfo findProductInfoByProId(Integer proId) {
         return productInfoRepository.findProductInfoByProId(proId);
     }
-
     @Override
     public List<ProductInfo> getProductByCateId(Integer cateId) {
         return productInfoRepository.findProductInfosByProCategoryId(cateId);
