@@ -1,23 +1,32 @@
 package com.jnu.dropshipplatform.controller;
 
 import com.jnu.dropshipplatform.entity.BusinessmanInfo;
+import com.jnu.dropshipplatform.entity.DayBookBusinessman;
 import com.jnu.dropshipplatform.service.BusinessmanInfoService;
+import com.jnu.dropshipplatform.service.DayBookBusinessmanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("jnu")
 public class BusinessmanInfoController {
     @Autowired
     private BusinessmanInfoService businessmanInfoService;
+    @Autowired
+    private DayBookBusinessmanService dayBookBusinessmanService;
 
+    @GetMapping("Wallet")
+    public String jumpToWallet(HttpSession session, Model model){
+        BusinessmanInfo businessmanInfo=(BusinessmanInfo)session.getAttribute("businessmanLoginInfo");
+        model.addAttribute("businessman",businessmanInfo);
+        return "BusinessmanWallet";
 
     /**
      * 借卖方登录后首先跳转到此页面
@@ -63,6 +72,37 @@ public class BusinessmanInfoController {
     @GetMapping("Wallet")
     public String busiWallet(){
         return "BusinessmanWallet";
+    }
+    @GetMapping("/Wallet/daybook")
+    public String jumpToDaybook(HttpSession session,Model model){
+        BusinessmanInfo businessmanInfo=(BusinessmanInfo)session.getAttribute("businessmanLoginInfo");
+        List<DayBookBusinessman> dayBookBusinessmen=dayBookBusinessmanService.findDaybookByBussinessman(businessmanInfo);
+        model.addAttribute("daybook",dayBookBusinessmen);
+        return "BusinessmanDaybook";
+    }
+    @GetMapping("/Wallet/Recharge")
+    public String jumpToRecharge(){
+        return "BussinessmanRecharge";
+    }
+    @PostMapping("/Wallet/Recharge")
+    public String jumpToRecharge(@RequestParam("money") Double money,
+                                 @RequestParam("pwd") String password,
+                                 HttpSession session){
+        BusinessmanInfo businessmanInfo=(BusinessmanInfo)session.getAttribute("businessmanLoginInfo");
+        BusinessmanInfo businessman=businessmanInfoService.businessmanLogin(businessmanInfo.getUserName(),password);
+        if(businessman!=null){
+            DayBookBusinessman dayBookBusinessman=new DayBookBusinessman();
+            dayBookBusinessman.setBusinessman(businessmanInfo);
+            dayBookBusinessman.setCheckStatus(0);
+            dayBookBusinessman.setOperationType("充值");
+            dayBookBusinessman.setTradeAmounts(money);
+            dayBookBusinessman.setTradeTime(new Timestamp(System.currentTimeMillis()));
+            dayBookBusinessmanService.save(dayBookBusinessman);
+            return "redirect:/jnu/Wallet";
+        }
+       else{
+            return "BusinessmanRechargeError";
+        }
     }
 
 }
