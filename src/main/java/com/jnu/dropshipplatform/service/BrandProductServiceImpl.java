@@ -27,4 +27,9 @@ public class BrandProductServiceImpl implements BrandProductService{
     public void deleteByProId(Integer proId) {
         brandProductRepository.deleteProductWithProId(proId);
     }
+
+    @Override
+    public List<BrandProduct> findBrandProductByProduct(Integer proId) {
+        return brandProductRepository.findBrandProductByProductInfo(proId);
+    }
 }

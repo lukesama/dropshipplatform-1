@@ -8,4 +8,5 @@ public interface BrandProductService {
     List<BrandProduct> findBrandProductByBrandId(Integer brandId);
     void save(BrandProduct brandProduct);
     void deleteByProId(Integer proId);
+    List<BrandProduct> findBrandProductByProduct(Integer proId);
 }
