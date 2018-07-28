@@ -18,12 +18,15 @@ public interface ProductInfoRepository extends JpaRepository<ProductInfo,Integer
             "p.droPrice," +
             "p.proStock," +
             "p.proModel," +
-            "p.proImage , c.cateName)  from ProductInfo p , ProductCategory c where p.proId=?1 and p.proCategoryId = c.cateId ")
+            "p.proImage , c.cateName ,b.brandName )  from ProductInfo p , ProductCategory c ,BrandInfo b " +
+            "where p.proId=?1 and p.proCategoryId = c.cateId " +
+            "and b.brandId=(select b.brandId from BrandProduct b where b.productInfo=?1)")
      List<ProductAndCategory> getProductAndCategory(Integer proid) ;
     ProductInfo findProductInfoByProId(Integer proId);
 
     //根据商品类别ID查找对应的商品信息
     List<ProductInfo> findProductInfosByProCategoryId(Integer cateId);
 
+    ProductInfo findProductInfoByProIdAndProTitleLike(Integer id,String key);
 
 }

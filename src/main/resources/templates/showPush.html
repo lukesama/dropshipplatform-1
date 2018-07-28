@@ -102,6 +102,7 @@
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
                             <tr class="headings">
+                                <th class="column-title">序号</th>
                                 <th class="column-title">商品名称</th>
                                 <th class="column-title">推送价格</th>
                                 <th class="column-title no-link last"><span class="nobr">操作</span></th>
@@ -109,10 +110,49 @@
                             </thead>
 
                             <tbody>
-                            <tr th:each="product:${allProduct}" class="odd pointer">
+                            <tr th:each="product,iterStat:${allProduct}" class="odd pointer">
+                                <th scope="row" th:text="${iterStat.count}"></th>
                                 <td th:text="${product.getProId().getProTitle()}" class=" ">Paid</td>
                                 <td th:text="${product.getSellPrice()}" class="a-right a-right ">$7.45</td>
                                 <td class=" last"><a th:href="@{'/jnu/Businessman/viewPushProduct/'+${product.getId()}+'/delete'}">取消推送</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>下架商品通知栏</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    <!--<b><p>如需添加品牌信息，请点击: <code><a th:href="@{/jnu/providerInfo/add}">添加品牌</a></code></p></b>-->
+                    <!--delete /'+${allBrand.get(0).getBrandId()}+'-->
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                            <tr class="headings">
+                                <th class="column-title">序号</th>
+                                <th class="column-title">已下架商品标题</th>
+                                <th class="column-title no-link last"><span class="nobr">操作</span></th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="unpublish,iterStat:${allUnpublish}" class="odd pointer">
+                                <th scope="row" th:text="${iterStat.count}"></th>
+                                <td th:text="${unpublish.getProTitle()}" class=" ">Paid</td>
+                                <td class=" last"><a th:href="@{'/jnu/Businessman/viewPushProduct/'+${unpublish.getId()}+'/hasRead'}">已阅</a>
                                 </td>
                             </tr>
                             </tbody>

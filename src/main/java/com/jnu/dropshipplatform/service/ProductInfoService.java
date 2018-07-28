@@ -18,4 +18,6 @@ public interface ProductInfoService {
     List<ProductInfo> getProductByMidCate(Integer cateId);
 
     void delete(Integer proId);
+
+    Boolean keyInProductTitle(Integer productId,String key);
 }

@@ -47,4 +47,9 @@ public class BusinessmanInfoServiceImpl implements BusinessmanInfoService {
     public void deleteByUserId(Integer userId) {
         businessmanInfoRepository.deleteById(userId);
     }
+
+    @Override
+    public void save(BusinessmanInfo businessmanInfo) {
+        businessmanInfoRepository.save(businessmanInfo);
+    }
 }

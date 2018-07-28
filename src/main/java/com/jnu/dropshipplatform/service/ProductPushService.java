@@ -19,4 +19,7 @@ public interface ProductPushService {
 
     void cancelProduct(Integer pushId);
 
+    Boolean existProPushByProInfo(ProductInfo productInfo);
+
+    List<ProductPush> getAllProByProInfo(ProductInfo productInfo);
 }

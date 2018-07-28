@@ -60,7 +60,15 @@ public class ProductInfoServiceImpl implements ProductInfoService {
         for (int i = 1; i < nextCategories.size(); i++){
             resultProductInfo.addAll(productInfoRepository.findProductInfosByProCategoryId(nextCategories.get(i).getCateId()));
         }
-        if (cateId <= mainCount){
+        List<ProductCategory> mainCategories = productCategoryRepository.findProductCategoriesByFatherCateId(0);
+        boolean isMain = false;
+        for(int i=0;i<mainCategories.size();i++){
+            if (mainCategories.get(i).getCateId()==cateId){
+                isMain = true;
+                break;
+            }
+        }
+        if (isMain){
             //当所选类别是主类别时进入
             List<ProductCategory> lastCategories = productCategoryRepository.findProductCategoriesByFatherCateId(nextCategories.get(0).getCateId());
             for (int i = 1; i < nextCategories.size(); i++){
@@ -71,5 +79,18 @@ public class ProductInfoServiceImpl implements ProductInfoService {
             }
         }
         return resultProductInfo;
+    }
+
+//    @Override
+//    public List<ProductInfo> getProsByKey(String key) {
+//        return productInfoRepository.findProductInfosByProTitleLike(key);
+//    }
+
+    @Override
+    public Boolean keyInProductTitle(Integer productId, String key) {
+        String keys = "%"+key+"%";
+        if (productInfoRepository.findProductInfoByProIdAndProTitleLike(productId,keys)==null)
+            return false;
+        return true;
     }
 }
