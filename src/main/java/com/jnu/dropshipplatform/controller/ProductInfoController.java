@@ -197,12 +197,53 @@ public class ProductInfoController {
     }
 
     @GetMapping("sortBy/{id}")
-    public String sortBy(@PathVariable("id") Integer selectedItem,Model model){
+    public String sortBy(@PathVariable("id") Integer selectedItem,Model model,HttpSession session){
         model.addAttribute("selectedItem",selectedItem);
         String[] str = {"按品牌筛选","按类别筛选","按标题筛选"};
         model.addAttribute("selectedName",str[selectedItem]);
 //        return "redirect:/jnu/company/ProductShow";
+        CompanyInfo companyInfo=(CompanyInfo)session.getAttribute("companyLoginInfo");
+        //CompanyInfo companyInfo=companyInfoService.findCompanyInfoByUserComId(id);
+        List<BrandInfo> brandInfos=brandInfoService.findBrandInfoByBrandOwner(companyInfo);
+        List<BrandProduct> brandProducts=new ArrayList<BrandProduct>();
+        List<ProductAndCategory> product=new ArrayList<ProductAndCategory>();
+        for(int i=0;i<brandInfos.size();i++){
+            brandProducts.addAll(brandProductService.findBrandProductByBrandId(brandInfos.get(i).getBrandId()));
+        }
+        for(int i=0;i<brandProducts.size();i++){
+            product.addAll(productInfoService.getProductAndCategory(brandProducts.get(i).getProductInfo()));
+        }
+        model.addAttribute("product",product);
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(0);
+        model.addAttribute("allCate",cateList);
         return "CompanyProductShow";
-}
+    }
+
+    /**
+     * 按产品类别分类搜索产品
+     * @param fatherId  产品类别ID
+     * @param model
+     * @return
+     */
+    @GetMapping("sortBy/1/{id}")
+    public String classifyBy(@PathVariable("id")Integer fatherId,Model model){
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(fatherId);
+        model.addAttribute("allCate",cateList);
+        List<ProductInfo> productInfoList = productInfoService.getProductByMidCate(fatherId);
+//        List<BrandProduct> brandProductList = new ArrayList<>();
+        List<ProductAndCategory> product=new ArrayList<>();
+        for (int i = 0;i<productInfoList.size();i++){
+            if (brandProductService.inBrandProduct(productInfoList.get(i).getProId())){
+                product.addAll(productInfoService.getProductAndCategory(productInfoList.get(i).getProId()));
+//                brandProductList.add(brandProductService.getBrandProductByProductId(productInfoList.get(i).getProId()));
+//                productInfoList.remove(i);
+            }
+        }
+        model.addAttribute("product",product);
+        model.addAttribute("selectedItem",1);
+        String[] str = {"按品牌筛选","按类别筛选","按标题筛选"};
+        model.addAttribute("selectedName",str[1]);
+        return "CompanyProductShow";
+    }
 
 }
