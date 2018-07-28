@@ -40,4 +40,14 @@ public class ProductPushServiceImpl implements ProductPushService{
     public void cancelProduct(Integer pushId) {
         productPushRepository.deleteById(pushId);
     }
+
+    @Override
+    public Boolean existProPushByProInfo(ProductInfo productInfo) {
+        return productPushRepository.existsProductPushByProId(productInfo);
+    }
+
+    @Override
+    public List<ProductPush> getAllProByProInfo(ProductInfo productInfo) {
+        return productPushRepository.getProductPushesByProId(productInfo);
+    }
 }

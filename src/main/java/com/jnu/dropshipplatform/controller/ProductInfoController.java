@@ -30,6 +30,10 @@ public class ProductInfoController {
     private BrandProductService brandProductService;
     @Autowired
     private ProductCategoryService productCategoryService;
+    @Autowired
+    private ProductPushService productPushService;
+    @Autowired
+    private UnpublishService unpublishService;
 
     @GetMapping("/ProductShow")
     public String getProduct(HttpSession session,/*@PathVariable("id") Integer id,*/ Model model){
@@ -169,6 +173,19 @@ public class ProductInfoController {
 
     @GetMapping("delete/{id}")
     public String delete(@PathVariable ("id") Integer id){
+        ProductInfo productInfo = productInfoService.findProductInfoByProId(id);
+        if(productPushService.existProPushByProInfo(productInfo)) {
+            List<ProductPush> productPushList = productPushService.getAllProByProInfo(productInfo);
+            for(int i=0;i<productPushList.size();i++) {
+                String proTitle = productPushList.get(i).getProId().getProTitle();
+                BusinessmanInfo businessmanInfo = productPushList.get(i).getBusiId();
+                Unpublish unpublish = new Unpublish();
+                unpublish.setBusinessmanInfo(businessmanInfo);
+                unpublish.setProTitle(proTitle);
+                unpublishService.addUnpublish(unpublish);
+                productPushService.cancelProduct(productPushList.get(i).getId());
+            }
+        }
         productInfoService.delete(id);
         return "redirect:/jnu/company/ProductShow";
     }
