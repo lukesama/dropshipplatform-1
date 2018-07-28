@@ -49,6 +49,7 @@ public class ProductInfoController {
             product.addAll(productInfoService.getProductAndCategory(brandProducts.get(i).getProductInfo()));
         }
         model.addAttribute("product",product);
+        model.addAttribute("selectedName","请选择筛选类别");
         return "CompanyProductShow";
     }
 
@@ -194,4 +195,14 @@ public class ProductInfoController {
         productInfoService.delete(id);
         return "redirect:/jnu/company/ProductShow";
     }
+
+    @GetMapping("sortBy/{id}")
+    public String sortBy(@PathVariable("id") Integer selectedItem,Model model){
+        model.addAttribute("selectedItem",selectedItem);
+        String[] str = {"按品牌筛选","按类别筛选","按标题筛选"};
+        model.addAttribute("selectedName",str[selectedItem]);
+//        return "redirect:/jnu/company/ProductShow";
+        return "CompanyProductShow";
+}
+
 }
