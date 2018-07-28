@@ -107,15 +107,17 @@
                 <ul th:case="1">
                     <!--//按类别筛选块-->
                     <div id="Classify">
-                        <!--<button th:text="${selectedName}" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                            <!--请选择-->
-                            <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
-                            <!--<li><a th:href="@{/jnu/company/sortBy/0}">Action1</a></li>-->
-                            <!--<li><a th:href="@{/jnu/company/sortBy/1}">Another action1</a></li>-->
-                            <!--<li><a th:href="@{/jnu/company/sortBy/2}">Something else here1</a></li>-->
-                        <!--</ul>-->
+                        <div class="btn-group">
+                            <a th:href="@{/jnu/company/sortBy/1}" class="btn btn-success"><i class="fa fa-filter"></i> 全部</a>
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" >
+                                <li th:each="cate:${allCate}"><a style="font-size: 15px" th:href="@{'/jnu/company/sortBy/1/'+${cate.getCateId()}}" th:text="${cate.getCateName()}">Action</a></li >
+                                <li role="separator" class="divider"></li>
+                            </ul>
+                        </div>
                     </div>
                 </ul>
                 <ul th:case="2">

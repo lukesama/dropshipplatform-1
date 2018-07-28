@@ -221,6 +221,8 @@ public class ProductInfoController {
             product.addAll(productInfoService.getProductAndCategory(brandProducts.get(i).getProductInfo()));
         }
         model.addAttribute("product",product);
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(0);
+        model.addAttribute("allCate",cateList);
         return "CompanyProductShow";
     }
 
@@ -277,5 +279,32 @@ public class ProductInfoController {
         model.addAttribute("selectedName","按标题筛选");
         model.addAttribute("selectedItem","2");
         return "CompanyProductShow";
+}
+    /**
+     * 按产品类别分类搜索产品
+     * @param fatherId  产品类别ID
+     * @param model
+     * @return
+     */
+    @GetMapping("sortBy/1/{id}")
+    public String classifyBy(@PathVariable("id")Integer fatherId,Model model){
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(fatherId);
+        model.addAttribute("allCate",cateList);
+        List<ProductInfo> productInfoList = productInfoService.getProductByMidCate(fatherId);
+//        List<BrandProduct> brandProductList = new ArrayList<>();
+        List<ProductAndCategory> product=new ArrayList<>();
+        for (int i = 0;i<productInfoList.size();i++){
+            if (brandProductService.inBrandProduct(productInfoList.get(i).getProId())){
+                product.addAll(productInfoService.getProductAndCategory(productInfoList.get(i).getProId()));
+//                brandProductList.add(brandProductService.getBrandProductByProductId(productInfoList.get(i).getProId()));
+//                productInfoList.remove(i);
+            }
+        }
+        model.addAttribute("product",product);
+        model.addAttribute("selectedItem",1);
+        String[] str = {"按品牌筛选","按类别筛选","按标题筛选"};
+        model.addAttribute("selectedName",str[1]);
+        return "CompanyProductShow";
     }
+
 }
