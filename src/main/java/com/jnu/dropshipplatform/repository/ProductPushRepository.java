@@ -16,4 +16,7 @@ public interface ProductPushRepository extends JpaRepository<ProductPush,Integer
 
     List<ProductPush> findAllByBusiId(BusinessmanInfo businessmanInfo);
 
+    Boolean existsProductPushByProId(ProductInfo productInfo);
+
+    List<ProductPush> getProductPushesByProId(ProductInfo productInfo);
 }

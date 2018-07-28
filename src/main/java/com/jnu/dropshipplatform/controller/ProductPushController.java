@@ -1,14 +1,8 @@
 package com.jnu.dropshipplatform.controller;
 
-import com.jnu.dropshipplatform.entity.BusinessmanInfo;
-import com.jnu.dropshipplatform.entity.ProductCategory;
-import com.jnu.dropshipplatform.entity.ProductInfo;
-import com.jnu.dropshipplatform.entity.ProductPush;
+import com.jnu.dropshipplatform.entity.*;
 import com.jnu.dropshipplatform.repository.BusinessmanInfoRepository;
-import com.jnu.dropshipplatform.service.BusinessmanInfoService;
-import com.jnu.dropshipplatform.service.ProductCategoryService;
-import com.jnu.dropshipplatform.service.ProductInfoService;
-import com.jnu.dropshipplatform.service.ProductPushService;
+import com.jnu.dropshipplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +26,9 @@ public class ProductPushController {
 
     @Autowired
     private BusinessmanInfoService businessmanInfoService;
+
+    @Autowired
+    private UnpublishService unpublishService;
 
     @GetMapping("/viewProduct")
     public String getViewProduct(Model model) {
@@ -85,6 +82,8 @@ public class ProductPushController {
         BusinessmanInfo businessmanInfo = (BusinessmanInfo)session.getAttribute("businessmanLoginInfo");
         List<ProductPush> pushList = productPushService.getAllPushProduct(businessmanInfo);
         model.addAttribute("allProduct",pushList);
+        List<Unpublish> unpublishList = unpublishService.getUnpublishByBusInfo(businessmanInfo);
+        model.addAttribute("allUnpublish",unpublishList);
         return "showPush";
     }
 
@@ -94,4 +93,9 @@ public class ProductPushController {
         return "redirect:/jnu/Businessman/viewPushProduct";
     }
 
+    @GetMapping("/viewPushProduct/{id}/hasRead")
+    public String hasRead(@PathVariable("id")Integer readId){
+        unpublishService.deleteById(readId);
+        return "redirect:/jnu/Businessman/viewPushProduct";
+    }
 }
