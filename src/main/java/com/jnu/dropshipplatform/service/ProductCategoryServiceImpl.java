@@ -44,4 +44,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
         }
         return false;
     }
+
+    @Override
+    public List<ProductCategory> getAllProCategory() {
+        return productCategoryRepository.findAll();
+    }
+
+    @Override
+    public ProductCategory addCatagory(ProductCategory productCategory) {
+        return productCategoryRepository.save(productCategory);
+    }
 }

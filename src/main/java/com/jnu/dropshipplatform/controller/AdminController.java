@@ -1,17 +1,11 @@
 package com.jnu.dropshipplatform.controller;
 
-import com.jnu.dropshipplatform.entity.BusinessmanInfo;
-import com.jnu.dropshipplatform.entity.CompanyInfo;
-import com.jnu.dropshipplatform.entity.DayBookBusinessman;
-import com.jnu.dropshipplatform.entity.DayBookCompany;
+import com.jnu.dropshipplatform.entity.*;
 import com.jnu.dropshipplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 import javax.servlet.http.HttpSession;
@@ -31,6 +25,8 @@ public class AdminController {
     private DayBookBusinessmanService dayBookBusinessmanService;
     @Autowired
     private DayBookCompanyService dayBookCompanyService;
+    @Autowired
+    private ProductCategoryService productCategoryService;
 
     @GetMapping("admin")
     public String adminHomePage(HttpSession session){
@@ -215,4 +211,64 @@ public class AdminController {
     }
     //cpyDayBook manage end here
 
+    //admin manage category begin here
+
+    /**
+     * 商品类别展示页面（有添加类别的功能）
+     * @param session
+     * @param model
+     * @return
+     */
+    @GetMapping("/manageCategory/list/{PID}")
+    public String manageCategory(@PathVariable(value = "PID")Integer PID, HttpSession session,Model model){
+
+        //展示分类表
+        List<ProductCategory> lists = productCategoryService.getAllProCategory();
+
+        //获取主类别
+        List<ProductCategory> list2 = productCategoryService.getCateByFatherId(PID);
+
+        model.addAttribute("mainCate",list2);
+        model.addAttribute("allProCategory",lists);
+        return "adminManageCategory";
+    }
+
+    @GetMapping("/fatherID/{PID}")
+    @ResponseBody
+    public List<ProductCategory> getAllCategoryByPID(@PathVariable(value = "PID") Integer PID,HttpSession session){
+        List<ProductCategory> lists = productCategoryService.getCateByFatherId(PID);
+        return lists;
+    }
+
+    @GetMapping("addCatagory")
+    public String addCatagory(@RequestParam String firstCate,
+                              @RequestParam String secondCate,
+                              @RequestParam String cateName,
+                              HttpSession session){
+
+        ProductCategory productCategory = new ProductCategory();
+        Integer fatehrId;
+        if(firstCate.equals("0") && secondCate.equals("0")){
+            productCategory.setCateName(cateName);
+            productCategory.setFatherCateId(0);
+            productCategory.setCatePath(">"+cateName);
+            productCategoryService.addCatagory(productCategory);
+        }else if(!firstCate.equals("0") && secondCate.equals("0")){
+            fatehrId = Integer.parseInt(firstCate);
+            productCategory.setCateName(cateName);
+            productCategory.setFatherCateId(fatehrId);
+            productCategory.setCatePath(productCategoryService.getCateInfoById(fatehrId).getCatePath()+">"+cateName);
+            productCategoryService.addCatagory(productCategory);
+        }else if(!firstCate.equals("0") && !secondCate.equals("0")){
+            fatehrId = Integer.parseInt(secondCate);
+            productCategory.setCateName(cateName);
+            productCategory.setFatherCateId(fatehrId);
+            productCategory.setCatePath(productCategoryService.getCateInfoById(fatehrId).getCatePath()+">"+cateName);
+            productCategoryService.addCatagory(productCategory);
+        }
+
+        return "redirect:/jnu//manageCategory/list/0";
+    }
+
+    //admin manage category end here
 }
