@@ -19,8 +19,17 @@ public class ProductAndCategory {
     private String proModel;
     private String proImage;
     private  String cateName;
+    private  String brandName;
 
-    public ProductAndCategory(Integer proId,String proName, String proTitle, Integer proCategoryId, Double droPrice, Integer proStock, String proModel, String proImage, String cateName) {
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public ProductAndCategory(Integer proId, String proName, String proTitle, Integer proCategoryId, Double droPrice, Integer proStock, String proModel, String proImage, String cateName, String brandName) {
         this.proId=proId;
         this.proName = proName;
         this.proTitle = proTitle;
@@ -30,6 +39,8 @@ public class ProductAndCategory {
         this.proModel = proModel;
         this.proImage = proImage;
         this.cateName = cateName;
+        this.brandName=brandName;
+
     }
 
     public ProductAndCategory() {

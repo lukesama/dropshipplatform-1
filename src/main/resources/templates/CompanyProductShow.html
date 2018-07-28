@@ -91,6 +91,7 @@
                         <tr>
                             <th>序号</th>
                             <th>商品标题</th>
+                            <th>品牌名称</th>
                             <th>商品类别</th>
                             <th>商品主图</th>
                             <th>商品批发价格</th>
@@ -103,6 +104,7 @@
                             <tr th:each="Product,iterStat:${product}">
                                 <th scope="row" th:text="${iterStat.count}"></th>
                                 <td th:text="${Product.getProTitle()}"></td>
+                                <td th:text="${Product.getBrandName()}"></td>
                                 <td th:text="${Product.getCateName()}"></td><!--proCategory怎么变成中文-->
                                 <td><img style="height: 100px;width: 100px" th:src="@{'/images/upload/'+${Product.getProImage()}}"> </td>
                                 <td th:text="${Product.getDroPrice()}"></td>
