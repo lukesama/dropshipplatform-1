@@ -100,8 +100,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="daybook:${daybook}">
-                        <td th:text="${daybook.dayBookId}"></td>
+                    <tr th:each="daybook,iterStat:${daybook}">
+                        <th scope="row" th:text="${iterStat.count}"></th>
                         <td th:text="${daybook.tradeAmounts}"></td>
                         <td th:text="${daybook.tradeTime}"></td>
                         <td th:text="${daybook.operationType}"></td>

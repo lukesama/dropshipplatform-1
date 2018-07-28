@@ -51,7 +51,7 @@ public class CompanyWalletController {
                                  HttpSession session){
         CompanyInfo companyInfo=(CompanyInfo)session.getAttribute("companyLoginInfo");
         CompanyInfo companyInfo1=companyInfoService.providerLogin(companyInfo.getUserName(),password);
-        if(companyInfo1!=null&&companyInfo.getComBalance()>=money){
+        if(companyInfo1!=null&&companyInfo.getComBalance()>=money&&money>0){
             companyInfo1.setComBalance(companyInfo1.getComBalance()-money);
 //            companyInfo.setComBalance(companyInfo.getComBalance()-money);
             companyInfoService.save(companyInfo1);

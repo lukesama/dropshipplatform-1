@@ -90,7 +90,7 @@ public class BusinessmanInfoController {
                                  HttpSession session){
         BusinessmanInfo businessmanInfo=(BusinessmanInfo)session.getAttribute("businessmanLoginInfo");
         BusinessmanInfo businessman=businessmanInfoService.businessmanLogin(businessmanInfo.getUserName(),password);
-        if(businessman!=null){
+        if(businessman!=null&&money>0){
             DayBookBusinessman dayBookBusinessman=new DayBookBusinessman();
             dayBookBusinessman.setBusinessman(businessmanInfo);
             dayBookBusinessman.setCheckStatus(0);
