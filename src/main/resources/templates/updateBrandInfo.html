@@ -91,33 +91,47 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
-                    <br>
-                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/providerInfo/update}" method="post">
-                        <input type="hidden" name="brandId" th:value="${brandInfo.getBrandId()}">
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">品牌名称 <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input th:value="${brandInfo.getBrandName()}" type="text" name="brandName" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <br>
+                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/providerInfo/update}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="brandId" th:value="${brandInfo.getBrandId()}">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">品牌名称 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input th:value="${brandInfo.getBrandName()}" type="text" name="brandName" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">品牌图片 <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input th:value="${brandInfo.getBrandImage()}" type="file" name="brandImage" id="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="inputImage">品牌图片 <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="file" name="file" id="inputImage" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
                             </div>
-                        </div>
-                        <div class="ln_solid"></div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <!--<button class="btn btn-primary" type="button">取消添加</button>-->
-                                <button type="submit" class="btn btn-success">确认添加</button>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <!--<button class="btn btn-primary" type="button">取消添加</button>-->
+                                    <button type="submit" class="btn btn-success">确认添加</button>
+                                </div>
                             </div>
-                        </div>
 
-                    </form>
+                        </form>
+                    </div>
+                    <div class="col-lg-offset-1 col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <img id="imgshow" width="300px" class="img-thumbnail" th:src="@{'/images/upload/'+${brandInfo.getBrandImage()}}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -175,6 +189,28 @@
 
 <!-- Custom Theme Scripts -->
 <script th:src="@{/build/js/custom.min.js}"></script>
+
+<script>
+    //在input file内容改变的时候触发事件
+    $('#inputImage').change(function(){
+        //获取input file的files文件数组;
+        //$('#filed')获取的是jQuery对象，.get(0)转为原生对象;
+        //这边默认只能选一个，但是存放形式仍然是数组，所以取第一个元素使用[0];
+        var file = $('#inputImage').get(0).files[0];
+        //创建用来读取此文件的对象
+        var reader = new FileReader();
+        //使用该对象读取file文件
+        reader.readAsDataURL(file);
+        //读取文件成功后执行的方法函数
+        reader.onload=function(e){
+            //读取成功后返回的一个参数e，整个的一个进度事件
+            console.log(e);
+            //选择所要显示图片的img，要赋值给img的src就是e中target下result里面
+            //的base64编码格式的地址
+            $('#imgshow').get(0).src = e.target.result;
+        }
+    })
+</script>
 
 </body>
 </html>

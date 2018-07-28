@@ -6,13 +6,12 @@ import com.jnu.dropshipplatform.service.BrandInfoService;
 import com.jnu.dropshipplatform.service.CompanyInfoService;
 import com.jnu.dropshipplatform.entity.*;
 import com.jnu.dropshipplatform.service.*;
+import com.jnu.dropshipplatform.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -64,13 +63,24 @@ public class CompanyInfoController {
      * @return
      */
     @PostMapping("/company")
-    public String updateCompany(CompanyInfo companyInfo,HttpSession session) {
+    public String updateCompany(CompanyInfo companyInfo,
+                                HttpSession session,
+                                @RequestParam("file")MultipartFile file) {
+        String contentType = file.getContentType();                 //图片文件类型
+        String fileName = file.getOriginalFilename();               //图片名字
+        String filePath = FileUtil.getUpLoadFilePath();
+        fileName = System.currentTimeMillis()+fileName;
+        try{
+            FileUtil.uploadFile(file.getBytes(),filePath,fileName);
+        }catch (Exception e){
+            // TODO:handle exception
+        }
         CompanyInfo com = (CompanyInfo) session.getAttribute("companyLoginInfo");
         CompanyInfo comGetPwd = companyInfoService.getCompanyById(com.getUserComId());
         com.setUserPwd(comGetPwd.getUserPwd());
         com.setComName(companyInfo.getComName());
         com.setComDescription(companyInfo.getComDescription());
-        com.setComLogo(companyInfo.getComLogo());
+        com.setComLogo(fileName);
         companyInfoService.updateCompanyInfo(com);
         return "redirect:/jnu/providerInfo";
     }
@@ -83,7 +93,19 @@ public class CompanyInfoController {
     }
 
     @PostMapping("providerInfo/add")
-    public String addBrandInfo(BrandInfo brandInfo,HttpSession session){
+    public String addBrandInfo(BrandInfo brandInfo,
+                               HttpSession session,
+                               @RequestParam("file")MultipartFile file){
+        String contentType = file.getContentType();                 //图片文件类型
+        String fileName = file.getOriginalFilename();               //图片名字
+        String filePath = FileUtil.getUpLoadFilePath();
+        fileName = System.currentTimeMillis()+fileName;
+        try{
+            FileUtil.uploadFile(file.getBytes(),filePath,fileName);
+        }catch (Exception e){
+            // TODO:handle exception
+        }
+        brandInfo.setBrandImage(fileName);
         CompanyInfo comForId = (CompanyInfo) session.getAttribute("companyLoginInfo");
         CompanyInfo owner = companyInfoService.getCompanyById(comForId.getUserComId());
         brandInfo.setBrandOwner(owner);
@@ -106,7 +128,19 @@ public class CompanyInfoController {
     }
 
     @PostMapping("providerInfo/update")
-    public String updateBrandInfo(BrandInfo brandInfo,HttpSession session){
+    public String updateBrandInfo(BrandInfo brandInfo,
+                                  HttpSession session,
+                                  @RequestParam("file")MultipartFile file){
+        String contentType = file.getContentType();                 //图片文件类型
+        String fileName = file.getOriginalFilename();               //图片名字
+        String filePath = FileUtil.getUpLoadFilePath();
+        fileName = System.currentTimeMillis()+fileName;
+        try{
+            FileUtil.uploadFile(file.getBytes(),filePath,fileName);
+        }catch (Exception e){
+            // TODO:handle exception
+        }
+        brandInfo.setBrandImage(fileName);
         CompanyInfo comForId = (CompanyInfo) session.getAttribute("companyLoginInfo");
         CompanyInfo owner = companyInfoService.getCompanyById(comForId.getUserComId());
         brandInfo.setBrandOwner(owner);

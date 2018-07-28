@@ -15,6 +15,9 @@ public interface ProductCategoryService {
     //根据类别ID查找对应的类别信息
     ProductCategory getCateInfoById(Integer cateId);
 
+    //根据类别ID判断是否为详细类别
+    Boolean isDetailProductByCateId(Integer cateId);
+
 //    //
 //    List<ProductCategory> getDetailedCate(Integer main);
 

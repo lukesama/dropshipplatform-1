@@ -1,12 +1,9 @@
 package com.jnu.dropshipplatform.controller;
 
 import com.jnu.dropshipplatform.entity.*;
-import com.jnu.dropshipplatform.service.BrandInfoService;
-import com.jnu.dropshipplatform.service.BrandProductService;
-import com.jnu.dropshipplatform.service.CompanyInfoService;
-import com.jnu.dropshipplatform.service.ProductInfoService;
-import com.jnu.dropshipplatform.utils.FileUtil;
 import com.jnu.dropshipplatform.service.*;
+import com.jnu.dropshipplatform.utils.FileUtil;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
@@ -33,6 +30,7 @@ public class ProductInfoController {
     private BrandProductService brandProductService;
     @Autowired
     private ProductCategoryService productCategoryService;
+
     @GetMapping("/ProductShow")
     public String getProduct(HttpSession session,/*@PathVariable("id") Integer id,*/ Model model){
         CompanyInfo companyInfo=(CompanyInfo)session.getAttribute("companyLoginInfo");
@@ -51,16 +49,38 @@ public class ProductInfoController {
     }
 
     @GetMapping("insert")
-    public String jumpToInsert(HttpSession session,Model model){
+    public String jumpToInsert(Model model){
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(0);
+        model.addAttribute("allCate",cateList);
+        return "CompanyProductInsert";
+    }
+
+    @GetMapping("/insert/{id}")
+    public String getProductByCate(@PathVariable("id") Integer fatherId,
+                                   Model model,
+                                   HttpSession session) {
+        Integer isDetailCate = 0;
+        Boolean isDetaileCate_temp = productCategoryService.isDetailProductByCateId(fatherId);
+        if(isDetaileCate_temp) {
+            isDetailCate = 1;
+            session.setAttribute("cateId",fatherId);
+        }
+        //传入当前类别是否为详细类别
+        model.addAttribute("isDetailCate",isDetailCate);
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(fatherId);
+        model.addAttribute("allCate",cateList);
+        ProductCategory productCategory = productCategoryService.getCateInfoById(fatherId);
+        model.addAttribute("catePath",productCategory.getCatePath());
         List<BrandInfo> brandInfo=brandInfoService.findBrandInfoByBrandOwner((CompanyInfo)session.getAttribute("companyLoginInfo"));
-        List<ProductCategory> firstProductCategories= productCategoryService.getCateByFatherId(0);
         model.addAttribute("brand",brandInfo);
         return "CompanyProductInsert";
     }
+
     @PostMapping("insert")
     public  String insert(@RequestParam("brandNum") Integer brand,
                           @RequestParam("file") MultipartFile file,
-                          ProductInfo productInfo){
+                          ProductInfo productInfo,
+                          HttpSession session){
         String contentType = file.getContentType();                 //图片文件类型
         String fileName = file.getOriginalFilename();               //图片名字
         String filePath = FileUtil.getUpLoadFilePath();
@@ -70,6 +90,9 @@ public class ProductInfoController {
         }catch (Exception e){
             // TODO:handle exception
         }
+        String cateId_temp = session.getAttribute("cateId").toString();
+        Integer cateId = Integer.parseInt(cateId_temp);
+        productInfo.setProCategoryId(cateId);
         productInfo.setProImage(fileName);
         productInfo.setProStatus(0);
         productInfoService.save(productInfo);
@@ -80,14 +103,66 @@ public class ProductInfoController {
         return "redirect:/jnu/company/ProductShow";
     }
 
-    @GetMapping("update/{id}")
-    public String jumpToUpdate(@PathVariable ("id") Integer id,Model model){
-        ProductInfo productInfo=productInfoService.findProductInfoByProId(id);
-        model.addAttribute("product",productInfo);
+    @GetMapping("/update")
+    public String resetPage(Model model){
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(0);
+        model.addAttribute("allCate",cateList);
         return "CompanyProductUpdate";
     }
+
+    @GetMapping("/update/loop/{id}")
+    public String loopUpdate(@PathVariable("id") Integer fatherId,
+                             Model model,
+                             HttpSession session){
+        Integer isDetailCate = 0;
+        Boolean isDetaileCate_temp = productCategoryService.isDetailProductByCateId(fatherId);
+        if(isDetaileCate_temp) {
+            isDetailCate = 1;
+            session.setAttribute("cateId",fatherId);
+        }
+        //传入当前类别是否为详细类别
+        model.addAttribute("isDetailCate",isDetailCate);
+        List<ProductCategory> cateList = productCategoryService.getCateByFatherId(fatherId);
+        model.addAttribute("allCate",cateList);
+        ProductCategory productCategory = productCategoryService.getCateInfoById(fatherId);
+        model.addAttribute("catePath",productCategory.getCatePath());
+//        List<BrandInfo> brandInfo=brandInfoService.findBrandInfoByBrandOwner((CompanyInfo)session.getAttribute("companyLoginInfo"));
+//        model.addAttribute("brand",brandInfo);
+        return "CompanyProductUpdate";
+    }
+
+    @GetMapping("update/{id}")
+    public String jumpToUpdate(@PathVariable ("id") Integer id,
+                               Model model,
+                               HttpSession session){
+        ProductInfo productInfo=productInfoService.findProductInfoByProId(id);
+        session.setAttribute("productInfo",productInfo);
+        ProductCategory productCategory = productCategoryService.getCateInfoById(productInfo.getProCategoryId());
+        Integer cateId = productCategory.getCateId();
+        session.setAttribute("cateId",cateId);
+        Integer isDetailCate = 1;
+        //传入当前类别是否为详细类别
+        model.addAttribute("isDetailCate",isDetailCate);
+        return "CompanyProductUpdate";
+    }
+
     @PostMapping("update")
-    public  String update(ProductInfo productInfo){
+    public  String update(ProductInfo productInfo,
+                          @RequestParam("file")MultipartFile file,
+                          HttpSession session){
+        String contentType = file.getContentType();                 //图片文件类型
+        String fileName = file.getOriginalFilename();               //图片名字
+        String filePath = FileUtil.getUpLoadFilePath();
+        fileName = System.currentTimeMillis()+fileName;
+        try{
+            FileUtil.uploadFile(file.getBytes(),filePath,fileName);
+        }catch (Exception e){
+            // TODO:handle exception
+        }
+        String cateId_temp = session.getAttribute("cateId").toString();
+        Integer cateId = Integer.parseInt(cateId_temp);
+        productInfo.setProCategoryId(cateId);
+        productInfo.setProImage(fileName);
         productInfoService.save(productInfo);
         return "redirect:/jnu/company/ProductShow";
     }

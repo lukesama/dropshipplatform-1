@@ -39,12 +39,10 @@
                         <span th:switch="${session.roleSort}">
                             <span th:case="${0}">借卖方</span>
                             <span th:case="${1}">品牌商</span>
-                        </span>
-                    </a>
+                            <span th:case="${2}">管理员</span>
+                        </span></a>
                 </div>
-
                 <div class="clearfix"></div>
-
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
@@ -56,15 +54,11 @@
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
-
                 <br />
-
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:replace="menu::menu_roles">
-
                 </div>
                 <!-- /sidebar menu -->
-
             </div>
         </div>
 
@@ -82,54 +76,73 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <div class="page-header position-relative">
-                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>公司信息</small></h1>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" th:action="@{/jnu/company}" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">公司名称<span class="required">*</span>
-                                </label>
-                                <div class="col-sm-10">
-                                    <input name="comName" type="text" th:value="${session.companyLoginInfo.getComName()}" class="form-control" id="inputName" placeholder="Company Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputDescription" class="col-sm-2 control-label">公司简介</label>
-                                <div class="col-sm-10">
-                                    <textarea name="comDescription" rows="10" th:text="${session.companyLoginInfo.getComDescription()}" class="form-control" id="inputDescription" placeholder="Company Description"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputImage" class="col-sm-2 control-label">公司图标</label>
-                                <div class="col-sm-10">
-                                    <input name="file" id="inputImage" type="file" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-success">确定</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-lg-offset-1 col-lg-4">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <img id="imgshow" width="300px" class="img-thumbnail" th:src="@{'/images/upload/'+${session.companyLoginInfo.getComLogo()}}" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>BusinessmanDayBook <small>借卖方流水</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Settings 1</a>
+                                </li>
+                                <li><a href="#">Settings 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <p class="text-muted font-13 m-b-30" >
+                        <br/>
+                    </p>
 
-                            </div>
-                        </div>
-                    </div>
+                    <table id="datatable" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>账户名</th>
+                            <th>时间</th>
+                            <th>金额</th>
+                            <th>业务类型</th>
+                            <th>审核状态</th>
+                            <th>管理</th>
+                        </tr>
+                        </thead>
+
+
+                        <tbody>
+                        <tr th:each="DayBookBusinessman,iterStat:${allBusiDayBook}">
+                            <th scope="row" th:text="${iterStat.count}">1
+                            </th>
+                            <td th:text="${DayBookBusinessman.getBusinessman().getUserName()}">System Architect</td>
+                            <td th:text="${DayBookBusinessman.getTradeTime()}">Edinburgh</td>
+                            <td th:text="${DayBookBusinessman.getTradeAmounts()}">61</td>
+                            <td th:text="${DayBookBusinessman.getOperationType()}">2011/04/25</td>
+                            <td th:switch="${DayBookBusinessman.getCheckStatus()}">
+                                <span th:case="0">待审核</span>
+                                <span th:case="1">通过</span>
+                                <span th:case="-1">不通过</span>
+                            </td>
+                            <td th:switch="${DayBookBusinessman.getCheckStatus()}">
+                                <div th:case="0">
+                                    <a th:href="@{'/jnu/changeBusiDayBookStatus/'+${DayBookBusinessman.getDayBookId()}+'/1'}" class="btn btn-success"  th:text="通过"></a>
+                                    <a th:href="@{'/jnu/changeBusiDayBookStatus/'+${DayBookBusinessman.getDayBookId()}+'/0'}" class="btn btn-primary"  th:text="不通过"></a>
+                                </div>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
+
         <!-- /page content -->
 
         <!-- footer content -->
@@ -180,31 +193,7 @@
 <!-- bootstrap-daterangepicker -->
 <script th:src="@{/vendors/moment/min/moment.min.js}"></script>
 <script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
-
 <!-- Custom Theme Scripts -->
 <script th:src="@{/build/js/custom.min.js}"></script>
-
-<script>
-    //在input file内容改变的时候触发事件
-    $('#inputImage').change(function(){
-        //获取input file的files文件数组;
-        //$('#filed')获取的是jQuery对象，.get(0)转为原生对象;
-        //这边默认只能选一个，但是存放形式仍然是数组，所以取第一个元素使用[0];
-        var file = $('#inputImage').get(0).files[0];
-        //创建用来读取此文件的对象
-        var reader = new FileReader();
-        //使用该对象读取file文件
-        reader.readAsDataURL(file);
-        //读取文件成功后执行的方法函数
-        reader.onload=function(e){
-            //读取成功后返回的一个参数e，整个的一个进度事件
-            console.log(e);
-            //选择所要显示图片的img，要赋值给img的src就是e中target下result里面
-            //的base64编码格式的地址
-            $('#imgshow').get(0).src = e.target.result;
-        }
-    })
-</script>
-
 </body>
 </html>

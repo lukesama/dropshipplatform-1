@@ -32,4 +32,16 @@ public class ProductCategoryServiceImpl implements ProductCategoryService{
 //        ProductCategory proCate_temp = productCategoryRepository.findProductCategoryByCateName(cateName);
 //        return productCategoryRepository.findProductCategorysByFatherCateId(proCate_temp.getCateId());
 //    }
+
+    @Override
+    public Boolean isDetailProductByCateId(Integer cateId) {
+        List<ProductCategory> detailProducts = productCategoryRepository.findProductCategoriesByCatePathLike(">%>%>%");
+        for (int i=0;i<detailProducts.size();i++) {
+            Integer CID = detailProducts.get(i).getCateId();
+            if(CID == cateId){
+                return true;
+            }
+        }
+        return false;
+    }
 }

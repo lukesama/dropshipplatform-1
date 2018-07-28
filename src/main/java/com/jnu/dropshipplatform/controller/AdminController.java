@@ -2,9 +2,9 @@ package com.jnu.dropshipplatform.controller;
 
 import com.jnu.dropshipplatform.entity.BusinessmanInfo;
 import com.jnu.dropshipplatform.entity.CompanyInfo;
-import com.jnu.dropshipplatform.service.AdminAccountInfoService;
-import com.jnu.dropshipplatform.service.BusinessmanInfoService;
-import com.jnu.dropshipplatform.service.CompanyInfoService;
+import com.jnu.dropshipplatform.entity.DayBookBusinessman;
+import com.jnu.dropshipplatform.entity.DayBookCompany;
+import com.jnu.dropshipplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -26,12 +27,18 @@ public class AdminController {
     private BusinessmanInfoService businessmanInfoService;
     @Autowired
     private CompanyInfoService companyInfoService;
+    @Autowired
+    private DayBookBusinessmanService dayBookBusinessmanService;
+    @Autowired
+    private DayBookCompanyService dayBookCompanyService;
 
     @GetMapping("admin")
     public String adminHomePage(HttpSession session){
 
         return "adminHomePage";
     }
+
+    //BusinessmanInfo manage begin here
 
     /**
      *管理借卖用户
@@ -80,6 +87,8 @@ public class AdminController {
         return "redirect:/jnu/managerBusiness";
     }
 
+    //BusinessmanInfo manage begin here
+
     //CompanyInfo manage begin here
 
     /**
@@ -127,4 +136,83 @@ public class AdminController {
         companyInfoService.deleteCompanyById(userId);
         return "redirect:/jnu/managerCompany";
     }
+
+    //CompanyInfo manage end here
+
+    //BusinessmanDayBook manage begin here
+
+
+    /**
+     * 审核所有借卖方账户流水
+     * @param session
+     * @param model
+     * @return
+     */
+    @GetMapping("busiDayBookCheck")
+    public String busiDayBookCheck(HttpSession session,Model model ){
+        List<DayBookBusinessman> lists = dayBookBusinessmanService.getAllDayBookBusinessman();
+        model.addAttribute("allBusiDayBook",lists);
+        return "adminManageBusiDayBook";
+    }
+
+
+    /**
+     * 对指定ID 进行审核
+     * @param dayBookID
+     * @param toPass
+     * @param session
+     * @return
+     */
+    @GetMapping("changeBusiDayBookStatus/{id}/{flag}")
+    public String changeBusiDayBookStatus(@PathVariable("id") Integer dayBookID,
+                                          @PathVariable("flag") String toPass,
+                                           HttpSession session){
+        DayBookBusinessman dayBookBusinessman = dayBookBusinessmanService.findDayBookBusinessmanById(dayBookID);
+
+        if(toPass.equals("1")){
+            dayBookBusinessman.setCheckStatus(1);
+
+            //审核通过后，在对应账户上增加金额
+            BusinessmanInfo businessmanInfo =  dayBookBusinessman.getBusinessman();
+            businessmanInfo.setBusiBalance(businessmanInfo.getBusiBalance()+dayBookBusinessman.getTradeAmounts());
+            businessmanInfoService.updateBusiInfo(businessmanInfo);
+        }else if(toPass.equals("0")){
+            dayBookBusinessman.setCheckStatus(-1);
+        }
+
+        dayBookBusinessmanService.save(dayBookBusinessman);
+
+        return "redirect:/jnu/busiDayBookCheck";
+
+    }
+
+    //BusinessmanDayBook manage end here
+
+
+    //cpyDayBook manage begin here
+
+    @GetMapping("cpyDayBookCheck")
+    public String cpyDayBookCheck(HttpSession session,Model model){
+        List<DayBookCompany> lists = dayBookCompanyService.getAllCpyDayBook();
+        model.addAttribute("allCpyDayBook",lists);
+        return "adminManageCpyDayBook";
+    }
+
+    @GetMapping("changeCpyDayBookStatus/{id}/{flag}")
+    public String changeCpyDayBookStatus(@PathVariable("id") Integer dayBookID,
+                                         @PathVariable("flag") String toPass,
+                                         HttpSession session){
+        DayBookCompany dayBookCompany = dayBookCompanyService.findDayBookCpyByID(dayBookID);
+        if(toPass.equals("1")){
+            dayBookCompany.setCheckStatus(1);
+        }else if(toPass.equals("0")){
+            dayBookCompany.setCheckStatus(-1);
+        }
+
+        dayBookCompanyService.save(dayBookCompany);
+
+        return "redirect:/jnu/cpyDayBookCheck";
+    }
+    //cpyDayBook manage end here
+
 }
