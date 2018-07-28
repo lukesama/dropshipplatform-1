@@ -108,7 +108,8 @@ public class ProductInfoController {
     }
 
     @GetMapping("/update")
-    public String resetPage(Model model){
+    public String resetPage(Model model,
+                            HttpSession session){
         List<ProductCategory> cateList = productCategoryService.getCateByFatherId(0);
         model.addAttribute("allCate",cateList);
         return "CompanyProductUpdate";
@@ -130,6 +131,8 @@ public class ProductInfoController {
         model.addAttribute("allCate",cateList);
         ProductCategory productCategory = productCategoryService.getCateInfoById(fatherId);
         model.addAttribute("catePath",productCategory.getCatePath());
+        List<BrandInfo> brandInfo=brandInfoService.findBrandInfoByBrandOwner((CompanyInfo)session.getAttribute("companyLoginInfo"));
+        model.addAttribute("brand",brandInfo);
 //        List<BrandInfo> brandInfo=brandInfoService.findBrandInfoByBrandOwner((CompanyInfo)session.getAttribute("companyLoginInfo"));
 //        model.addAttribute("brand",brandInfo);
         return "CompanyProductUpdate";
@@ -147,6 +150,8 @@ public class ProductInfoController {
         Integer isDetailCate = 1;
         //传入当前类别是否为详细类别
         model.addAttribute("isDetailCate",isDetailCate);
+        List<BrandInfo> brandInfo=brandInfoService.findBrandInfoByBrandOwner((CompanyInfo)session.getAttribute("companyLoginInfo"));
+        model.addAttribute("brand",brandInfo);
         return "CompanyProductUpdate";
     }
 
