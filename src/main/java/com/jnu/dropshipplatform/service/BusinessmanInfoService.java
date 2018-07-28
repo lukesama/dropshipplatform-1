@@ -19,5 +19,5 @@ public interface BusinessmanInfoService {
     List<BusinessmanInfo> getAllBusinessmanInfo();
 
     void deleteByUserId(Integer userId);
-
+    void save(BusinessmanInfo businessmanInfo);
 }
