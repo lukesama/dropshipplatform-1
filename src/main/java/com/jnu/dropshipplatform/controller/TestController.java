@@ -31,11 +31,11 @@ public class TestController {
 //        return "0ForTest";
 //    }
 //
-//    @GetMapping("t")
-//    public String tester(Model model){
-//        String s ="abcd";
-//        model.addAttribute("test",s);
-//        return "0ForTest";
-//    }
+    @GetMapping("t")
+    public String tester(Model model){
+        String s ="abcd";
+        model.addAttribute("test",s);
+        return "0ForTest";
+    }
 
 }

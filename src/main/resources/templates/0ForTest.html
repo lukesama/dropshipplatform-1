@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentelella Alela! | </title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{/vendors/nprogress/nprogress.css}" rel="stylesheet">
+    <!-- iCheck -->
+    <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link th:href="@{/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link th:href="@{/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link th:href="@{/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i>
+
+
+                        <span th:switch="${session.roleSort}">
+                  <span th:case="${0}">借卖方</span>
+                  <span th:case="${1}">品牌商</span>
+                </span></a>
+
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img th:src="@{/production/images/img.jpg}" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>John Doe</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:replace="menu::menu_roles">
+
+                </div>
+                <!-- /sidebar menu -->
+
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>订单管理</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#paying" aria-controls="paying" role="tab" data-toggle="tab">代支付</a></li>
+                        <li role="presentation"><a href="#shiping" aria-controls="shiping" role="tab" data-toggle="tab">待发货</a></li>
+                        <li role="presentation"><a href="#shiped" aria-controls="shiped" role="tab" data-toggle="tab">已发货</a></li>
+                        <li role="presentation"><a href="#complete" aria-controls="complete" role="tab" data-toggle="tab">已完成</a></li>
+                        <li role="presentation"><a href="#canceled" aria-controls="canceled" role="tab" data-toggle="tab">已取消</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="paying">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr class="headings">
+                                    <th class="column-title">商品标题</th>
+                                    <th class="column-title">单价</th>
+                                    <th class="column-title">数量</th>
+                                    <th class="column-title">型号</th>
+                                    <th class="column-title">订单编号</th>
+                                    <th class="column-title">订单创建时间</th>
+                                    <!--<th class="column-title">总价</th>-->
+                                    <!--<th class="column-title no-link last"><span class="nobr">操作</span></th>-->
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <!--<tr th:each="brand:${allBrand}" class="odd pointer">-->
+                                    <!--<td th:text="${brand.getBrandName()}" class=" ">Paid</td>-->
+                                    <!--<td th:text="${brand.getBrandImage()}" class="a-right a-right ">$7.45</td>-->
+                                    <!--<td class=" last"><a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/update'}">修改</a>&nbsp;&nbsp;<a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/delete'}">删除</a>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="shiping">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr class="headings">
+                                    <th class="column-title">商品标题</th>
+                                    <th class="column-title">单价</th>
+                                    <th class="column-title">数量</th>
+                                    <th class="column-title">型号</th>
+                                    <th class="column-title">订单编号</th>
+                                    <th class="column-title">订单创建时间</th>
+                                    <!--<th class="column-title">总价</th>-->
+                                    <th class="column-title no-link last"><span class="nobr">操作</span></th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <!--<tr th:each="brand:${allBrand}" class="odd pointer">-->
+                                <!--<td th:text="${brand.getBrandName()}" class=" ">Paid</td>-->
+                                <!--<td th:text="${brand.getBrandImage()}" class="a-right a-right ">$7.45</td>-->
+                                <!--<td class=" last"><a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/update'}">修改</a>&nbsp;&nbsp;<a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/delete'}">删除</a>-->
+                                <!--</td>-->
+                                <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="shiped">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr class="headings">
+                                    <th class="column-title">商品标题</th>
+                                    <th class="column-title">单价</th>
+                                    <th class="column-title">数量</th>
+                                    <th class="column-title">型号</th>
+                                    <th class="column-title">订单编号</th>
+                                    <th class="column-title">订单创建时间</th>
+                                    <!--<th class="column-title">总价</th>-->
+                                    <th class="column-title">物流跟踪号</th>
+                                    <th class="column-title no-link last"><span class="nobr">操作</span></th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <!--<tr th:each="brand:${allBrand}" class="odd pointer">-->
+                                <!--<td th:text="${brand.getBrandName()}" class=" ">Paid</td>-->
+                                <!--<td th:text="${brand.getBrandImage()}" class="a-right a-right ">$7.45</td>-->
+                                <!--<td class=" last"><a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/update'}">修改</a>&nbsp;&nbsp;<a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/delete'}">删除</a>-->
+                                <!--</td>-->
+                                <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="complete">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr class="headings">
+                                    <th class="column-title">商品标题</th>
+                                    <th class="column-title">单价</th>
+                                    <th class="column-title">数量</th>
+                                    <th class="column-title">型号</th>
+                                    <th class="column-title">订单编号</th>
+                                    <th class="column-title">订单创建时间</th>
+                                    <!--<th class="column-title">总价</th>-->
+                                    <th class="column-title">物流跟踪号</th>
+                                    <!--<th class="column-title no-link last"><span class="nobr">操作</span></th>-->
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <!--<tr th:each="brand:${allBrand}" class="odd pointer">-->
+                                <!--<td th:text="${brand.getBrandName()}" class=" ">Paid</td>-->
+                                <!--<td th:text="${brand.getBrandImage()}" class="a-right a-right ">$7.45</td>-->
+                                <!--<td class=" last"><a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/update'}">修改</a>&nbsp;&nbsp;<a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/delete'}">删除</a>-->
+                                <!--</td>-->
+                                <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="canceled">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr class="headings">
+                                    <th class="column-title">商品标题</th>
+                                    <th class="column-title">单价</th>
+                                    <th class="column-title">数量</th>
+                                    <th class="column-title">型号</th>
+                                    <th class="column-title">订单编号</th>
+                                    <th class="column-title">订单创建时间</th>
+                                    <!--<th class="column-title">总价</th>-->
+                                    <!--<th class="column-title">物流跟踪号</th>-->
+                                    <!--<th class="column-title no-link last"><span class="nobr">操作</span></th>-->
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <!--<tr th:each="brand:${allBrand}" class="odd pointer">-->
+                                <!--<td th:text="${brand.getBrandName()}" class=" ">Paid</td>-->
+                                <!--<td th:text="${brand.getBrandImage()}" class="a-right a-right ">$7.45</td>-->
+                                <!--<td class=" last"><a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/update'}">修改</a>&nbsp;&nbsp;<a th:href="@{'/jnu/providerInfo/'+${brand.getBrandId()}+'/delete'}">删除</a>-->
+                                <!--</td>-->
+                                <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                DropShipping  by <a href="#">Jnu2015</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+<!-- NProgress -->
+<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+<!-- Chart.js -->
+<script th:src="@{/vendors/Chart.js/dist/Chart.min.js}"></script>
+<!-- gauge.js -->
+<script th:src="@{/vendors/gauge.js/dist/gauge.min.js}"></script>
+<!-- bootstrap-progressbar -->
+<script th:src="@{/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+<!-- iCheck -->
+<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+<!-- Skycons -->
+<script th:src="@{/vendors/skycons/skycons.js}"></script>
+<!-- Flot -->
+<script th:src="@{/vendors/Flot/jquery.flot.js}"></script>
+<script th:src="@{/vendors/Flot/jquery.flot.pie.js}"></script>
+<script th:src="@{/vendors/Flot/jquery.flot.time.js}"></script>
+<script th:src="@{/vendors/Flot/jquery.flot.stack.js}"></script>
+<script th:src="@{/vendors/Flot/jquery.flot.resize.js}"></script>
+<!-- Flot plugins -->
+<script th:src="@{/vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+<script th:src="@{/vendors/flot-spline/js/jquery.flot.spline.min.js}"></script>
+<script th:src="@{/vendors/flot.curvedlines/curvedLines.js}"></script>
+<!-- DateJS -->
+<script th:src="@{/vendors/DateJS/build/date.js}"></script>
+<!-- JQVMap -->
+<script th:src="@{/vendors/jqvmap/dist/jquery.vmap.js}"></script>
+<script th:src="@{/vendors/jqvmap/dist/maps/jquery.vmap.world.js}"></script>
+<script th:src="@{/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js}"></script>
+<!-- bootstrap-daterangepicker -->
+<script th:src="@{/vendors/moment/min/moment.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+
+<!-- Custom Theme Scripts -->
+<script th:src="@{/build/js/custom.min.js}"></script>
+
+</body>
+</html>
