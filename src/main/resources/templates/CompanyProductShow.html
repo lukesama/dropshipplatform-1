@@ -93,15 +93,14 @@
             <div class="col-md-3" th:switch="${selectedItem}">
                 <ul th:case="0">
                     <!--//按品牌筛选块-->
-                    <div class="col-md-offset-7" id="Brand">
-                        <button th:text="${selectedName}" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <div class="col-md-offset-1" id="Brand">
+                        <button th:text="${brandName}" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             请选择
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <!--<li><a th:href="@{/jnu/company/sortBy/0}">Action</a></li>-->
-                            <!--<li><a th:href="@{/jnu/company/sortBy/1}">Another action</a></li>-->
-                            <!--<li><a th:href="@{/jnu/company/sortBy/2}">Something else here</a></li>-->
+                            <li><a th:href="@{/jnu/company/sortBy/0}">全部</a></li>
+                            <li  th:each="BrandInfo:${brandInfo}"><a th:href="@{'/jnu/company/sortBy/brand/'+${BrandInfo.getBrandId()}}" th:text="${BrandInfo.getBrandName()}"></a></li>
                         </ul>
                     </div>
                 </ul>
@@ -122,10 +121,10 @@
                 <ul th:case="2">
                     <!--//按标题筛选-->
                     <div id="Title">
-                        <form name="search" th:action="@{/jnu/company/select}" method="get">
+                        <form name="search" th:action="@{/jnu/company/sortBy/search}" method="post">
                             <div class="form-group">
-                                <input type="text" name="proName" placeholder="搜索商品标题" >
-                                <button type="submit" class="btn btn-default">搜索</button>
+                                <input type="text" name="key" placeholder="搜索商品标题" >
+                                <input type="submit" class="btn btn-default" text="搜索">
                             </div>
                         </form>
                     </div>

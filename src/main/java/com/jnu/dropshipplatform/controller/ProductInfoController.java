@@ -139,7 +139,7 @@ public class ProductInfoController {
         return "CompanyProductUpdate";
     }
 
-    @GetMapping("update/{id}")
+    @GetMapping("/update/{id}")
     public String jumpToUpdate(@PathVariable ("id") Integer id,
                                Model model,
                                HttpSession session){
@@ -156,7 +156,7 @@ public class ProductInfoController {
         return "CompanyProductUpdate";
     }
 
-    @PostMapping("update")
+    @PostMapping("/update")
     public  String update(ProductInfo productInfo,
                           @RequestParam("file")MultipartFile file,
                           HttpSession session){
@@ -177,7 +177,7 @@ public class ProductInfoController {
         return "redirect:/jnu/company/ProductShow";
     }
 
-    @GetMapping("delete/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable ("id") Integer id){
         ProductInfo productInfo = productInfoService.findProductInfoByProId(id);
         if(productPushService.existProPushByProInfo(productInfo)) {
@@ -196,13 +196,86 @@ public class ProductInfoController {
         return "redirect:/jnu/company/ProductShow";
     }
 
-    @GetMapping("sortBy/{id}")
-    public String sortBy(@PathVariable("id") Integer selectedItem,Model model){
+    /**
+     * 选择按什么筛选
+     * @param selectedItem
+     * @param model
+     * @param session
+     * @return
+     */
+    @GetMapping("/sortBy/{id}")
+    public String sortBy(@PathVariable("id") Integer selectedItem,Model model,HttpSession session){
         model.addAttribute("selectedItem",selectedItem);
         String[] str = {"按品牌筛选","按类别筛选","按标题筛选"};
         model.addAttribute("selectedName",str[selectedItem]);
-//        return "redirect:/jnu/company/ProductShow";
+        model.addAttribute("brandName","全部");
+        CompanyInfo companyInfo=(CompanyInfo)session.getAttribute("companyLoginInfo");
+        List<BrandInfo> brandInfos=brandInfoService.findBrandInfoByBrandOwner(companyInfo);
+        model.addAttribute("brandInfo",brandInfos);
+        List<BrandProduct> brandProducts=new ArrayList<BrandProduct>();
+        List<ProductAndCategory> product=new ArrayList<ProductAndCategory>();
+        for(int i=0;i<brandInfos.size();i++){
+            brandProducts.addAll(brandProductService.findBrandProductByBrandId(brandInfos.get(i).getBrandId()));
+        }
+        for(int i=0;i<brandProducts.size();i++){
+            product.addAll(productInfoService.getProductAndCategory(brandProducts.get(i).getProductInfo()));
+        }
+        model.addAttribute("product",product);
         return "CompanyProductShow";
-}
+    }
 
+    /**
+     * 按品牌筛选
+     * @param brandId
+     * @param model
+     * @param session
+     * @return
+     */
+    @GetMapping("/sortBy/brand/{id}")
+    public String sortByBrand(@PathVariable("id") Integer brandId,
+                              Model model,
+                              HttpSession session) {
+        List<ProductAndCategory> product=new ArrayList<ProductAndCategory>();
+        List<BrandProduct> brandProduct = brandProductService.findBrandProductByBrandId(brandId);
+        for(int i=0;i<brandProduct.size();i++) {
+            product.addAll(productInfoService.getProductAndCategory(brandProduct.get(i).getProductInfo()));
+        }
+        model.addAttribute("product",product);
+        model.addAttribute("selectedName","按品牌筛选");
+        model.addAttribute("selectedItem","0");
+        model.addAttribute("brandName",brandInfoService.getBrandInfoByBrandId(brandId).getBrandName());
+        List<BrandInfo> brandInfo=brandInfoService.findBrandInfoByBrandOwner((CompanyInfo)session.getAttribute("companyLoginInfo"));
+        model.addAttribute("brandInfo",brandInfo);
+        return "CompanyProductShow";
+    }
+
+    /**
+     * 按标题筛选
+     * @param key
+     * @param session
+     * @param model
+     * @return
+     */
+    @PostMapping("/sortBy/search")
+    public String sortByKey(@RequestParam String key,
+                            HttpSession session,
+                            Model model) {
+        CompanyInfo companyInfo=(CompanyInfo)session.getAttribute("companyLoginInfo");
+        List<BrandInfo> brandInfos=brandInfoService.findBrandInfoByBrandOwner(companyInfo);
+        List<BrandProduct> brandProducts=new ArrayList<BrandProduct>();
+        List<ProductAndCategory> product=new ArrayList<ProductAndCategory>();
+        List<ProductInfo> productInfos=new ArrayList<ProductInfo>();
+        for(int i=0;i<brandInfos.size();i++){
+            brandProducts.addAll(brandProductService.findBrandProductByBrandId(brandInfos.get(i).getBrandId()));
+        }
+        for(int i=0;i<brandProducts.size();i++){
+            if(productInfoService.keyInProductTitle(brandProducts.get(i).getProductInfo(),key)){
+                product.addAll(productInfoService.getProductAndCategory(brandProducts.get(i).getProductInfo()));
+            }
+        }
+        model.addAttribute("product",product);
+        model.addAttribute("selectedName","按标题筛选");
+        model.addAttribute("selectedItem","2");
+        return "CompanyProductShow";
+    }
 }

@@ -72,4 +72,17 @@ public class ProductInfoServiceImpl implements ProductInfoService {
         }
         return resultProductInfo;
     }
+
+//    @Override
+//    public List<ProductInfo> getProsByKey(String key) {
+//        return productInfoRepository.findProductInfosByProTitleLike(key);
+//    }
+
+    @Override
+    public Boolean keyInProductTitle(Integer productId, String key) {
+        String keys = "%"+key+"%";
+        if (productInfoRepository.findProductInfoByProIdAndProTitleLike(productId,keys)==null)
+            return false;
+        return true;
+    }
 }
