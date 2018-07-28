@@ -23,4 +23,10 @@ public interface ProductCategoryService {
 
 //    //根据主类别名查找出属于该主类别的所有次类别信息
 //    List<ProductCategory> getSubProductByFatherCateName(String cateName);
+
+    //获取整个类别表
+    List<ProductCategory> getAllProCategory();
+
+    //添加类别
+    ProductCategory addCatagory(ProductCategory productCategory);
 }

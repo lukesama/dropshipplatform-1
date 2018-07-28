@@ -10,6 +10,7 @@ public interface BrandProductService {
     List<BrandProduct> findBrandProductByBrandId(Integer brandId);
     void save(BrandProduct brandProduct);
     void deleteByProId(Integer proId);
+    List<BrandProduct> findBrandProductByProduct(Integer proId);
     //根据类别返回产品信息
     Boolean inBrandProduct(Integer productId);
     BrandProduct getBrandProductByProductId(Integer productId);

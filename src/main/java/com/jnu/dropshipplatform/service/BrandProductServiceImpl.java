@@ -37,6 +37,11 @@ public class BrandProductServiceImpl implements BrandProductService{
     }
 
     @Override
+    public List<BrandProduct> findBrandProductByProduct(Integer proId) {
+        return brandProductRepository.findBrandProductByProductInfo(proId);
+    }
+
+    @Override
     public Boolean inBrandProduct(Integer productId) {
         return brandProductRepository.existsBrandProductByProductInfo(productId);
     }

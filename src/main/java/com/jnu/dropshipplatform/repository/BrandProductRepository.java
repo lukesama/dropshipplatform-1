@@ -12,6 +12,7 @@ public interface BrandProductRepository extends JpaRepository<BrandProduct,Integ
     List<BrandProduct> findBrandProductByBrandId(Integer brandId);
     @Query(value="delete from BrandProduct b where b.productInfo=?1")
     void deleteProductWithProId(Integer proId);
+    List<BrandProduct> findBrandProductByProductInfo(Integer proId);
 
     BrandProduct getBrandProductByProductInfo(Integer productId);
 
