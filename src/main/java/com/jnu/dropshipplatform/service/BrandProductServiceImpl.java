@@ -42,8 +42,8 @@ public class BrandProductServiceImpl implements BrandProductService{
     }
 
     @Override
-    public Boolean inBrandProduct(Integer productId) {
-        return brandProductRepository.existsBrandProductByProductInfo(productId);
+    public Boolean inBrandProduct(Integer productId,Integer brandId) {
+        return brandProductRepository.existsBrandProductByProductInfoAndBrandId(productId,brandId);
     }
 
     @Override

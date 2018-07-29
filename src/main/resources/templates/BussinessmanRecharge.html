@@ -53,7 +53,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.businessmanLoginInfo.getUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -87,22 +87,38 @@
 
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>借卖方<small>钱包充值</small></h1></div>
-                <form class="form-group" method="post" th:action="@{/jnu/Wallet/Recharge}">
-                <div class="form-group">
-                    <label>充值金额</label>
-                    <input type="number" class="form-group" name="money">
-
+                <div class="page-header position-relative">
+                    <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">借卖方<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>钱包</small></h1>
                 </div>
-               <div class="form-group">
-                    <label>密码</label>
-                    <input type="password" class="form-group" name="pwd">
-               </div>
-               <div class="form-group">
-                    <button type="submit" class="btn btn-success" >确认</button>
-               </div>
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>钱包充值</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <form class="form-group" method="post" th:action="@{/jnu/Wallet/Recharge}">
+                            <div class="form-group">
+                                <label class="col-md-1">充值金额</label>
+                                <input type="number" class="form-group" name="money">
 
-                </form>
+                            </div>
+                           <div class="form-group">
+                                <label class="col-md-1">密码</label>
+                                <input type="password" class="form-group" name="pwd">
+                           </div>
+                           <div class="form-group">
+                                <button type="submit" class="btn btn-success" >确认</button>
+                           </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         <
             <!-- /page content -->

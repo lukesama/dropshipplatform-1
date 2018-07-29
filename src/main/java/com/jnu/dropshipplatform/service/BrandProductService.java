@@ -12,6 +12,6 @@ public interface BrandProductService {
     void deleteByProId(Integer proId);
     List<BrandProduct> findBrandProductByProduct(Integer proId);
     //根据类别返回产品信息
-    Boolean inBrandProduct(Integer productId);
+    Boolean inBrandProduct(Integer productId,Integer brandId);
     BrandProduct getBrandProductByProductId(Integer productId);
 }

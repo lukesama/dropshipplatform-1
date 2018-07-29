@@ -50,7 +50,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.adminLoginInfo.getAdminUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->

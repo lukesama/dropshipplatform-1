@@ -50,7 +50,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.adminLoginInfo.getAdminUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -76,6 +76,9 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            <div class="page-header position-relative">
+                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">管理员<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>充值提现审核</small></h1>
+            </div>
             <div class="x_panel">
                 <div class="x_title">
                     <h2>CompanyDayBook <small>品牌方流水</small></h2>

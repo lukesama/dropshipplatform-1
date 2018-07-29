@@ -53,7 +53,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.businessmanLoginInfo.getUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -87,28 +87,41 @@
 
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>借卖方<small>订单管理</small></h1></div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>订单号</th>
-                        <th>商品名</th>
-                        <th>价格</th>
-                        <th>数量</th>
-                        <th>型号</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="orderAndProducts:${orderAndProducts}">
-                            <td th:text="${orderAndProducts.getOrderId()}"></td>
-                            <td th:text="${orderAndProducts.getProName()}"></td>
-                            <td th:text="${orderAndProducts.getSellPrice()}"></td>
-                            <td th:text="${orderAndProducts.getProSales()}"></td>
-                            <td th:text="${orderAndProducts.getProModel()}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                <div class="page-header position-relative">
+                    <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">借卖方<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>订单管理</small></h1>
+                </div>
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>订单详细</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>订单号</th>
+                                <th>商品名</th>
+                                <th>价格</th>
+                                <th>数量</th>
+                                <th>型号</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="orderAndProducts:${orderAndProducts}">
+                                    <td th:text="${orderAndProducts.getOrderId()}"></td>
+                                    <td th:text="${orderAndProducts.getProName()}"></td>
+                                    <td th:text="${orderAndProducts.getSellPrice()}"></td>
+                                    <td th:text="${orderAndProducts.getProSales()}"></td>
+                                    <td th:text="${orderAndProducts.getProModel()}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <a class="btn btn-primary" th:href="@{/jnu/businessman/order}">返回</a>
             </div>
             <!-- /page content -->

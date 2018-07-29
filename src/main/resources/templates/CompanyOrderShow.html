@@ -53,7 +53,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.companyLoginInfo.getUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -87,9 +87,12 @@
 
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>品牌商<small>订单管理</small></h1></div>
+                <div class="page-header position-relative">
+                    <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>订单管理</small></h1>
+                </div>
                 <div class="x_panel">
                     <div class="x_title">
+                        <h2>订单概览</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -100,7 +103,7 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#unpay" aria-controls="unpay" role="tab" data-toggle="tab">顾客未支付</a></li>
-                            <li role="presentation"><a href="#paying" aria-controls="paying" role="tab" data-toggle="tab">未代付</a></li>
+                            <li role="presentation"><a href="#paying" aria-controls="paying" role="tab" data-toggle="tab">借卖方未支付</a></li>
                             <li role="presentation"><a href="#shiping" aria-controls="shiping" role="tab" data-toggle="tab">待发货</a></li>
                             <li role="presentation"><a href="#shiped" aria-controls="shiped" role="tab" data-toggle="tab">已发货</a></li>
                             <li role="presentation"><a href="#complete" aria-controls="complete" role="tab" data-toggle="tab">已完成</a></li>
@@ -158,7 +161,7 @@
                                     <td th:text="${orderInfoPaying.getDeliveryAddress()}"></td>
                                     <td th:text="${orderInfoPaying.getTotalPrice()}"></td>
                                     <td th:text="${orderInfoPaying.getCreateTime()}"></td>
-                                    <td >未代付</td>
+                                    <td >借卖方未支付</td>
                                     <td>
                                         <a class="btn btn-primary" id="detailedPaying" th:href="@{'/jnu/company/order/detailed/'+${orderInfoPaying.getOrderId()}}">订单详细</a>
 

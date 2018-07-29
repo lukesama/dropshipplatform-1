@@ -53,7 +53,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.companyLoginInfo.getUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -87,9 +87,21 @@
 
             <!-- Table -->
             <div class="right_col" role="main">
-                <div class="panel-heading"><h1>品牌商<small>账户余额</small></h1></div>
-                <p>
-                <table class="table table-bordered">
+                <div class="page-header position-relative">
+                    <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>钱包</small></h1>
+                </div>
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>账户余额</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <table class="table table-bordered">
                     <thead>
                     <tr>
                             <th>账户名称</th>
@@ -107,10 +119,11 @@
                     </tr>
                     </tbody>
                 </table>
-                </p>
-                <p>
-                    <a type="button" class="btn btn-success" th:href="@{/jnu/company/Wallet/daybook}">提现记录</a>
-                </p>
+                    </div>
+                </div>
+                <div>
+                    <a type="button" class="btn btn-success" th:href="@{/jnu/company/Wallet/daybook}">账单</a>
+                </div>
             </div>
             <!-- /page content -->
 

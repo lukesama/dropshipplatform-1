@@ -54,7 +54,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.businessmanLoginInfo.getUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -84,10 +84,13 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            <div class="page-header position-relative">
+                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">借卖方<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>商品浏览</small></h1>
+            </div>
             <!--<form>-->
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2 th:text="${catePath.getCatePath()}"></h2>
+                        <h2>商品详情<small th:text="${catePath.getCatePath()}"></small></h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li>
                                 <a class="collapse-link">
@@ -116,7 +119,7 @@
                                 <h2>当前库存</h2>
                                 <ul class="list-inline prod_size">
                                     <li>
-                                        <p th:text="${product.getProStock()}"></p>
+                                        <p style="font-size: large" th:text="${product.getProStock()}"></p>
                                         <div class="color bg-green"></div>
 
                                     </li>
@@ -130,7 +133,7 @@
                                 </h2>
                                 <ul class="list-inline prod_size">
                                     <li>
-                                        <p th:text="${product.getProModel()}"></p>
+                                        <p style="font-size: large" th:text="${product.getProModel()}"></p>
                                         <div class="color bg-blue-sky"></div>
                                     </li>
                                 </ul>
