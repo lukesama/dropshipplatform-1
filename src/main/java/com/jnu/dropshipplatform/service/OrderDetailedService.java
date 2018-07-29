@@ -9,5 +9,5 @@ public interface OrderDetailedService {
     List<OrderDetailed> findAllByProId(Integer proId);
     List<OrderDetailed> findAllByOrderId(Integer orderId);
     List<OrderAndProduct> getOrderAndProductByOrderId(Integer orderId);
-
+    void save(OrderDetailed orderDetailed);
 }

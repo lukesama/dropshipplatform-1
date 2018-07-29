@@ -27,4 +27,9 @@ public class OrderDetailedServiceImpl implements OrderDetailedService{
     public List<OrderAndProduct> getOrderAndProductByOrderId(Integer orderId) {
         return orderDetailedRepository.getOrderAndProductByOrderId(orderId);
     }
+
+    @Override
+    public void save(OrderDetailed orderDetailed) {
+        orderDetailedRepository.save(orderDetailed);
+    }
 }

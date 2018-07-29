@@ -22,4 +22,5 @@ public interface ProductPushService {
     Boolean existProPushByProInfo(ProductInfo productInfo);
 
     List<ProductPush> getAllProByProInfo(ProductInfo productInfo);
+    List<ProductPush> getAll();
 }

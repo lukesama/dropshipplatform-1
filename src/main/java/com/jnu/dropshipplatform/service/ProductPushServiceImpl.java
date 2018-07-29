@@ -50,4 +50,9 @@ public class ProductPushServiceImpl implements ProductPushService{
     public List<ProductPush> getAllProByProInfo(ProductInfo productInfo) {
         return productPushRepository.getProductPushesByProId(productInfo);
     }
+
+    @Override
+    public List<ProductPush> getAll() {
+        return productPushRepository.findAll();
+    }
 }
