@@ -37,8 +37,9 @@
                 <div class="navbar nav_title" style="border: 0;">
                     <a href="#" class="site_title"><i class="fa fa-paw" aria-hidden="true"></i>
                         <span th:switch="${session.roleSort}">
-                        <span th:case="${0}">借卖方</span>
-                         <span th:case="${1}">品牌商</span>
+                            <span th:case="${0}">借卖方</span>
+                            <span th:case="${1}">品牌商</span>
+                            <span th:case="${2}">管理员</span>
                          </span>
                     </a>
                 </div>
@@ -52,7 +53,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.adminLoginInfo.getAdminUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
