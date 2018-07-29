@@ -1,6 +1,8 @@
 package com.jnu.dropshipplatform.service;
 
 import com.jnu.dropshipplatform.entity.ProductCategory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -26,6 +28,8 @@ public interface ProductCategoryService {
 
     //获取整个类别表
     List<ProductCategory> getAllProCategory();
+
+    Page<ProductCategory> getAllProCategory(Pageable pageable);
 
     //添加类别
     ProductCategory addCatagory(ProductCategory productCategory);
