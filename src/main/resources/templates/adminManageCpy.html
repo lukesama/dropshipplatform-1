@@ -98,7 +98,7 @@
                         <tr>
                             <th>序号</th>
                             <th>账户名</th>
-                            <th>密码</th>
+                            <th>联系方式</th>
                             <th>姓名</th>
                             <th>余额</th>
                             <th>账户状态</th>
@@ -112,7 +112,7 @@
                             <th scope="row" th:text="${iterStat.count}">1
                             </th>
                             <td th:text="${CompanyInfo.getUserName()}">System Architect</td>
-                            <td th:text="${CompanyInfo.getUserPwd()}">Edinburgh</td>
+                            <td th:text="${CompanyInfo.getPhone()}">Edinburgh</td>
                             <td th:text="${CompanyInfo.getRealName()}">61</td>
                             <td th:text="${CompanyInfo.getComBalance()}">2011/04/25</td>
                             <td th:switch="${CompanyInfo.getUserStatus()}">

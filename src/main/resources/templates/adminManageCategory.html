@@ -98,7 +98,7 @@
                         <thead>
                         <tr>
                             <th>cateId</th>
-                            <th>fatherID</th>
+                            <!--<th>fatherID</th>-->
                             <th>cateName</th>
                             <th>catePath</th>
                         </tr>
@@ -108,7 +108,7 @@
                         <tbody>
                         <tr th:each="ProductCategory:${allProCategory}">
                             <td th:text="${ProductCategory.getCateId()}">System Architect</td>
-                            <td th:text="${ProductCategory.getFatherCateId()}">Edinburgh</td>
+                            <!--<td th:text="${ProductCategory.getFatherCateId()}">Edinburgh</td>-->
                             <td th:text="${ProductCategory.getCateName()}">61</td>
                             <td th:text="${ProductCategory.getCatePath()}">2011/04/25</td>
                         </tr>

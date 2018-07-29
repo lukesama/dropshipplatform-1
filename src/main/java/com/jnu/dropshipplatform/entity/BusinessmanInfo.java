@@ -19,6 +19,7 @@ public class BusinessmanInfo {
     private String userPwd;
     private String realName;
     private Integer userStatus;
+    private String phone;
 
     public BusinessmanInfo() {
     }
@@ -93,5 +94,13 @@ public class BusinessmanInfo {
 
     public void setUserStatus(Integer userStatus) {
         this.userStatus = userStatus;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
