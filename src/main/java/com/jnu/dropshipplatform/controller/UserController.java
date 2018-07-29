@@ -51,9 +51,10 @@ public class UserController {
         orderInfo.setBusiId(productPush.getBusiId());
         orderInfo.setCreateTime(new Timestamp(System.currentTimeMillis()));
         orderInfo.setDeliveryAddress(address);
-        orderInfo.setTotalPrice(totalPrice);
         OrderInfo orderInfonew=orderInfoService.save(orderInfo);
+        orderInfo.setTotalPrice(productInfoService.findProductInfoByProId(proId).getDroPrice()*Num);
         session.setAttribute("order",orderInfonew);
+        session.setAttribute("totalPrice",totalPrice);
         OrderDetailed orderDetailed=new OrderDetailed();
         orderDetailed.setOrderId(orderInfonew.getOrderId());
         orderDetailed.setProId(productInfo.getProId());
@@ -77,18 +78,18 @@ public class UserController {
     public String pay(@RequestParam String userName,@RequestParam String pwd,HttpSession session){
         UserInfo userInfo=userInfoService.findUserInfoByUserNameAndUserPwd(userName,pwd);
         OrderInfo orderInfo=(OrderInfo)session.getAttribute("order");
-
-        if(userInfo!=null&&userInfo.getUserBalance()>=orderInfo.getTotalPrice()){
+        Double totalmoney=(Double)session.getAttribute("totalPrice");
+        if(userInfo!=null&&userInfo.getUserBalance()>=totalmoney){
             userInfo.setUserBalance(userInfo.getUserBalance()-orderInfo.getTotalPrice());
             DayBookBusinessman dayBookBusinessman=new DayBookBusinessman();
             dayBookBusinessman.setTradeTime(new Timestamp(System.currentTimeMillis()));
-            dayBookBusinessman.setTradeAmounts(orderInfo.getTotalPrice());
+            dayBookBusinessman.setTradeAmounts(totalmoney);
             dayBookBusinessman.setOperationType("销售");
             dayBookBusinessman.setCheckStatus(1);
             dayBookBusinessman.setBusinessman(orderInfo.getBusiId());
             dayBookBusinessmanService.save(dayBookBusinessman);
             BusinessmanInfo businessmanInfo=orderInfo.getBusiId();
-            businessmanInfo.setBusiBalance(businessmanInfo.getBusiBalance()+orderInfo.getTotalPrice());
+            businessmanInfo.setBusiBalance(businessmanInfo.getBusiBalance()+totalmoney);
             businessmanInfoService.save(businessmanInfo);
             orderInfo.setConsumerId(userInfo.getId());
             orderInfo.setOrderStatus(1);
