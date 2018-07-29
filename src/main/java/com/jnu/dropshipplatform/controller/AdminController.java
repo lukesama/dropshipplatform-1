@@ -3,6 +3,10 @@ package com.jnu.dropshipplatform.controller;
 import com.jnu.dropshipplatform.entity.*;
 import com.jnu.dropshipplatform.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -220,10 +224,14 @@ public class AdminController {
      * @return
      */
     @GetMapping("/manageCategory/list/{PID}")
-    public String manageCategory(@PathVariable(value = "PID")Integer PID, HttpSession session,Model model){
+    public String manageCategory(@PathVariable(value = "PID")Integer PID,
+                                 @PageableDefault(value = 10,sort = {"fatherCateId"},direction = Sort.Direction.ASC)Pageable pageable,
+                                 HttpSession session,
+                                 Model model){
 
         //展示分类表
-        List<ProductCategory> lists = productCategoryService.getAllProCategory();
+//        List<ProductCategory> lists = productCategoryService.getAllProCategory();
+        Page<ProductCategory> lists = productCategoryService.getAllProCategory(pageable);
 
         //获取主类别
         List<ProductCategory> list2 = productCategoryService.getCateByFatherId(PID);
