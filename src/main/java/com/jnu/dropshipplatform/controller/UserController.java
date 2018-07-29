@@ -97,6 +97,8 @@ public class UserController {
             return "redirect:/jnu/user/result/1";
         }
         else{
+            orderInfo.setConsumerId(userInfoService.getUserByName(userName).getId());
+            orderInfoService.save(orderInfo);
             return "redirect:/jnu/user/result/0";
         }
     }

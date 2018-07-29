@@ -7,4 +7,6 @@ import java.util.List;
 public interface UserInfoService {
     UserInfo findUserInfoByUserNameAndUserPwd(String userName,String userPwd);
     List<UserInfo> findAll();
+
+    UserInfo getUserByName(String userName);
 }
