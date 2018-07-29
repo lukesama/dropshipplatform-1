@@ -145,6 +145,7 @@
                                 <thead>
                                 <tr class="headings">
                                     <th class="column-title">订单编号</th>
+                                    <th class="column-title">借卖方编号</th>
                                     <th class="column-title">收货地址</th>
                                     <th class="column-title">订单总价</th>
                                     <th class="column-title">订单创建时间</th>
@@ -158,6 +159,7 @@
                                 <tbody>
                                 <tr th:each="orderInfoPaying:${orderInfoPaying}">
                                     <td th:text="${orderInfoPaying.getOrderId()}"></td>
+                                    <td th:text="${orderInfoPaying.getBusiId().getUserBusiId()}"></td>
                                     <td th:text="${orderInfoPaying.getDeliveryAddress()}"></td>
                                     <td th:text="${orderInfoPaying.getTotalPrice()}"></td>
                                     <td th:text="${orderInfoPaying.getCreateTime()}"></td>

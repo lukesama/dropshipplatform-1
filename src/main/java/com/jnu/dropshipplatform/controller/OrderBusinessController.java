@@ -75,6 +75,7 @@ public class OrderBusinessController {
             dayBookBusinessman.setCheckStatus(1);
             dayBookBusinessman.setOperationType("消费");
             dayBookBusinessman.setTradeAmounts(money);
+            dayBookBusinessman.setOrderId(orderId);
             dayBookBusinessman.setTradeTime(new Timestamp(System.currentTimeMillis()));
             dayBookBusinessmanService.save(dayBookBusinessman);
             businessman.setBusiBalance(businessman.getBusiBalance()-money);
@@ -97,6 +98,7 @@ public class OrderBusinessController {
             dayBookCompany.setTradeAmounts(money);
             dayBookCompany.setOperationType("销售");
             dayBookCompany.setCheckStatus(1);
+            dayBookCompany.setOrderId(orderId);
             dayBookCompanyService.save(dayBookCompany);
             CompanyInfo companyInfo=companyInfos.get(0);
             companyInfo.setComBalance(companyInfo.getComBalance()+money);
