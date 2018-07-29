@@ -127,6 +127,7 @@ public class LoginController {
                                   @RequestParam String regUserName,
                                   @RequestParam String regRealName,
                                   @RequestParam String userPwd,
+                                  @RequestParam String regPhone,
                                   HttpSession session,
                                   RedirectAttributes redirectAttributes
                                   ){
@@ -136,6 +137,7 @@ public class LoginController {
                     BusinessmanInfo businessmanInfo = new BusinessmanInfo();
                     businessmanInfo.setUserName(regUserName);
                     businessmanInfo.setRealName(regRealName);
+                    businessmanInfo.setPhone(regPhone);
                     businessmanInfo.setUserPwd(userPwd);
                     businessmanInfo.setBusiBalance(0.0);
                     businessmanInfo.setUserStatus(1); //初始状态为1，表示正常使用；状态0表示禁用
@@ -155,6 +157,7 @@ public class LoginController {
                     CompanyInfo companyInfo = new CompanyInfo();
                     companyInfo.setUserName(regUserName);
                     companyInfo.setRealName(regRealName);
+                    companyInfo.setPhone(regPhone);
                     companyInfo.setUserPwd(userPwd);
                     companyInfo.setComBalance(0.0);
                     companyInfo.setUserStatus(1);//初始状态为1，表示正常使用；状态0表示禁用
