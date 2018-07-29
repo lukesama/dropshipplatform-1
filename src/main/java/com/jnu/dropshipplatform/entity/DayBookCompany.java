@@ -18,6 +18,7 @@ public class DayBookCompany {
     private Timestamp tradeTime;
     private String operationType;
     private Integer checkStatus;
+    private Integer orderId;
 
     public DayBookCompany() {
     }
@@ -68,5 +69,13 @@ public class DayBookCompany {
 
     public void setCheckStatus(Integer checkStatus) {
         this.checkStatus = checkStatus;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 }
