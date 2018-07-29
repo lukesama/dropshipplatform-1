@@ -16,6 +16,6 @@ public interface BrandProductRepository extends JpaRepository<BrandProduct,Integ
 
     BrandProduct getBrandProductByProductInfo(Integer productId);
 
-    Boolean existsBrandProductByProductInfo(Integer productId);
+    Boolean existsBrandProductByProductInfoAndBrandId(Integer productId,Integer brandId);
 
 }

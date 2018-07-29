@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>品牌方商品管理 </title>
+    <title>GMDropship</title>
 
     <!-- Bootstrap -->
     <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -35,7 +35,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i> <span>借卖网</span></a>
+                    <a href="#" class="site_title"><i class="fa fa-paw" aria-hidden="true"></i> <span>品牌商</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.companyLoginInfo.getUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -77,129 +77,153 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            <div class="page-header position-relative">
+                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>商品管理</small></h1>
 
-            <h3>品牌商 商品管理</h3>
-            <div class="dropdown col-md-offset-6 col-md-3" id="Switch">
-                <button th:text="${selectedName}" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    请选择
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a th:href="@{/jnu/company/sortBy/0}">按品牌筛选</a></li>
-                    <li><a th:href="@{/jnu/company/sortBy/1}">按类别筛选</a></li>
-                    <li><a th:href="@{/jnu/company/sortBy/2}">按标题筛选</a></li>
-                </ul>
             </div>
-            <div class="col-md-3" th:switch="${selectedItem}">
-                <ul th:case="0">
-                    <!--//按品牌筛选块-->
-                    <div class="col-md-offset-1" id="Brand">
-                        <button th:text="${brandName}" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            请选择
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a th:href="@{/jnu/company/sortBy/0}">全部</a></li>
-                            <li  th:each="BrandInfo:${brandInfo}"><a th:href="@{'/jnu/company/sortBy/brand/'+${BrandInfo.getBrandId()}}" th:text="${BrandInfo.getBrandName()}"></a></li>
-                        </ul>
-                    </div>
-                </ul>
-                <ul th:case="1">
-                    <!--//按类别筛选块-->
-                    <div id="Classify">
-                        <div class="btn-group">
-                            <a th:href="@{/jnu/company/sortBy/1}" class="btn btn-success"><i class="fa fa-filter"></i> 全部</a>
-                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div id="brandInfo">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>商品信息</h2>
+                        <div class="dropdown col-md-offset-1 col-md-2" id="Switch">
+                            <button th:text="${selectedName}" class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                请选择
                                 <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu" >
-                                <li th:each="cate:${allCate}"><a style="font-size: 15px" th:href="@{'/jnu/company/sortBy/1/'+${cate.getCateId()}}" th:text="${cate.getCateName()}">Action</a></li >
-                                <li role="separator" class="divider"></li>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a th:href="@{/jnu/company/sortBy/0}">按品牌筛选</a></li>
+                                <li><a th:href="@{/jnu/company/sortBy/1}">按类别筛选</a></li>
+                                <li><a th:href="@{/jnu/company/sortBy/2}">按标题筛选</a></li>
                             </ul>
                         </div>
-                    </div>
-                </ul>
-                <ul th:case="2">
-                    <!--//按标题筛选-->
-                    <div id="Title">
-                        <form name="search" th:action="@{/jnu/company/sortBy/search}" method="post">
-                            <div class="form-group">
-                                <input type="text" name="key" placeholder="搜索商品标题" >
-                                <input type="submit" class="btn btn-default" text="搜索">
-                            </div>
-                        </form>
-                    </div>
-                </ul>
-            </div>
+                        <div class="col-md-6" th:switch="${selectedItem}">
+                            <ul th:case="0">
+                                <!--//按品牌筛选块-->
+                                <div class="col-md-offset-1" id="Brand">
+                                    <button th:text="${brandName}" class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        请选择 <i class="fa fa-sort-desc"></i>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a th:href="@{/jnu/company/sortBy/0}">全部</a></li>
+                                        <li  th:each="BrandInfo:${brandInfo}"><a th:href="@{'/jnu/company/sortBy/brand/'+${BrandInfo.getBrandId()}}" th:text="${BrandInfo.getBrandName()}"></a></li>
+                                    </ul>
+                                </div>
+                            </ul>
+                            <ul th:case="1">
+                                <!--//按类别筛选块-->
+                                <div id="Classify">
+                                    <div class="btn-group">
+                                        <a th:href="@{/jnu/company/sortBy/1}" class="btn btn-success"><i class="fa fa-filter"></i> 全部</a>
+                                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" >
+                                            <li th:each="cate:${allCate}"><a style="font-size: 15px" th:href="@{'/jnu/company/sortBy/1/'+${cate.getCateId()}}" th:text="${cate.getCateName()}">Action</a></li >
+                                            <li role="separator" class="divider"></li>
+                                        </ul>
+                                    </div>
+                                    <i class="fa fa-paw col-md-offset-1" style="font-size: large" th:text="${catePath}"></i>
+                                </div>
 
-            <div class="form-group">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>序号</th>
-                        <th>商品标题</th>
-                        <th>品牌名称</th>
-                        <th>商品类别</th>
-                        <th>商品主图</th>
-                        <th>商品批发价格</th>
-                        <th>商品库存</th>
-                        <th>商品型号</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="Product,iterStat:${product}">
-                            <th scope="row" th:text="${iterStat.count}"></th>
-                            <td th:text="${Product.getProTitle()}"></td>
-                            <td th:text="${Product.getBrandName()}"></td>
-                            <td th:text="${Product.getCateName()}"></td><!--proCategory怎么变成中文-->
-                            <td><img style="height: 100px;width: 100px" th:src="@{'/images/upload/'+${Product.getProImage()}}"> </td>
-                            <td th:text="${Product.getDroPrice()}"></td>
-                            <td th:text="${Product.getProStock()}"></td>
-                            <td th:text="${Product.getProModel()}"></td>
-                            <td>
-                                <button type="button" class="btn btn-default" name="update" >
-                                    <a th:href="@{'/jnu/company/update/'+${Product.getProId()}}">
-                                    <span class="glyphicon glyphicon-wrench" ></span></a>
-                                </button>
-                                <button type="button" class="btn btn-default" name="delete" th:action="@{'/jnu/company/delete/'+${Product.getProId()}}">
-                                    <a th:href="@{'/jnu/company/delete/'+${Product.getProId()}}">
-                                    <span class="glyphicon glyphicon-trash"></span></a>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="col-lg-offset-10">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li>
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li>
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                            </ul>
+                            <ul th:case="2">
+                                <!--//按标题筛选-->
+                                <div id="Title">
+                                    <form name="search" th:action="@{/jnu/company/sortBy/search}" method="post">
+                                        <div class="form-group">
+                                            <input type="text" name="key" placeholder="搜索商品标题" >
+                                            <input type="submit" class="btn btn-success" text="搜索">
+                                        </div>
+                                    </form>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="col-md-1">
+                            <form th:method="get" th:action="@{/insert}">
+                                <div >
+                                    <!--<button class="btn btn-info" type="button" >-->
+                                    <a class="btn btn-success" th:href="@{/jnu/company/insert}">
+                                        新增商品
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+
+                        <div class="form-group">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>商品标题</th>
+                                    <th>品牌名称</th>
+                                    <th>商品类别</th>
+                                    <th>商品主图</th>
+                                    <th>商品批发价格</th>
+                                    <th>商品库存</th>
+                                    <th>商品型号</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="Product,iterStat:${product}">
+                                    <th scope="row" th:text="${iterStat.count}"></th>
+                                    <td th:text="${Product.getProTitle()}"></td>
+                                    <td th:text="${Product.getBrandName()}"></td>
+                                    <td th:text="${Product.getCateName()}"></td><!--proCategory怎么变成中文-->
+                                    <td><img style="height: 100px;width: 100px" th:src="@{'/images/upload/'+${Product.getProImage()}}"> </td>
+                                    <td th:text="${Product.getDroPrice()}"></td>
+                                    <td th:text="${Product.getProStock()}"></td>
+                                    <td th:text="${Product.getProModel()}"></td>
+                                    <td>
+                                        <!--<button type="button" class="btn btn-default" name="update" >-->
+                                            <a class="btn btn-info" th:href="@{'/jnu/company/update/'+${Product.getProId()}}">
+                                                <span class="glyphicon glyphicon-wrench" ></span></a>
+                                        <!--</button>-->
+                                        <!--<button type="button" class="btn btn-default" name="delete" th:action="@{'/jnu/company/delete/'+${Product.getProId()}}">-->
+                                            <a class="btn btn-danger" th:href="@{'/jnu/company/delete/'+${Product.getProId()}}">
+                                                <span class="glyphicon glyphicon-trash"></span></a>
+                                        <!--</button>-->
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-lg-offset-10">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <li>
+                                            <a href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li>
+                                            <a href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            <form th:method="get" th:action="@{/insert}">
-            <div >
-                <button type="button" >
-                    <a th:href="@{/jnu/company/insert}">
-                        新增商品
-                    </a></button>
-            </div>
-            </form>
+
+
         </div>
         <!-- /page content -->
 

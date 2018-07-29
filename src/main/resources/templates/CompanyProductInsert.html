@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>品牌方商品管理 </title>
+    <title>GMDropship</title>
 
     <style>
         #hide{display: none}
@@ -39,7 +39,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i> <span>借卖网</span></a>
+                    <a href="#" class="site_title"><i class="fa fa-paw" aria-hidden="true"></i> <span>借卖网</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.companyLoginInfo.getUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -83,10 +83,19 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-
-            <h3>品牌商 添加商品信息</h3>
+            <div class="page-header position-relative">
+                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">品牌商<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>商品管理</small></h1>
+            </div>
             <input type="hidden" id="show" th:value="${isDetailCate}">
-            <div class="row">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>添加商品信息</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row">
                 <div class="panel panel-body col-lg-6">
                     <form class="form-horizontal" th:action="@{/jnu/company/insert}" method="post" enctype="multipart/form-data">
                         <div>
@@ -159,7 +168,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-offset-2">
-                                    <button type="submit" class="btn btn-primary">提交</button>
+                                    <button type="submit" class="btn btn-success">提交</button>
                                 </div>
                             </div>
                         </div>
@@ -177,6 +186,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         <!-- /page content -->

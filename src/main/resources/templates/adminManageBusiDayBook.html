@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>GMDropship</title>
 
     <!-- Bootstrap -->
     <link th:href="@{/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -35,7 +35,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a th:href="@{/jnu/homePage}" class="site_title"><i class="fa fa-ship" aria-hidden="true"></i>
+                    <a href="#" class="site_title"><i class="fa fa-paw" aria-hidden="true"></i>
                         <span th:switch="${session.roleSort}">
                             <span th:case="${0}">借卖方</span>
                             <span th:case="${1}">品牌商</span>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <h2 th:text="${session.adminLoginInfo.getAdminUserName()}">John Doe</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -76,23 +76,16 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            <div class="page-header position-relative">
+                <h1 style="color: #2679b5;font-size: 24px;font-weight: normal">管理员<small style="font-size: 14px"><i class="icon-double-angle-right"></i> >>>充值提现审核</small></h1>
+            </div>
             <div class="x_panel">
                 <div class="x_title">
                     <h2>BusinessmanDayBook <small>借卖方流水</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Settings 1</a>
-                                </li>
-                                <li><a href="#">Settings 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
+
                     </ul>
                     <div class="clearfix"></div>
                 </div>
