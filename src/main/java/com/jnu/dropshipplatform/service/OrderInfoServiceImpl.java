@@ -25,7 +25,10 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     }
 
     @Override
-    public void save(OrderInfo orderInfo) {
-        orderInfoRepository.save(orderInfo);
+
+
+    public OrderInfo save(OrderInfo orderInfo) {
+       return  orderInfoRepository.save(orderInfo);
+
     }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 public interface OrderInfoService {
     List<OrderInfo> findOrderInfoByBussinessman(BusinessmanInfo businessmanInfo ,Integer orderStatus);
     OrderInfo findOrderInfoByOrderId(Integer orderId);
-    void save(OrderInfo orderInfo);
+    OrderInfo save(OrderInfo orderInfo);
 }
