@@ -31,6 +31,8 @@ public class OrderBusinessController {
     private DayBookCompanyService dayBookCompanyService;
     @Autowired
     private  CompanyInfoService companyInfoService;
+    @Autowired
+    private ProductInfoService productInfoService;
     @GetMapping
     public String show(HttpSession session,Model model){
         BusinessmanInfo businessmanInfo=(BusinessmanInfo)session.getAttribute("businessmanLoginInfo");
@@ -60,6 +62,10 @@ public class OrderBusinessController {
     @GetMapping("/pay/{id}")
     public String jumpToPay(@PathVariable Integer id,Model model){
         OrderInfo orderInfo=orderInfoService.findOrderInfoByOrderId(id);
+        OrderDetailed orderDetailed = orderDetailedService.findAllByOrderId(id).get(0);
+        ProductInfo productInfo = productInfoService.findProductInfoByProId(orderDetailed.getProId());
+        Double total = orderDetailed.getProSales()*productInfo.getDroPrice();
+        orderInfo.setTotalPrice(total);
         model.addAttribute("orderInfo",orderInfo);
         return "BusinessmanOrderPay";
     }

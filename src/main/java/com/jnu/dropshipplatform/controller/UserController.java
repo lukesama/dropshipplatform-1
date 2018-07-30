@@ -52,7 +52,7 @@ public class UserController {
         orderInfo.setCreateTime(new Timestamp(System.currentTimeMillis()));
         orderInfo.setDeliveryAddress(address);
         OrderInfo orderInfonew=orderInfoService.save(orderInfo);
-        orderInfo.setTotalPrice(productInfoService.findProductInfoByProId(proId).getDroPrice()*Num);
+        orderInfo.setTotalPrice(totalPrice);
         session.setAttribute("order",orderInfonew);
         session.setAttribute("totalPrice",totalPrice);
         OrderDetailed orderDetailed=new OrderDetailed();
@@ -60,7 +60,7 @@ public class UserController {
         orderDetailed.setProId(productInfo.getProId());
         orderDetailed.setProModel(productInfo.getProModel());
         orderDetailed.setProSales(Num);
-        orderDetailed.setSellPrice(productInfo.getDroPrice());
+        orderDetailed.setSellPrice(productPush.getSellPrice());
         orderDetailedService.save(orderDetailed);
         return "redirect:/jnu/user/pay";
     }
@@ -85,6 +85,7 @@ public class UserController {
             dayBookBusinessman.setTradeTime(new Timestamp(System.currentTimeMillis()));
             dayBookBusinessman.setTradeAmounts(totalmoney);
             dayBookBusinessman.setOperationType("销售");
+            dayBookBusinessman.setOrderId(orderInfo.getOrderId());
             dayBookBusinessman.setCheckStatus(1);
             dayBookBusinessman.setBusinessman(orderInfo.getBusiId());
             dayBookBusinessmanService.save(dayBookBusinessman);
